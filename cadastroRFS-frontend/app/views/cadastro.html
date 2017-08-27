@@ -1,0 +1,91 @@
+<form name="cadastroForm" role="form" ng-submit="cadastroController.enviar()" novalidate>
+  <div id="passo1">
+    <div class="row">
+      <h3>Dados Pessoais</h3>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : cadastroForm.inputNome.$error.required && !cadastroForm.inputNome.$pristine }">
+      <label for="inputNome">Nome</label>
+      <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Seu nome completo" ng-model="cadastroController.dadosCadastrais.nome" required>
+      <span class="help-block" ng-show="cadastroForm.inputNome.$error.required && !cadastroForm.inputNome.$pristine">É obrigatório informar o seu nome!</span>
+    </div>
+    <div class="form-group">
+      <label for="inputApelido">Apelido <small>(opcional)</small></label>
+      <input type="text" class="form-control" id="inputApelido" placeholder="Seu apelido no República Free Surf" ng-model="cadastroController.dadosCadastrais.apelido">
+    </div>
+    <div class="form-group" ng-class="{ 'has-error has-feedback' : cadastroForm.inputEmail.$invalid && !cadastroForm.inputEmail.$pristine }">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Seu endereço de email" ng-model="cadastroController.dadosCadastrais.email" required>
+      <span ng-show="(cadastroForm.inputEmail.$invalid ||
+                                          cadastroForm.inputEmail.$error.required) &&
+                                          !cadastroForm.inputEmail.$pristine"
+      class="help-block">É obrigatório informar um endereço de email válido</span>
+    </div>
+
+    <div class="form-group">
+      <label for="inputProfissao">Profissão</label>
+      <input type="text" class="form-control" id="inputProfissao" placeholder="Sua ocupação principal" ng-model="cadastroController.dadosCadastrais.profissao" required>
+    </div>
+    <div class="form-group">
+        <label for="inputGroupDia">Data de Nascimento</label>
+        <div class="input-group" id="inputGroupDia">
+          <div class="col-xs-3" style="padding-left: 0px;"><input class="form-control"  placeholder="dia" type="text" maxlength="2"></div>
+          <div class="col-xs-5" style="padding-left: 0px;">
+            <select class="form-control">
+              <option>Janeiro</option>
+              <option>Fevereiro</option>
+              <option>Março</option>
+              <option>Abril</option>
+              <option>Maio</option>
+              <option>Junho</option>
+              <option>Julho</option>
+              <option>Agosto</option>
+              <option>Setembro</option>
+              <option>Maio</option>
+              <option>Maio</option>
+            </select>
+          </div>
+          <div class="col-xs-4" style="padding-left: 0px;"><input class="form-control" placeholder="ano" type="text" maxlength="4"></div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="radioButttons">Sexo</label>
+        <div id="radioButttons">
+          <label class="radio-inline">
+            <input type="radio" id="inlineRadio1" value="option1"> Masculino
+          </label>
+          <label class="radio-inline">
+            <input type="radio" id="inlineRadio2" value="option2"> Feminino
+          </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group" ng-class="{ 'has-error' : cadastroForm.inputTelefoneCelular.$error.required && !cadastroForm.inputTelefoneCelular.$pristine }">
+          <label for="inputTelefoneCelular">Telefone Celular</label>
+          <input type="text" class="form-control" id="inputTelefoneCelular" name="inputTelefoneCelular" ng-model="cadastroController.dadosCadastrais.telefoneCelular" ui-mask="(99) 99999-9999"  ui-mask-placeholder ui-mask-placeholder-char="_" required>
+          <span class="help-block" ng-show="cadastroForm.inputTelefoneCelular.$error.required && !cadastroForm.inputTelefoneCelular.$pristine">É obrigatório informar o seu celular!</span>
+        </div>
+      </div>
+      <div class="col-xs-6" style="padding-left: 0px;">
+        <div class="form-group">
+          <label for="inputTelefoneFixo">Tel. Fixo <small>(opcional)</small></label>
+          <input type="text" class="form-control" id="inputTelefoneFixo" ng-model="cadastroController.dadosCadastrais.telefoneFixo" ui-mask="(99) 9999-9999"  ui-mask-placeholder ui-mask-placeholder-char="_" >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-offset-3 col-xs-6">
+        <button type="submit" class="btn btn-primary btn-block" ng-disabled="cadastroForm.$invalid">Próximo passo</button>
+      </div>
+    </div>
+  </div>
+  <div id="passo2">
+    <div class="row">
+      <h3>Saúde</h3>
+    </div>
+    <div class="form-group">
+      <label for="inputDoencas">Possui doenças preexistentes? Se sim, informe quais.</label>
+      <input type="text" class="form-control" id="inputDoenca" name="inputDoencas" ng-model="cadastroController.dadosCadastrais.doencas">
+    </div>
+  </div>
+</form>

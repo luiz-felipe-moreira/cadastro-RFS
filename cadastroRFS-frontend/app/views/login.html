@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <img src="./images/republica-free-surf.png" class="img-responsive center-block">
+  </div>
+</div>
+<div class="row" style="padding-top: 40px;">
+  <div class="text-center">
+    <!--
+    <fb:login-button show-faces="true" max-rows="1"
+        size="large" onlogin="onFBLoginCallBack()"></fb:login-button>
+        -->
+    <div class="fb-login-button" data-scope="public_profile, email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" onlogin="onFBLoginCallBack()"></div>
+  </div>
+</div>
+
+<div class="row">
+  <p class="text-danger">{{erroIntegracaoFacebook}}</p>
+</div>
