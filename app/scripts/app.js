@@ -12,7 +12,8 @@ angular
   .module('cadastroRepublicaApp', [
     'ngResource',
     'ui.router',
-    'ui.mask'
+    'ui.mask',
+    'config'
   ])
   .config(function($stateProvider, $urlRouterProvider) {
 
@@ -66,7 +67,8 @@ angular
         templateUrl: 'views/confirmacao-cadastro.html',
       });
 
-    $urlRouterProvider.otherwise('/form/geral');
+    //$urlRouterProvider.otherwise('/form/geral');
+    $urlRouterProvider.otherwise('/login');
 
   })
   .run(['$rootScope', '$window', 'authenticationService', '$state', function($rootScope, $window, authenticationService, $state) {
@@ -80,13 +82,13 @@ angular
         return; // no need to redirect
       }
 
-      console.log('Valor de authenticationService.isRegistered ' + authenticationService.isRegistered);
-      console.log('Valor do authentication.isLogged: ' + authenticationService.isLogged);
+      // console.log('Valor de authenticationService.isRegistered ' + authenticationService.isRegistered);
+      // console.log('Valor do authentication.isLogged: ' + authenticationService.isLogged);
 
-      if (authenticationService.isLogged === false) {
-        e.preventDefault(); // stop current execution
-        $state.go('login'); // go to login
-      }
+      // if (authenticationService.isLogged === false) {
+      //   e.preventDefault(); // stop current execution
+      //   $state.go('login'); // go to login
+      // }
 
       if ((toState.name === 'form.saude') && ($rootScope.passoGeralConcluido === false)) {
         console.log('Impedindo a mudança de página.');

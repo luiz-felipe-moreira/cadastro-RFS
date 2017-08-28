@@ -54,10 +54,12 @@ angular.module('cadastroRepublicaApp')
                       function (response) {
                           console.log(response);
                           _self.isRegistered = true;
+                          $state.go('cadastro_preexistente');//
                       },
                       function (response) {
                           console.log("Error: " + response.status + " " + response.statusText);
                           _self.isRegistered = false;
+                          $state.go('form.geral');//
                       }
                   );
                 });

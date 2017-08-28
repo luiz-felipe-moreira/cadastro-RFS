@@ -17,5 +17,5 @@ factory('facebookService', function($q) {
             });
             return deferred.promise;
         }
-    }
+    };
 });

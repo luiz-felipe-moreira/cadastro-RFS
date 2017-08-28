@@ -63,6 +63,7 @@ angular.module('cadastroRepublicaApp')
 
       membrosFactory.save(vm.formData, 
           function (response) {
+              //TODO direcionar para a página de sucesso e inserir foto nessa página
                 alert('Cadastro realizado!');
               console.log(response);
           },

@@ -16,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Configurable paths for the application
@@ -27,6 +28,32 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+
+    ngconstant: {
+      options: {
+        name: 'config',
+        wrap: '"use strict";\n\n{%= __ngModule %}',
+        space: '  '
+      },
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: 'development',
+          API_URL: 'http://localhost:3000/'
+        }
+      },
+      production: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config.js'
+        },
+        constants: {
+          ENV: 'production',
+          API_URL: 'https://republica-free-surf.herokuapp.com'
+        }
+      }
+    },
 
     // Project settings
     yeoman: appConfig,
@@ -434,6 +461,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'postcss:server',
@@ -449,6 +477,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'ngconstant:development',
     'wiredep',
     'concurrent:test',
     'postcss',
@@ -458,6 +487,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

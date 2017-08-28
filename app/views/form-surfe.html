@@ -51,7 +51,7 @@
 <div class="form-group" ng-class="{ 'has-error' : form.inputAnoComecoSurfe.$error.required && !form.inputAnoComecoSurfe.$pristine }">
     <label for="inputAnoComecoSurfe">Ano em que começou a surfar</label>
     <small>(se não lembrar o ano exato, informe um ano aproximado)</small>
-    <input class="form-control" id="inputAnoComecoSurfe" name="inputAnoComecoSurfe" style="width: 50%;" placeholder="ano" type="number" min="1900" max="2050" maxlength="4" required only-digits ng-model="formController.anoComecoSurfe">
+    <input class="form-control" id="inputAnoComecoSurfe" name="inputAnoComecoSurfe" style="width: 50%;" placeholder="ano" type="number" min="1900" max="2050" maxlength="4" required only-digits ng-model="formController.formData.anoComecoSurfe">
     <span class="help-block" ng-show="form.inputAnoComecoSurfe.$error.required && !form.inputAnoComecoSurfe.$pristine">É obrigatório informar o ano!</span>
 </div>
 
