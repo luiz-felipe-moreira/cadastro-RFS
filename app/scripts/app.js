@@ -15,7 +15,7 @@ angular
     'ui.mask',
     'config'
   ])
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       // route to show our basic form (/form)
@@ -25,8 +25,7 @@ angular
         controller: 'FormController',
         controllerAs: 'formController'
       })
-      // nested states
-      // each of these sections will have their own view
+      // nested states, each of these sections will have their own view
       // url will be nested (/form/geral)
       .state('form.geral', {
         url: '/geral',
@@ -58,56 +57,50 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .state('cadastro_preexistente', {
-        url: '/cadastro_preexistente',
-        templateUrl: 'views/cadastro_preexistente.html',
+      .state('erro', {
+        url: '/erro',
+        templateUrl: 'views/erro.html',
       })
       .state('confirmacao', {
         url: '/confirmacao',
         templateUrl: 'views/confirmacao-cadastro.html',
       });
 
-    //$urlRouterProvider.otherwise('/form/geral');
     $urlRouterProvider.otherwise('/login');
 
   })
-  .run(['$rootScope', '$window', 'authenticationService', '$state', function($rootScope, $window, authenticationService, $state) {
+  .run(['$rootScope', '$window', 'authenticationService', '$state', function ($rootScope, $window, authenticationService, $state) {
 
-    $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
 
 
       console.log('Detectando mudança de state');
 
-      if (toState.name === 'login') {
-        return; // no need to redirect
+      if ((toState.name === 'login') && (authenticationService.isLogged)) {
+        console.log('Impedindo a mudança de página.');
+        console.log('Valor de authenticationService.isLogged: ' + authenticationService.isLogged);
+        e.preventDefault();
       }
-
-      // console.log('Valor de authenticationService.isRegistered ' + authenticationService.isRegistered);
-      // console.log('Valor do authentication.isLogged: ' + authenticationService.isLogged);
-
-      // if (authenticationService.isLogged === false) {
-      //   e.preventDefault(); // stop current execution
-      //   $state.go('login'); // go to login
-      // }
-
-      if ((toState.name === 'form.saude') && ($rootScope.passoGeralConcluido === false)) {
+      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.saude')) && authenticationService.isRegistered) {
+        console.log('Impedindo a mudança de página.');
+        console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
+        e.preventDefault(); // stop current execution
+      } else if ((toState.name === 'form.saude') && ($rootScope.passoGeralConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoGeralConcluido: ' + $rootScope.passoGeralConcluido);
         e.preventDefault(); // stop current execution
-        $state.go('form.geral'); // go to login
-      }
-
-      if ((toState.name === 'form.surfe') && ($rootScope.passoSaudeConcluido === false)) {
+        $state.go('form.geral');
+      } else if ((toState.name === 'form.surfe') && ($rootScope.passoSaudeConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoSaudeConcluido: ' + $rootScope.passoSaudeConcluido);
         e.preventDefault(); // stop current execution
-        $state.go('form.saude'); // go to login
+        $state.go('form.saude');
       }
 
 
     });
 
-    $rootScope.$on('$stateChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function () {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
 
@@ -118,7 +111,7 @@ angular
 
     $rootScope.user = {};
 
-    $window.fbAsyncInit = function() {
+    $window.fbAsyncInit = function () {
 
       FB.init({
         appId: '386727121713923',
@@ -128,67 +121,63 @@ angular
         version: 'v2.8' // use graph api version 2.8
       });
 
-/*
-      FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-          //we are connected
-          console.debug("CONNECTED TO FACEBOOK");
-          authenticationService.isLogged = true;
-          $state.go('form.geral');
-        } else if (response.status === 'not_authorized') {
-          console.debug("NOT AUTHORIZED BY FACEBOOK");
-          $state.go('login');
-        } else {
-          // we are not logged in facebook
-          console.debug("NOT LOGGED IN TO FACEBOOK");
-          $state.go('login');
-        }
-      });
-      */
+      /*
+            FB.getLoginStatus(function(response) {
+              if (response.status === 'connected') {
+                //we are connected
+                console.debug("CONNECTED TO FACEBOOK");
+                authenticationService.isLogged = true;
+                $state.go('form.geral');
+              } else if (response.status === 'not_authorized') {
+                console.debug("NOT AUTHORIZED BY FACEBOOK");
+                $state.go('login');
+              } else {
+                // we are not logged in facebook
+                console.debug("NOT LOGGED IN TO FACEBOOK");
+                $state.go('login');
+              }
+            });
+            */
 
       authenticationService.watchAuthenticationStatusChange();
 
     };
 
     // Load the SDK asynchronously
-    (function(d, s, id) {
+    (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         return;
       }
       js = d.createElement(s);
       js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
+      js.src = '//connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
 
       // Trata erros no acesso ao Facebook e carregamento do seu SDK:
       (function result() {
-        // var result;
 
-        var resolve = function(outcome) {
-          /* if (result !== undefined) {
-             return result;
-           };*/
+        var resolve = function (outcome) {
 
           var message = [
             'Erro ao carregar o Facebook SDK',
             'Não conseguiu alcançar o servidor do Facebook ou este não está respondendo'
           ];
 
-          $rootScope.$apply(function() {
+          $rootScope.$apply(function () {
             $rootScope.erroIntegracaoFacebook = message[outcome];
           });
 
         };
 
-        js.onerror = function() {
+        js.onerror = function () {
           resolve(0);
         };
 
         // 10 seconds timeout, para sinalizar algum problema na conexão com o Facebook
         // se em trinta segundos o Facebook SDK não estiver carregado, o objeto FB estará undefined
-        setTimeout(function() {
-          if (typeof(FB) === 'undefined' || FB === null) {
+        setTimeout(function () {
+          if (typeof (FB) === 'undefined' || FB === null) {
             resolve(1);
           }
         }, 10000);
