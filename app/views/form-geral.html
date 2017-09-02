@@ -82,8 +82,8 @@
             <span class="help-block" ng-show="!form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required">Informe um mês de nascimento válido!</span>
         </div>
         <div class="col-xs-4" style="padding-left: 0px;" ng-class="{ 'has-error' : (form.anoNascimento.$error.required || form.anoNascimento.$error.max || form.anoNascimento.$error.min) && !form.anoNascimento.$pristine }">
-            <input class="form-control" placeholder="ano" name="anoNascimento" type="number" min="1900" max="2050" maxlength="4" required only-digits ng-model="formController.anoNascimento"
-                ng-change="formController.atualizarDataNascimento()">
+            <input class="form-control" placeholder="ano" name="anoNascimento" type="number" min="1900" max="2050" maxlength="4" required
+                only-digits ng-model="formController.anoNascimento" ng-change="formController.atualizarDataNascimento()">
             <span class="help-block" ng-show="(form.anoNascimento.$error.required || form.anoNascimento.$error.max|| form.anoNascimento.$error.min) && !form.anoNascimento.$pristine">Informe um ano de nascimento válido!</span>
         </div>
     </div>
@@ -101,7 +101,7 @@
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6 col-xs-offset-3">
+    <div class="col-sm-6 col-sm-offset-3">
         <a ui-sref="form.saude" class="btn btn-block btn-info" ng-disabled="
     form.$invalid" ng-click="formController.marcarPassoGeralComoConcluido()">
     Próximo passo <span class="glyphicon glyphicon-circle-arrow-right"></span>

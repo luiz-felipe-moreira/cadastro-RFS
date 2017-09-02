@@ -36,12 +36,14 @@
 </div>
 <div class="form-group">
   <label for="inputAlergias">Alergias <small>(opcional)</small></label>
-  <input type="text" class="form-control" id="inputAlergias" name="inputAlergias" placeholder="ex.: AAS, dipirona, camarão" ng-model="formController.formData.alergias">
+  <input type="text" class="form-control" id="inputAlergias" name="inputAlergias" placeholder="ex.: AAS, dipirona, camarão"
+    ng-model="formController.formData.alergias">
 </div>
 
 <div class="form-group">
   <label for="inputProblemasSaude">Problemas de Saúde <small>(opcional)</small></label>
-  <input type="text" class="form-control" id="inputProblemasSaude" name="inputProblemasSaude" placeholder="ex.: diabetes, eplepsia, hipertensão" ng-model="formController.formData.problemasSaude">
+  <input type="text" class="form-control" id="inputProblemasSaude" name="inputProblemasSaude" placeholder="ex.: diabetes, eplepsia, hipertensão"
+    ng-model="formController.formData.problemasSaude">
 </div>
 
 <fieldset>
@@ -51,19 +53,21 @@
   </div>
   <div class="form-group" ng-class="{ 'has-error' : form.inputNomeContatoEmergencia.$error.required && !form.inputNomeContatoEmergencia.$pristine }">
     <label for="inputNomeContatoEmergencia">Nome</label>
-    <input type="text" class="form-control" id="inputNomeContatoEmergencia" name="inputNomeContatoEmergencia" placeholder="Nome do contato de emergêcia" ng-model="formController.formData.nomeContatoEmergencia" required>
+    <input type="text" class="form-control" id="inputNomeContatoEmergencia" name="inputNomeContatoEmergencia" placeholder="Nome do contato de emergêcia"
+      ng-model="formController.formData.nomeContatoEmergencia" required>
     <span class="help-block" ng-show="form.inputNomeContatoEmergencia.$error.required && !form.inputNomeContatoEmergencia.$pristine">É obrigatório informar o nome do seu contato de emergência!</span>
   </div>
   <div class="form-group col-xs-6" style="padding-left: 0px;" ng-class="{ 'has-error' : form.inputelefoneContatoEmergencia.$error.required && !form.inputelefoneContatoEmergencia.$pristine
 }">
     <label for="inputelefoneContatoEmergencia">Telefone Celular</label>
-    <input type="text" class="form-control" id="inputelefoneContatoEmergencia" name="inputelefoneContatoEmergencia" ng-model="formController.formData.telefoneContatoEmergencia " ui-mask="(99) 99999-9999" ui-mask-placeholder ui-mask-placeholder-char="_" required>
+    <input type="text" class="form-control" id="inputelefoneContatoEmergencia" name="inputelefoneContatoEmergencia" ng-model="formController.formData.telefoneContatoEmergencia "
+      ui-mask="(99) 99999-9999" ui-mask-placeholder ui-mask-placeholder-char="_" required>
     <span class="help-block " ng-show="form.inputelefoneContatoEmergencia.$error.required && !form.inputelefoneContatoEmergencia.$pristine ">É obrigatório informar um celular, com DDD e 9 dígitos no número!</span>
   </div>
 </fieldset>
 
 <div class="form-group row ">
-  <div class="col-xs-6 col-xs-offset-3 ">
+  <div class="col-sm-6 col-sm-offset-3 ">
     <a ui-sref="form.surfe" class="btn btn-block btn-info" ng-disabled="form.$invalid" ng-click="formController.marcarPassoSaudeComoConcluido()">
     Próximo Passo <span class=" glyphicon glyphicon-circle-arrow-right "></span>
     </a>

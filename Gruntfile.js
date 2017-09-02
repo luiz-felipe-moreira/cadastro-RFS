@@ -46,11 +46,11 @@ module.exports = function (grunt) {
       },
       production: {
         options: {
-          dest: '<%= yeoman.dist %>/scripts/config.js'
+          dest: '<%= yeoman.app %>/scripts/config.js'
         },
         constants: {
           ENV: 'production',
-          API_URL: 'https://republica-free-surf.herokuapp.com'
+          API_URL: 'https://republica-free-surf.herokuapp.com/'
         }
       }
     },
