@@ -15,13 +15,21 @@ angular.module('cadastroRepublicaApp')
     vm.formData = {
       dataNascimento: '',
       email: '',
-      id: ''
+      id: '',
+      nome: '',
+      sexo: ''
     };
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
     facebookService.getUserData().then(function (response) {
       vm.formData.email = response.email;
       vm.formData.id = response.id;
+      vm.formData.nome = response.name;
+      if (response.gender === 'male') {
+        vm.formData.sexo = 'M';
+      } else if (response.gender === 'female'){
+        vm.formData.sexo = 'F';
+      }
     }
     );
 

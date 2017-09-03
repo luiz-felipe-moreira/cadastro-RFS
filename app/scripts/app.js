@@ -64,6 +64,8 @@ angular
       .state('confirmacao', {
         url: '/confirmacao',
         templateUrl: 'views/confirmacao-cadastro.html',
+        controller: 'FormController',
+        controllerAs: 'formController'
       });
 
     $urlRouterProvider.otherwise('/login');
