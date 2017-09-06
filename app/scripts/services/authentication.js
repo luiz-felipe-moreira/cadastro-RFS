@@ -22,9 +22,9 @@ angular.module('cadastroRepublicaApp')
 
       var _self = this;
 
-      FB.Event.subscribe('auth.authResponseChange', function (response) {
+      FB.Event.subscribe('auth.statusChange', function (response) {
 
-        console.log('Detectando alteracao no status de autenticacao do Facebook para: ' + response.status);
+        console.log('Recebendo status de login do FaceBook após a inicialização do SDK (ou após alteracao no status de login): ' + response.status);
 
         if (response.status === 'connected') {
 
