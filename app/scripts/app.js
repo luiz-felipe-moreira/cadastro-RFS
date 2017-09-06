@@ -13,6 +13,7 @@ angular
     'ngResource',
     'ui.router',
     'ui.mask',
+    'angular-loading-bar',
     'config'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -71,7 +72,7 @@ angular
     $urlRouterProvider.otherwise('/login');
 
   })
-  .run(['$rootScope', '$window', 'authenticationService', '$state', function ($rootScope, $window, authenticationService, $state) {
+  .run(['$rootScope', '$window', '$document','authenticationService', '$state', function ($rootScope, $window, $document, authenticationService, $state) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
 

@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group" ng-class="{ 'has-error' : form.inputNome.$error.required && !form.inputNome.$pristine }">
-    <label for="inputNome">Nome</label>
+    <label for="inputNome">Nome Completo</label>
     <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Seu nome completo" ng-model="formController.formData.nome"
         required>
     <span class="help-block" ng-show="form.inputNome.$error.required && !form.inputNome.$pristine">É obrigatório informar o seu nome!</span>
