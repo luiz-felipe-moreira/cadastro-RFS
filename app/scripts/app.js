@@ -33,16 +33,19 @@ angular
         templateUrl: 'views/form-geral.html'
       })
 
-      // url will be /form/saude
       .state('form.saude', {
         url: '/saude',
         templateUrl: 'views/form-saude.html'
       })
 
-      // url will be /form/surfe
       .state('form.surfe', {
         url: '/surfe',
         templateUrl: 'views/form-surfe.html'
+      })
+
+      .state('form.foto', {
+        url: '/foto',
+        templateUrl: 'views/form-foto.html'
       })
 
       .state('login', {
@@ -64,9 +67,7 @@ angular
       })
       .state('confirmacao', {
         url: '/confirmacao',
-        templateUrl: 'views/confirmacao-cadastro.html',
-        controller: 'FormController',
-        controllerAs: 'formController'
+        templateUrl: 'views/confirmacao-cadastro.html'
       });
 
     $urlRouterProvider.otherwise('/login');
