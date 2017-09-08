@@ -39,6 +39,7 @@ angular.module('cadastroRepublicaApp')
 
     $rootScope.passoGeralConcluido = false;
     $rootScope.passoSaudeConcluido = false;
+    $rootScope.passoSurfeConcluido = false;
 
     vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard'];
     vm.tiposPranchaSelecionados = [];
@@ -50,10 +51,16 @@ angular.module('cadastroRepublicaApp')
     vm.marcarPassoGeralComoConcluido = function () {
       $rootScope.passoGeralConcluido = true;
     };
-
+    
     vm.marcarPassoSaudeComoConcluido = function () {
       $rootScope.passoSaudeConcluido = true;
     };
+
+    vm.marcarPassoSurfeComoConcluido = function () {
+      $rootScope.passoSurfeConcluido = true;
+    };
+    
+
 
     vm.toggleTipoPrancha = function (tipoPrancha) {
       var index = vm.tiposPranchaSelecionados.indexOf(tipoPrancha);

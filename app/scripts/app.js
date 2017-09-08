@@ -88,17 +88,22 @@ angular
       if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.saude')) && authenticationService.isRegistered) {
         console.log('Impedindo a mudança de página.');
         console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
-        e.preventDefault(); // stop current execution
+        e.preventDefault();
       } else if ((toState.name === 'form.saude') && ($rootScope.passoGeralConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoGeralConcluido: ' + $rootScope.passoGeralConcluido);
-        e.preventDefault(); // stop current execution
+        e.preventDefault();
         $state.go('form.geral');
       } else if ((toState.name === 'form.surfe') && ($rootScope.passoSaudeConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoSaudeConcluido: ' + $rootScope.passoSaudeConcluido);
-        e.preventDefault(); // stop current execution
+        e.preventDefault();
         $state.go('form.saude');
+      } else if ((toState.name === 'form.foto') && ($rootScope.passoSurfeConcluido === false)) {
+        console.log('Impedindo a mudança de página.');
+        console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
+        e.preventDefault();
+        $state.go('form.surfe');
       }
 
 
