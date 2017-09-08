@@ -19,6 +19,9 @@ angular.module('cadastroRepublicaApp')
       nome: '',
       sexo: ''
     };
+
+    vm.facebookPicture = {};
+
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
     facebookService.getUserData().then(function (response) {
@@ -30,6 +33,7 @@ angular.module('cadastroRepublicaApp')
       } else if (response.gender === 'female'){
         vm.formData.sexo = 'F';
       }
+      vm.facebookPicture = response.picture;
     }
     );
 
