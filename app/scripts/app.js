@@ -55,6 +55,13 @@ angular
         controllerAs: 'loginController'
       })
 
+      .state('lista-membros', {
+        url: '/lista-membros',
+        templateUrl: 'views/lista-membros.html',
+        controller: 'MembrosListController',
+        controllerAs: 'membrosListController'
+      })
+
       .state('main', {
         url: '/main',
         templateUrl: 'views/main.html',
@@ -102,6 +109,14 @@ angular
       } else if ((toState.name === 'form.foto') && ($rootScope.passoSurfeConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
+        e.preventDefault();
+        $state.go('form.surfe');
+      }
+
+      if ((toState.name === 'lista-membros') && (!authenticationService.isRegistered)) {
+        console.log('Impedindo a mudança de página.');
+        console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
+        console.log('Direcionando para a página de login...');
         e.preventDefault();
         $state.go('form.surfe');
       }

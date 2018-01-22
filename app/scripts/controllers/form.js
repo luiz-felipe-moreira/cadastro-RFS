@@ -30,14 +30,21 @@ angular.module('cadastroRepublicaApp')
       vm.formData.nome = response.name;
       if (response.gender === 'male') {
         vm.formData.sexo = 'M';
-      } else if (response.gender === 'female'){
+      } else if (response.gender === 'female') {
         vm.formData.sexo = 'F';
       }
       vm.facebookPicture = response.picture;
       //Enquanto não há a opção de escolher uma foto (upload), será sempre passado para o backend a URL da foto do perfil do Facebook
       vm.formData.urlFoto = vm.facebookPicture.data.url;
     }
-    );
+    )
+      .catch(function (response) {
+        console.log('Erro ao obter dados do usuário no Facebook');
+        // $rootScope.mensagemErro = 'Não foi possível obter seus dados no Facebook. Tente novamente mais tarde.';
+        // $state.go('erro');
+        console.log('Direcionando para a pagina de login...');
+        $state.go('login');
+      });
 
     vm.diaNascimento = null;
     vm.mesNascimento = null;
@@ -57,7 +64,7 @@ angular.module('cadastroRepublicaApp')
     vm.marcarPassoGeralComoConcluido = function () {
       $rootScope.passoGeralConcluido = true;
     };
-    
+
     vm.marcarPassoSaudeComoConcluido = function () {
       $rootScope.passoSaudeConcluido = true;
     };
@@ -65,7 +72,7 @@ angular.module('cadastroRepublicaApp')
     vm.marcarPassoSurfeComoConcluido = function () {
       $rootScope.passoSurfeConcluido = true;
     };
-    
+
 
 
     vm.toggleTipoPrancha = function (tipoPrancha) {

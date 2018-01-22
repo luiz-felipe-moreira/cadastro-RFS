@@ -58,9 +58,10 @@ angular.module('cadastroRepublicaApp')
               function (response) {
                 console.log(response);
                 _self.isRegistered = true;
-                $rootScope.mensagemErro = 'Você já está cadastrado no República Free Surf';
-                // $state.go('cadastro_preexistente');//
-                $state.go('erro');
+                if ($state.current != 'lista-membros') {
+                  $rootScope.mensagemErro = 'Você já está cadastrado no República Free Surf';
+                  $state.go('erro');
+                }
               },
               function (response) {
                 console.log('Error: ' + response.status + ' ' + response.statusText);
