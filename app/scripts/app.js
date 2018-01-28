@@ -60,6 +60,14 @@ angular
         templateUrl: 'views/lista-membros.html',
         controller: 'MembrosListController',
         controllerAs: 'membrosListController'
+        
+      })
+
+      .state('membro', {
+        url: '/membro',
+        templateUrl: 'views/membro.html',
+        controller: 'MembroController',
+        controllerAs: 'membroController'
       })
 
       .state('main', {
