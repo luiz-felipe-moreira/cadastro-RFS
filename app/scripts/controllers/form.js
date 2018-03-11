@@ -22,6 +22,8 @@ angular.module('cadastroRepublicaApp')
 
     vm.facebookPicture = {};
 
+    vm.useFacebookPicture = true;
+
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
     facebookService.getUserData().then(function (response) {
