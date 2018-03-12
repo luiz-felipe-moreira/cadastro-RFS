@@ -1,22 +1,34 @@
 <div id="form-header" class="page-header text-center">
   <div id="status-buttons" class="text-center">
-    <a><span>1</span> Geral</a>
-    <a><span>2</span> Saúde</a>
-    <a><span>3</span> Surfe</a>
-    <a class="active"><span>4</span> Foto</a>
+    <a>
+      <span>1</span> Geral</a>
+    <a>
+      <span>2</span> Saúde</a>
+    <a>
+      <span>3</span> Surfe</a>
+    <a class="active">
+      <span>4</span> Foto</a>
   </div>
 </div>
+
+<label>Forneça uma foto mostrando seu rosto de frente.</label>
 <div class="formGroup">
   <div class="checkbox">
     <label>
-      <input type="checkbox" ng-model="formController.useFacebookPicture" data-toggle="toggle" data-on="Sim" data-off="Não">
-      Usar foto do Facebook
-      </label>
+      <input type="checkbox" ng-model="formController.useFacebookPicture" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar foto do Facebook
+    </label>
   </div>
 </div>
 <div class="row" ng-show="formController.useFacebookPicture">
   <div class="col-xs-8 col-xs-offset-2">
     <img ng-src="{{formController.facebookPicture.data.url}}" class="img-responsive center-block">
+  </div>
+</div>
+<div class="from-group row" ng-hide="formController.useFacebookPicture">
+  <input type="file" id="file-input">
+  <p id="status">Selecione um arquivo</p>
+  <div class="col-xs-8 col-xs-offset-2">
+    <img id="preview" src="./images/avatar-default.png" class="img-responsive center-block">
   </div>
 </div>
 
