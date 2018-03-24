@@ -8,7 +8,11 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'facebookService', 'membrosFactory', '$state', function ($rootScope, facebookService, membrosFactory, $state) {
+  .controller('FormController', ['$rootScope', 'facebookService', 'membrosFactory', '$state', '$scope', function ($rootScope, facebookService, membrosFactory, $state, $scope) {
+
+    $scope.fileNameChanged = function (ele) {
+      alert("select file");
+    }
 
     var vm = this;
 
