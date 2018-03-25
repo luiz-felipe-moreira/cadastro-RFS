@@ -8,10 +8,25 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'facebookService', 'membrosFactory', '$state', '$scope', function ($rootScope, facebookService, membrosFactory, $state, $scope) {
+  .controller('FormController', ['$rootScope', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
 
-    $scope.fileNameChanged = function (ele) {
-      alert("select file");
+    $scope.fileNameChanged = function (fileInputElement) {
+      var files = fileInputElement.files;
+      var file = files[0];
+      if (file == null) {
+        alert("Selecione o arquivo");
+      } else {
+        //TODO fazer chamda ao backend
+        console.log('Nome do arquivo: ' + file.name);
+        signedS3RequestService.getSignedS3Request(file).then(function(response) {
+          console.log('Response status: ' + response.status);
+          console.log('Response data: ' + response.data);
+        }, function(response) {
+          $scope.data = response.data || 'Request failed';
+          console.log('Response status: ' + response.status);
+      });
+      }
+
     }
 
     var vm = this;
