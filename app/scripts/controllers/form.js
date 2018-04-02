@@ -21,13 +21,20 @@ angular.module('cadastroRepublicaApp')
         signedS3RequestService.getSignedS3Request(file).then(function(response) {
           console.log('Response status: ' + response.status);
           console.log('Response data: ' + response.data);
+          var signedRequest = response.data.signedRequest; //TODO verificar se nâo é response.signedRequest
+          var url = response.data.url;
+          signedS3RequestService.uploadFile(file, signedRequest, url).then(function(response) {
+            
+          }, function(errorResponse){
+
+          });
         }, function(response) {
           $scope.data = response.data || 'Request failed';
           console.log('Response status: ' + response.status);
       });
       }
 
-    }
+    };
 
     var vm = this;
 
