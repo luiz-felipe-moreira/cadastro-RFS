@@ -11,11 +11,13 @@ angular.module('cadastroRepublicaApp')
   .controller('FormController', ['$rootScope', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
 
     $scope.fileNameChanged = function (fileInputElement) {
+      //TODO restringir tamanho do arquivo
       var files = fileInputElement.files;
       var file = files[0];
       if (file == null) {
         alert("Selecione o arquivo");
       } else {
+        //TODO alterar para colocar o nome do arquivo igual ao id do usuario
         signedS3RequestService.getSignedS3Request(file).then(function(response) {
 
           var signedRequest = response.data.signedRequest;
@@ -24,6 +26,7 @@ angular.module('cadastroRepublicaApp')
           signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function(response) {
             console.log('Foto do usuario enviada para o bucket S3!');
             console.debug('Response status: ' + response.status);
+            vm.imgSrcUpload = urlFileS3;
             vm.formData.urlFoto = urlFileS3;
           }, function(errorResponse){
             console.log('Erro ao enviar foto para o bucket S3!');
@@ -53,6 +56,7 @@ angular.module('cadastroRepublicaApp')
     //vm.facebookPictureEhSilhueta = false;
 
     vm.useFacebookPicture = true;
+    vm.imgSrcUpload = "./images/avatar-default.png";
 
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
