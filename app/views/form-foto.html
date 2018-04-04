@@ -15,16 +15,16 @@
 <div class="formGroup">
   <div class="checkbox">
     <label>
-      <input type="checkbox" ng-model="formController.useFacebookPicture" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar foto do Facebook
+      <input type="checkbox" ng-hide="formController.facebookPicture.is_silhouette" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar foto do Facebook
     </label>
   </div>
 </div>
-<div class="row" ng-show="formController.useFacebookPicture">
+<div class="row" ng-show="formController.formData.fotoFacebook">
   <div class="col-xs-8 col-xs-offset-2">
-    <img ng-src="{{formController.facebookPicture.data.url}}" class="img-responsive center-block">
+    <img ng-src="{{formController.facebookPicture.url}}" class="img-responsive center-block">
   </div>
 </div>
-<div class="from-group row" ng-hide="formController.useFacebookPicture">
+<div class="from-group row" ng-hide="formController.formData.fotoFacebook">
   <input type="file" id="file-input" onchange="angular.element(this).scope().fileNameChanged(this)">
   <p id="status">Selecione um arquivo</p>
   <div class="col-xs-8 col-xs-offset-2">

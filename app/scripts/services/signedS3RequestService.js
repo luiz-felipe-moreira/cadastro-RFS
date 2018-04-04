@@ -13,13 +13,22 @@ angular.module('cadastroRepublicaApp')
                     },
                     responseType: 'json'
                 };
+
                 console.debug('Montando requisição para ' + url + ' com parametros ' + JSON.stringify(config.params));
                 return $http.get(url, config);
             },
 
             uploadFile: function (file, signedRequest, url) {
+
                 console.debug('Fazendo upload do arquivo para o S3...');
-                //TODO fazer requisição PUT usando a signedREquest, enviando o arquivo
+                var config = {
+                    headers: {
+                        'Content-Type': file.type
+                    },
+                    responseType: 'json'
+                };
+
+                return $http.put(signedRequest, file, config);
             }
         };
 

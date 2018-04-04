@@ -16,18 +16,20 @@ angular.module('cadastroRepublicaApp')
       if (file == null) {
         alert("Selecione o arquivo");
       } else {
-        //TODO fazer chamda ao backend
-        console.log('Nome do arquivo: ' + file.name);
         signedS3RequestService.getSignedS3Request(file).then(function(response) {
-          console.log('Response status: ' + response.status);
-          console.log('Response data: ' + response.data);
-          var signedRequest = response.data.signedRequest; //TODO verificar se nâo é response.signedRequest
-          var url = response.data.url;
-          signedS3RequestService.uploadFile(file, signedRequest, url).then(function(response) {
-            
-          }, function(errorResponse){
 
+          var signedRequest = response.data.signedRequest;
+          var urlFileS3 = response.data.url;
+
+          signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function(response) {
+            console.log('Foto do usuario enviada para o bucket S3!');
+            console.debug('Response status: ' + response.status);
+            vm.formData.urlFoto = urlFileS3;
+          }, function(errorResponse){
+            console.log('Erro ao enviar foto para o bucket S3!');
+            console.debug('Response status: ' + errorResponse.status);
           });
+
         }, function(response) {
           $scope.data = response.data || 'Request failed';
           console.log('Response status: ' + response.status);
@@ -43,10 +45,12 @@ angular.module('cadastroRepublicaApp')
       email: '',
       id: '',
       nome: '',
-      sexo: ''
+      sexo: '',
+      fotoFacebook: false
     };
 
     vm.facebookPicture = {};
+    //vm.facebookPictureEhSilhueta = false;
 
     vm.useFacebookPicture = true;
 
@@ -61,9 +65,9 @@ angular.module('cadastroRepublicaApp')
       } else if (response.gender === 'female') {
         vm.formData.sexo = 'F';
       }
-      vm.facebookPicture = response.picture;
+      vm.facebookPicture = response.picture.data;
       //Enquanto não há a opção de escolher uma foto (upload), será sempre passado para o backend a URL da foto do perfil do Facebook
-      vm.formData.urlFoto = vm.facebookPicture.data.url;
+      vm.formData.urlFoto = vm.facebookPicture.url;
     }
     )
       .catch(function (response) {
