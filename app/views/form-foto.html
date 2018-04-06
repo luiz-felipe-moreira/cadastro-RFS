@@ -15,7 +15,7 @@
 <div class="formGroup">
   <div class="checkbox">
     <label>
-      <input type="checkbox" ng-hide="formController.facebookPicture.is_silhouette" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar foto do Facebook
+      <input type="checkbox" ng-hide="formController.facebookPicture.is_silhouette" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar minha foto de perfil do Facebook
     </label>
   </div>
 </div>
@@ -25,15 +25,13 @@
   </div>
 </div>
 <div class="from-group row" ng-hide="formController.formData.fotoFacebook">
-  <input type="file" id="file-input" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)">
-  <p id="status">Selecione um arquivo</p>
+  <input type="file" id="file-input" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)" style="padding-left: 20px;">
   <div class="col-xs-8 col-xs-offset-2">
     <img id="preview" src="{{formController.imgSrcUpload}}" class="img-responsive center-block">
   </div>
 </div>
-
-<div class="form-group row">
+<div class="form-group row" style="margin-top: 15px;">
   <div class="col-sm-6 col-sm-offset-3">
-    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Concluir</button>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="(form.$invalid || ((!formController.arquivoArmazenadoComSucesso) && (!formController.formData.fotoFacebook)))">Concluir</button>
   </div>
 </div>
