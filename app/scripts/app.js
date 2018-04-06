@@ -126,7 +126,7 @@ angular
         console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
         console.log('Direcionando para a página de login...');
         e.preventDefault();
-        $state.go('form.surfe');
+        $state.go('form.login');
       }
 
 

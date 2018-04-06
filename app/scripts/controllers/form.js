@@ -14,7 +14,7 @@ angular.module('cadastroRepublicaApp')
       var files = fileInputElement.files;
       var file = files[0];
       var fileSizeMB = ((file.size/1024)/1024).toFixed(4);
-      var fileTypePermitido = ((file.type == 'image/jpeg') || (file.type == 'image/png'));
+      var fileTypePermitido = (file.type == 'image/jpeg');
 
       if (file == null) {
         alert("Selecione o arquivo");
@@ -23,7 +23,7 @@ angular.module('cadastroRepublicaApp')
         alert("O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.");
       }
       else if (!fileTypePermitido){
-        alert("O formato do arquivo deve ser JPEG ou PNG! Selecione outra foto.")
+        alert("O formato do arquivo deve ser JPEG! Selecione outra foto.")
       } else {
         //TODO alterar para colocar o nome do arquivo igual ao id do usuario
         signedS3RequestService.getSignedS3Request(file).then(function(response) {

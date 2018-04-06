@@ -25,7 +25,7 @@
   </div>
 </div>
 <div class="from-group row" ng-hide="formController.formData.fotoFacebook">
-  <input type="file" id="file-input" onchange="angular.element(this).scope().fileNameChanged(this)">
+  <input type="file" id="file-input" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)">
   <p id="status">Selecione um arquivo</p>
   <div class="col-xs-8 col-xs-offset-2">
     <img id="preview" src="{{formController.imgSrcUpload}}" class="img-responsive center-block">
