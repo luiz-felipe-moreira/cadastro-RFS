@@ -1,13 +1,13 @@
 <ul class="media-list">
     <li class="media" ng-repeat="membro in membrosListController.listaMembros">
-        <div class="media-left">
-            <a ui-sref="main">
-                <img class="media-object img-thumbnail" style="width:60px" ng-src={{membro.urlFoto}}>
-            </a>
-        </div>
-        <div class="media-body">
-            <h4 class="media-heading">{{membro.nome}}</h4>
-            <p>{{membro.apelido}}</p>
-        </div>
+        <a ui-sref="membro({id: membro.id})">
+            <div class="media-left">
+                <img class="media-object img-circle" style="width:60px" ng-src={{membro.urlFoto}}>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{membro.nome}}</h4>
+                <p>{{membro.apelido}}</p>
+            </div>
+        </a>
     </li>
 </ul>

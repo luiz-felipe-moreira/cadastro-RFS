@@ -13,9 +13,9 @@
 
 <label>Escolha uma foto para o seu cadastro</label>
 <div class="formGroup">
-  <div class="checkbox">
+  <div class="checkbox" ng-hide="formController.facebookPicture.is_silhouette">
     <label>
-      <input type="checkbox" ng-hide="formController.facebookPicture.is_silhouette" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar minha foto de perfil do Facebook
+      <input type="checkbox" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar minha foto de perfil do Facebook
     </label>
   </div>
 </div>

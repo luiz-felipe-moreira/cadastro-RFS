@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
+  .controller('FormController', ['$rootScope', 'authenticationService','facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, authenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
   
     var vm = this;
 
@@ -108,7 +108,7 @@ angular.module('cadastroRepublicaApp')
         alert("O formato do arquivo deve ser JPEG! Selecione outra foto.")
       } else {
         //TODO alterar para colocar o nome do arquivo igual ao id do usuario
-        signedS3RequestService.getSignedS3Request(file).then(function(response) {
+        signedS3RequestService.getSignedS3Request(file, vm.formData.id + ".jpg").then(function(response) {
 
           var signedRequest = response.data.signedRequest;
           var urlFileS3 = response.data.url;
@@ -139,6 +139,7 @@ angular.module('cadastroRepublicaApp')
       membrosFactory.save(vm.formData,
         function (response) {
           console.log(response);
+          authenticationService.setIsRegistered(true);
           //TODO direcionar para a página de sucesso e inserir foto nessa página
           $state.go('confirmacao');
         },

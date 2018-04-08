@@ -10,6 +10,10 @@ angular.module('cadastroRepublicaApp')
       return 'string teste do serviço de autenticação';
     };
 
+    this.setIsRegistered = function(valor){
+      this.isRegistered = valor;
+    }
+
     this.user = {
       email: '',
       id: ''

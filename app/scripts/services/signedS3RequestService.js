@@ -4,11 +4,11 @@ angular.module('cadastroRepublicaApp')
     .factory('signedS3RequestService', ['$http', 'API_URL', function ($http, API_URL) {
 
         return {
-            getSignedS3Request: function (file) {
+            getSignedS3Request: function (file, novoNomeArquivo) {
                 var url = API_URL + 'sign-s3';
                 var config = {
                     params: {
-                        nomeArquivo: file.name,
+                        nomeArquivo: (novoNomeArquivo || file.name),
                         tipoArquivo: file.type
                     },
                     responseType: 'json'

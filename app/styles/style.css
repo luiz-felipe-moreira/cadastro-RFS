@@ -1,16 +1,16 @@
 /* BASIC STYLINGS
 ============================================================================= */
-body                            { padding-top:20px; background:#2f2f2f; color:#FFF; }
-
+body                            { padding-top:20px; background:#233960; color:#FFF; }
+a                               { color: #FFF;}
+a:hover                         { color: #FFF;}
 /* form styling */
-#form-container                { background:#2f2f2f; margin-bottom:20px;
+#form-container                { background:#233960; margin-bottom:20px;
     border-radius:5px; }
-#form-container .page-header   { background:#151515; margin-top:0; margin-bottom: 15px; padding:30px; border-bottom: 0px;
+#form-container .page-header   { margin-top:0; margin-bottom: 15px; padding:30px; border-bottom: 0px;
     border-top-left-radius:5px; border-top-right-radius:5px; }
 #form-header                   {margin-bottom: 15px;}
 
 /* numbered buttons */
-#status-buttons                 {  }
 #status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
 #status-buttons a:hover         { text-decoration:none; }
 
@@ -18,6 +18,23 @@ body                            { padding-top:20px; background:#2f2f2f; color:#F
 #status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; border-radius:50%; }
 
 /* active buttons turn light green-blue*/
-#status-buttons a.active span   { background:#00BC8C; }
+/* #status-buttons a.active span   { background:#00BC8C; } */
+#status-buttons a.active span   { background:#0093bd; }
 
 #legendContatoEmergencia         {color:#FFF; font-weight: bold; font-size: 17px; margin-bottom: 0;}
+
+.profile                        { margin: 20px 0;}
+.profile-sidebar                { padding: 20px 0 10px 0;}
+/* .profile-user-pic               { float: none; margin: 0 auto; width: 50%; height: 50%} */
+.profile-user-title             { text-align: center; margin-top: 20px;}
+.profile-user-name              { font-size: 18px; font-weight: 600; color: greenyellow;}
+.profile-user-apelido           { font-size: 13px; text-transform: uppercase; font-weight: 600; margin-bottom: 15px;}
+ul li                           { border-bottom: 2px solid #726f6f !important;}
+.nav li a:hover                 { background-color: grey; }
+/* li.active a                     {background-color: lightskyblue} */
+
+.profile-detail                 { padding: 20px; }
+.display-label {
+    font-weight: bold;
+    text-align: right;
+  }

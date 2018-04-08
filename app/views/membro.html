@@ -1,13 +1,62 @@
-<div id="form-header" class="page-header text-center">
-    <h2>Cadastre-se no República</h2>
-    <div id="status-buttons" class="text-center">
-        <a class="active"><span>1</span> Geral</a>
-        <a><span>2</span> Saúde</a>
-        <a><span>3</span> Surfe</a>
-        <a><span>4</span> Foto</a>
+<div class="row profile">
+    <div class="col-md-3">
+        <div class="profile-side-bar">
+            <div class="profile-user-pic">
+                <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}}>
+            </div>
+            <div class="profile-user-title">
+                <div class="profile-user-name">{{membroController.membro.nome}} </div>
+                <div class="profile-user-apelido">{{membroController.membro.apelido}}</div>
+            </div>
+            <div class="profile-user-menu">
+                <ul class="nav">
+                    <li class="active">
+                        <a href="">
+                            <i class="glyphicon glyphicon-user"></i> Dados Gerais</a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-heart"></i> Saúde</a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-fire"></i> Surf</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="profile-detail">
+                <dl class="dl-horizontal">
+                        <dt>Data de Nascimento</dt>
+                        <dd>{{membroController.membro.dataNascimento}}</dd>
+                        <br>
+                        <dt>Sexo</dt>
+                        <dd>{{membroController.membro.sexo}}</dd>
+                        <br>
+                        <dt>Email</dt>
+                        <dd>{{membroController.membro.email}}</dd>
+                        <br>
+                        <dt>Celular</dt>
+                        <dd>{{membroController.membro.telefoneCelular}}</dd>
+                        <br>
+                        <dt>Telefone fixo</dt>
+                        <dd>{{membroController.membro.telefoneFixo}}</dd>
+                        <br>
+                        <dt>Profissão</dt>
+                        <dd>{{membroController.membro.profissao}}</dd>
+                      </dl>
+            <!-- <div class="row">
+                <label>Data de Nascimento</label>{{membroController.membro.dataNascimento}}
+            </div>
+            <div class="row">
+                <label>Sexo</label>{{membroController.membro.sexo}}
+            </div>
+            <p>Email: {{membroController.membro.email}}</p>
+            <p>Celular: {{membroController.membro.telefoneCelular}}</p>
+            <p>Telefone fixo: {{membroController.membro.telefoneFixo}}</p>
+            <p>Profissão: {{membroController.membro.profissao}}</p> -->
+        </div>
     </div>
 </div>
-
-
-Nome: {{membroController.membro.nome}}
-  

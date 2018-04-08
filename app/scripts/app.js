@@ -64,7 +64,7 @@ angular
       })
 
       .state('membro', {
-        url: '/membro',
+        url: '/membro/:id',
         templateUrl: 'views/membro.html',
         controller: 'MembroController',
         controllerAs: 'membroController'
@@ -126,7 +126,7 @@ angular
         console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
         console.log('Direcionando para a página de login...');
         e.preventDefault();
-        $state.go('form.login');
+        $state.go('login');
       }
 
 
