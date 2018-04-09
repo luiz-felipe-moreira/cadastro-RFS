@@ -34,7 +34,6 @@ ul li                           { border-bottom: 2px solid #726f6f !important;}
 /* li.active a                     {background-color: lightskyblue} */
 
 .profile-detail                 { padding: 20px; }
-.display-label {
-    font-weight: bold;
-    text-align: right;
-  }
+.dl-horizontal dt {
+	white-space: normal;
+}

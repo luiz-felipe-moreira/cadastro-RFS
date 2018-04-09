@@ -21,5 +21,13 @@ angular.module('cadastroRepublicaApp')
             }
         );
 
+        vm.grupoDadosSelecionado = 'geral';
+        vm.selecionarGrupoDados = function (grupoDados) {
+            vm.grupoDadosSelecionado = grupoDados;
+        };
+
+        vm.estaSelecionado = function (grupoDados) {
+            return (vm.grupoDadosSelecionado === grupoDados);
+        }
 
     }]);

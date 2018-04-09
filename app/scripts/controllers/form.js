@@ -35,9 +35,9 @@ angular.module('cadastroRepublicaApp')
       vm.formData.id = response.id;
       vm.formData.nome = response.name;
       if (response.gender === 'male') {
-        vm.formData.sexo = 'M';
+        vm.formData.sexo = 'masculino';
       } else if (response.gender === 'female') {
-        vm.formData.sexo = 'F';
+        vm.formData.sexo = 'feminino';
       }
       vm.facebookPicture = response.picture.data;
       //Enquanto não há a opção de escolher uma foto (upload), será sempre passado para o backend a URL da foto do perfil do Facebook

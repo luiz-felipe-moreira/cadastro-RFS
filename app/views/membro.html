@@ -1,5 +1,5 @@
 <div class="row profile">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="profile-side-bar">
             <div class="profile-user-pic">
                 <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}}>
@@ -11,16 +11,16 @@
             <div class="profile-user-menu">
                 <ul class="nav">
                     <li class="active">
-                        <a href="">
+                        <a href="" ng-click="membroController.selecionarGrupoDados('geral')">
                             <i class="glyphicon glyphicon-user"></i> Dados Gerais</a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="" ng-click="membroController.selecionarGrupoDados('saude')">
                             <i class="glyphicon glyphicon-heart"></i> Saúde</a>
                     </li>
                     <li>
-                        <a href="">
-                            <i class="glyphicon glyphicon-fire"></i> Surf</a>
+                        <a href="" ng-click="membroController.selecionarGrupoDados('surf')">
+                            <i class="glyphicon glyphicon-fire"></i> Surfe</a>
                     </li>
                 </ul>
             </div>
@@ -28,25 +28,56 @@
     </div>
     <div class="col-md-9">
         <div class="profile-detail">
-                <dl class="dl-horizontal">
-                        <dt>Aniversário</dt>
-                        <dd>{{membroController.dataAniversario}}</dd>
-                        <br>
-                        <dt>Sexo</dt>
-                        <dd>{{membroController.membro.sexo}}</dd>
-                        <br>
-                        <dt>Email</dt>
-                        <dd>{{membroController.membro.email}}</dd>
-                        <br>
-                        <dt>Celular</dt>
-                        <dd>{{membroController.membro.telefoneCelular}}</dd>
-                        <br>
-                        <dt>Telefone fixo</dt>
-                        <dd>{{membroController.membro.telefoneFixo}}</dd>
-                        <br>
-                        <dt>Profissão</dt>
-                        <dd>{{membroController.membro.profissao}}</dd>
-                      </dl>
+            <dl class="dl-horizontal" ng-show="membroController.estaSelecionado('geral')">
+                <dt>Aniversário</dt>
+                <dd>{{membroController.dataAniversario}}</dd>
+                <br>
+                <dt>Sexo</dt>
+                <dd>{{membroController.membro.sexo}}</dd>
+                <br>
+                <dt>Email</dt>
+                <dd>{{membroController.membro.email}}</dd>
+                <br>
+                <dt>Celular</dt>
+                <dd>{{membroController.membro.telefoneCelular}}</dd>
+                <br>
+                <dt>Telefone fixo</dt>
+                <dd>{{membroController.membro.telefoneFixo}}</dd>
+                <br>
+                <dt>Profissão</dt>
+                <dd>{{membroController.membro.profissao}}</dd>
+            </dl>
+            <dl class="dl-horizontal" ng-show="membroController.estaSelecionado('saude')">
+                <dt>Sangue</dt>
+                <dd>{{membroController.membro.grupoSanguineo + membroController.membro.fatorRH}}</dd>
+                <br>
+                <dt>Alergias</dt>
+                <dd>{{membroController.membro.alergias}}</dd>
+                <br>
+                <dt>Problemas de saúde</dt>
+                <dd>{{membroController.membro.email}}</dd>
+                <br>
+                <dt>Nome do contato de emergência</dt>
+                <dd>{{membroController.membro.nomeContatoEmergencia}}</dd>
+                <br>
+                <dt>Telefone do contato de emergência</dt>
+                <dd>{{membroController.membro.telefoneContatoEmergencia}}</dd>
+            </dl>
+            <dl class="dl-horizontal" ng-show="membroController.estaSelecionado('surf')">
+                <br>
+                <dt>Surfa desde</dt>
+                <dd>{{membroController.membro.anoComecoSurfe}}</dd>
+                <br>
+                <dt>Nível de surfe</dt>
+                <dd>{{membroController.membro.nivel}}</dd>
+                <br>
+                <dt>Tipo de prancha</dt>
+                <dd>{{membroController.membro.tiposPrancha.toString()}}</dd>
+                <br>
+                <dt>Praia de Preferência</dt>
+                <dd>{{membroController.membro.praia}}</dd>
+            </dl>
+
             <!-- <div class="row">
                 <label>Data de Nascimento</label>{{membroController.membro.dataNascimento}}
             </div>
