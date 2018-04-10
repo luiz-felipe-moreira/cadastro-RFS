@@ -6,6 +6,8 @@ angular.module('cadastroRepublicaApp')
     var vm = this;
     vm.listaMembros = [];
 
+    vm.filtro = ''
+
     membrosFactory.query(
         function (response) {
             console.log(response);
