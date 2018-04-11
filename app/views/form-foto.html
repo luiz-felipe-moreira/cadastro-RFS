@@ -15,7 +15,7 @@
 <div class="formGroup">
   <div class="checkbox" ng-hide="formController.facebookPicture.is_silhouette">
     <label>
-      <input type="checkbox" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar minha foto de perfil do Facebook (obs.: só de rosto frontal)
+      <input type="checkbox" ng-model="formController.formData.fotoFacebook" data-toggle="toggle" data-on="Sim" data-off="Não"> Usar minha foto de perfil do Facebook (obs.: somente de rosto frontal)
     </label>
   </div>
 </div>
@@ -24,11 +24,15 @@
     <img ng-src="{{formController.facebookPicture.url}}" class="img-responsive center-block">
   </div>
 </div>
-<div class="from-group row" ng-hide="formController.formData.fotoFacebook">
-  <label for="file-input" class="btn btn-primary" style="padding-left: 20px;">Selecionar foto ...</label>
-  <input type="file" id="file-input" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)" style="padding-left: 20px; opacity: 0;">
-  <div class="col-xs-8 col-xs-offset-2">
-    <img id="preview" src="{{formController.imgSrcUpload}}" class="img-responsive center-block">
+<div class="from-group" ng-hide="formController.formData.fotoFacebook">
+  <div class="row">
+    <label for="file-input" class="btn btn-primary" style="margin-left: 15px;">Selecionar foto...</label>
+    <input type="file" id="file-input" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)" style="padding-left: 20px; opacity: 0;">
+  </div>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <img id="preview" src="{{formController.imgSrcUpload}}" class="img-responsive center-block">
+    </div>
   </div>
 </div>
 <div class="form-group row" style="margin-top: 15px;">
