@@ -92,7 +92,7 @@ angular.module('cadastroRepublicaApp')
       }
       vm.formData.tiposPrancha = vm.tiposPranchaSelecionados;
     };
-
+//TODO no clique do checkbox retornat urlFoto para a fot do face
     $scope.fileNameChanged = function (fileInputElement) {
       var files = fileInputElement.files;
       var file = files[0];
