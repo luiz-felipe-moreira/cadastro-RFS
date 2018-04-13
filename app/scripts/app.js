@@ -100,7 +100,7 @@ angular
         console.log('Valor de authenticationService.isLogged: ' + authenticationService.isLogged);
         e.preventDefault();
       }
-      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.saude')) && authenticationService.isRegistered) {
+      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.surfe') || (toState.name === 'form.foto')) && authenticationService.isRegistered) {
         console.log('Impedindo a mudança de página.');
         console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
         e.preventDefault();
@@ -115,9 +115,9 @@ angular
         e.preventDefault();
         $state.go('form.saude');
       } else if ((toState.name === 'form.foto') && ($rootScope.passoSurfeConcluido === false)) {
-        // console.log('Impedindo a mudança de página.');
-        // console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
-        // e.preventDefault();
+        console.log('Impedindo a mudança de página.');
+        console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
+        e.preventDefault();
         $state.go('form.surfe');
       }
 

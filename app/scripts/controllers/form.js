@@ -22,12 +22,9 @@ angular.module('cadastroRepublicaApp')
     };
 
     vm.facebookPicture = {};
-    //vm.facebookPictureEhSilhueta = false;
 
-    // vm.useFacebookPicture = true;
     const imagemSilhueta = './images/avatar-default.png';
-    // const imagemLoading = './images/gif-load-4.gif';
-    const imagemLoading = './images/gif-load.gif';
+    const imagemLoading = './images/loadsing.gif';
 
     vm.imgSrcUpload = imagemSilhueta;
     vm.arquivoArmazenadoComSucesso = false;
