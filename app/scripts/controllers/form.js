@@ -8,8 +8,8 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'authenticationService','facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, authenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
-  
+  .controller('FormController', ['$rootScope', 'authenticationService', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, authenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
+
     var vm = this;
 
     vm.formData = {
@@ -25,7 +25,11 @@ angular.module('cadastroRepublicaApp')
     //vm.facebookPictureEhSilhueta = false;
 
     // vm.useFacebookPicture = true;
-    vm.imgSrcUpload = "./images/avatar-default.png";
+    const imagemSilhueta = './images/avatar-default.png';
+    // const imagemLoading = './images/gif-load-4.gif';
+    const imagemLoading = './images/gif-load.gif';
+
+    vm.imgSrcUpload = imagemSilhueta;
     vm.arquivoArmazenadoComSucesso = false;
 
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
@@ -95,39 +99,41 @@ angular.module('cadastroRepublicaApp')
     $scope.fileNameChanged = function (fileInputElement) {
       var files = fileInputElement.files;
       var file = files[0];
-      var fileSizeMB = ((file.size/1024)/1024).toFixed(4);
+      var fileSizeMB = ((file.size / 1024) / 1024).toFixed(4);
       var fileTypePermitido = (file.type == 'image/jpeg');
 
       if (file == null) {
         alert("Selecione o arquivo");
-      } 
-      else if (fileSizeMB > 5){
+      }
+      else if (fileSizeMB > 5) {
         alert("O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.");
       }
-      else if (!fileTypePermitido){
+      else if (!fileTypePermitido) {
         alert("O formato do arquivo deve ser JPEG! Selecione outra foto.")
       } else {
-        //TODO alterar para colocar o nome do arquivo igual ao id do usuario
-        signedS3RequestService.getSignedS3Request(file, vm.formData.id + ".jpg").then(function(response) {
+
+        vm.imgSrcUpload = imagemLoading;
+        signedS3RequestService.getSignedS3Request(file, vm.formData.id + ".jpg").then(function (response) {
 
           var signedRequest = response.data.signedRequest;
           var urlFileS3 = response.data.url;
 
-          signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function(response) {
-            console.log('Foto do usuario enviada para o bucket S3!');
-            console.debug('Response status: ' + response.status);
+          signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function (response) {
             vm.imgSrcUpload = urlFileS3;
             vm.formData.urlFoto = urlFileS3;
             vm.arquivoArmazenadoComSucesso = true;
-          }, function(errorResponse){
+            console.log('Foto do usuario enviada para o bucket S3!');
+            console.debug('Response status: ' + response.status);
+          }, function (errorResponse) {
+            vm.imgSrcUpload = imagemSilhueta;            
             console.log('Erro ao enviar foto para o bucket S3!');
             console.debug('Response status: ' + errorResponse.status);
           });
 
-        }, function(response) {
+        }, function (response) {
           $scope.data = response.data || 'Request failed';
           console.log('Response status: ' + response.status);
-      });
+        });
       }
 
     };

@@ -115,9 +115,9 @@ angular
         e.preventDefault();
         $state.go('form.saude');
       } else if ((toState.name === 'form.foto') && ($rootScope.passoSurfeConcluido === false)) {
-        console.log('Impedindo a mudança de página.');
-        console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
-        e.preventDefault();
+        // console.log('Impedindo a mudança de página.');
+        // console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
+        // e.preventDefault();
         $state.go('form.surfe');
       }
 
