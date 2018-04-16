@@ -109,7 +109,9 @@ angular.module('cadastroRepublicaApp')
         vm.imgSrcUpload = imagemLoading;
         //TODO implementar solução para a imagem que não aparece atualizada ao escolher uma segunda foto
         // usar nome de arquivo com um elemento de timestamp/UUID ?
-        signedS3RequestService.getSignedS3Request(file, vm.formData.id + ".jpg").then(function (response) {
+        var nomeArquivoS3 = vm.formData.id + '.jpg';
+
+        signedS3RequestService.getSignedS3Request(file, nomeArquivoS3).then(function (response) {
 
           var signedRequest = response.data.signedRequest;
           var urlFileS3 = response.data.url;
@@ -117,7 +119,8 @@ angular.module('cadastroRepublicaApp')
           signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function (response) {
             console.log('Foto do usuario enviada para o bucket S3!');
             console.debug('Response status: ' + response.status);
-            vm.imgSrcUpload = urlFileS3;
+            //adiciona um numero aleatorio ao final da url da imagem para evitar que o browser use a imagem do cache
+            vm.imgSrcUpload = urlFileS3 + '?' + Date.now();
             vm.formData.urlFoto = urlFileS3;
             console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
             vm.arquivoArmazenadoComSucesso = true;
@@ -137,12 +140,12 @@ angular.module('cadastroRepublicaApp')
 
     vm.processForm = function () {
 
-        if (vm.formData.fotoFacebook) {
-          vm.formData.urlFoto = vm.facebookPicture;
-          console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
-        }
-     
-        membrosFactory.save(vm.formData,
+      if (vm.formData.fotoFacebook) {
+        vm.formData.urlFoto = vm.facebookPicture;
+        console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
+      }
+
+      membrosFactory.save(vm.formData,
         function (response) {
           console.log(response);
           authenticationService.setIsRegistered(true);

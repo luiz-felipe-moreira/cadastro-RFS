@@ -82,7 +82,9 @@ angular
       })
       .state('confirmacao', {
         url: '/confirmacao',
-        templateUrl: 'views/confirmacao-cadastro.html'
+        templateUrl: 'views/confirmacao-cadastro.html',
+        controller: 'ConfirmacaoController',
+        controllerAs: 'confirmacaoController'
       });
 
     $urlRouterProvider.otherwise('/login');
