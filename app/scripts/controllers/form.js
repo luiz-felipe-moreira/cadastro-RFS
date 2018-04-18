@@ -91,6 +91,7 @@ angular.module('cadastroRepublicaApp')
     };
 
     $scope.fileNameChanged = function (fileInputElement) {
+      vm.arquivoArmazenadoComSucesso = false;
       var files = fileInputElement.files;
       var file = files[0];
       var fileSizeMB = ((file.size / 1024) / 1024).toFixed(4);
