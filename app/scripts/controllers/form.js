@@ -45,8 +45,9 @@ angular.module('cadastroRepublicaApp')
     }
     )
       .catch(function (response) {
-        console.log('Erro ao obter dados do usuário no Facebook');
-        console.log('Direcionando para a pagina de login...');
+        console.error('Erro ao obter dados do usuário no Facebook');
+        console.error(`Resposta do Facebook: ${response}`);
+        console.error('Direcionando para a pagina de login...');
         $state.go('login');
       });
 
@@ -95,16 +96,16 @@ angular.module('cadastroRepublicaApp')
       var files = fileInputElement.files;
       var file = files[0];
       var fileSizeMB = ((file.size / 1024) / 1024).toFixed(4);
-      var fileTypePermitido = (file.type == 'image/jpeg');
+      var fileTypePermitido = (file.type === 'image/jpeg');
 
-      if (file == null) {
+      if (file === null) {
         alert("Selecione o arquivo");
       }
       else if (fileSizeMB > 5) {
         alert("O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.");
       }
       else if (!fileTypePermitido) {
-        alert("O formato do arquivo deve ser JPEG! Selecione outra foto.")
+        alert("O formato do arquivo deve ser JPEG! Selecione outra foto.");
       } else {
 
         vm.imgSrcUpload = imagemLoading;

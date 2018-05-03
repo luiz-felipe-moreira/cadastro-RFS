@@ -12,7 +12,7 @@ angular.module('cadastroRepublicaApp')
 
     this.setIsRegistered = function(valor){
       this.isRegistered = valor;
-    }
+    };
 
     this.user = {
       email: '',
@@ -62,7 +62,7 @@ angular.module('cadastroRepublicaApp')
               function (response) {
                 console.log(response);
                 _self.isRegistered = true;
-                if ($state.current != 'lista-membros') {
+                if ($state.current !== 'lista-membros') {
                   $rootScope.mensagemErro = 'Você já está cadastrado no República Free Surf';
                   // $state.go('erro');
                   $state.go('membro', {id: _self.user.id});

@@ -8,5 +8,5 @@ angular.module('cadastroRepublicaApp')
 
         vm.linkClick = function () {
             $state.go('membro', { id: vm.userId });
-        }
+        };
     }]);

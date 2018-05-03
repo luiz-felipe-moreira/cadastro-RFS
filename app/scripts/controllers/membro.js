@@ -28,6 +28,6 @@ angular.module('cadastroRepublicaApp')
 
         vm.estaSelecionado = function (grupoDados) {
             return (vm.grupoDadosSelecionado === grupoDados);
-        }
+        };
 
     }]);
