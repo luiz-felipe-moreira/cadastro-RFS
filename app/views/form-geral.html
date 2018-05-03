@@ -102,7 +102,7 @@
 <div class="form-group row">
     <div class="col-sm-6 col-sm-offset-3">
         <a ui-sref="form.saude" class="btn btn-block btn-info" ng-disabled="
-    form.$invalid" ng-click="formController.marcarPassoGeralComoConcluido()">
+    form.$invalid" ng-click="form.$invalid || formController.marcarPassoGeralComoConcluido()">
     Próximo passo <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </a>
     </div>
