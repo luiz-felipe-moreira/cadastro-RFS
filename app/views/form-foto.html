@@ -27,7 +27,7 @@
 <div class="from-group" ng-hide="formController.formData.fotoFacebook">
   <div class="row">
     <label for="file-input" class="btn btn-primary" style="margin-left: 15px;">Selecionar foto...</label>
-    <span class="text-danger" ng-hide="formController.arquivoValido">{{formController.mensagemValidacaoArquivo}}</span>
+    <p class="text-danger" style="margin-left: 15px;" ng-hide="formController.arquivoValido">{{formController.mensagemValidacaoArquivo}}</span>
     <input type="file" id="file-input" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)" style="padding-left: 20px; opacity: 0;">
   </div>
   <div class="row">
