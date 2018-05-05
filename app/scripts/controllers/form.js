@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'authenticationService', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', function ($rootScope, authenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope) {
+  .controller('FormController', ['$rootScope', 'authenticationService', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', '$window', function ($rootScope, authenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope, $window) {
 
     var vm = this;
 
@@ -29,6 +29,8 @@ angular.module('cadastroRepublicaApp')
 
     vm.imgSrcUpload = imagemSilhueta;
     vm.arquivoArmazenadoComSucesso = false;
+    vm.mensagemValidacaoArquivo = '';
+    vm.arquivoValido = true;
 
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
@@ -92,6 +94,11 @@ angular.module('cadastroRepublicaApp')
     };
 
     $scope.fileNameChanged = function (fileInputElement) {
+      $scope.$apply(function () {
+        vm.mensagemValidacaoArquivo = '';
+        vm.arquivoValido = true;
+      });
+
       vm.arquivoArmazenadoComSucesso = false;
       var files = fileInputElement.files;
       var file = files[0];
@@ -99,18 +106,32 @@ angular.module('cadastroRepublicaApp')
       var fileTypePermitido = (file.type === 'image/jpeg');
 
       if (file === null) {
-        alert("Selecione o arquivo");
+        $window.alert("Selecione o arquivo");
+        $scope.$apply(function () {
+          vm.arquivoValido = false;
+          vm.mensagemValidacaoArquivo = 'Selecione o arquivo.';
+          vm.imgSrcUpload = imagemSilhueta;
+        });
       }
       else if (fileSizeMB > 5) {
-        alert("O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.");
+        $window.alert("O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.");
+        $scope.$apply(function () {
+          vm.arquivoValido = false;
+          vm.mensagemValidacaoArquivo = 'O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.';
+          vm.imgSrcUpload = imagemSilhueta;
+        });
       }
       else if (!fileTypePermitido) {
-        alert("O formato do arquivo deve ser JPEG! Selecione outra foto.");
+        $window.alert("O formato do arquivo deve ser JPEG! Selecione outra foto.");
+        $scope.$apply(function () {
+          vm.arquivoValido = false;
+          vm.mensagemValidacaoArquivo = 'O formato do arquivo deve ser JPEG! Selecione outra foto.';
+          vm.imgSrcUpload = imagemSilhueta;
+        });
       } else {
-
-        vm.imgSrcUpload = imagemLoading;
-        //TODO implementar solução para a imagem que não aparece atualizada ao escolher uma segunda foto
-        // usar nome de arquivo com um elemento de timestamp/UUID ?
+        $scope.$apply(function () {
+          vm.imgSrcUpload = imagemLoading;
+        });
         var nomeArquivoS3 = vm.formData.id + '.jpg';
 
         signedS3RequestService.getSignedS3Request(file, nomeArquivoS3).then(function (response) {
@@ -129,7 +150,9 @@ angular.module('cadastroRepublicaApp')
           }, function (errorResponse) {
             console.log('Erro ao enviar foto para o bucket S3!');
             console.debug('Response status: ' + errorResponse.status);
-            vm.imgSrcUpload = imagemSilhueta;
+            $scope.$apply(function () {
+              vm.imgSrcUpload = imagemSilhueta;
+            });
           });
 
         }, function (response) {

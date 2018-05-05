@@ -18,7 +18,7 @@ angular.module('cadastroRepublicaApp')
                 return $http.get(url, config);
             },
 
-            uploadFile: function (file, signedRequest, url) {
+            uploadFile: function (file, signedRequest) {
 
                 console.debug('Fazendo upload do arquivo para o S3...');
                 var config = {
