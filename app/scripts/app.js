@@ -93,6 +93,7 @@ angular
   .run(['$rootScope', '$window', '$document','authenticationService', '$state', function ($rootScope, $window, $document, authenticationService, $state) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+      /* jshint unused:vars */
 
 
       console.log('Detectando mudança de state');
