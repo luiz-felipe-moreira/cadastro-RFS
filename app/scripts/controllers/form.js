@@ -48,7 +48,7 @@ angular.module('cadastroRepublicaApp')
     )
       .catch(function (response) {
         console.error('Erro ao obter dados do usuário no Facebook');
-        console.error(`Resposta do Facebook: ${response}`);
+        console.error('Resposta do Facebook: ' + response);
         console.error('Direcionando para a pagina de login...');
         $state.go('login');
       });
@@ -106,7 +106,7 @@ angular.module('cadastroRepublicaApp')
       var fileTypePermitido = (file.type === 'image/jpeg');
 
       if (file === null) {
-        $window.alert("Selecione o arquivo");
+        $window.alert('Selecione o arquivo');
         $scope.$apply(function () {
           vm.arquivoValido = false;
           vm.mensagemValidacaoArquivo = 'Selecione o arquivo.';
@@ -114,7 +114,7 @@ angular.module('cadastroRepublicaApp')
         });
       }
       else if (fileSizeMB > 5) {
-        $window.alert("O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.");
+        $window.alert('O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.');
         $scope.$apply(function () {
           vm.arquivoValido = false;
           vm.mensagemValidacaoArquivo = 'O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.';
@@ -122,7 +122,7 @@ angular.module('cadastroRepublicaApp')
         });
       }
       else if (!fileTypePermitido) {
-        $window.alert("O formato do arquivo deve ser JPEG! Selecione outra foto.");
+        $window.alert('O formato do arquivo deve ser JPEG! Selecione outra foto.');
         $scope.$apply(function () {
           vm.arquivoValido = false;
           vm.mensagemValidacaoArquivo = 'O formato do arquivo deve ser JPEG! Selecione outra foto.';
