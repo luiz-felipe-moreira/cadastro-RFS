@@ -24,8 +24,8 @@ angular.module('cadastroRepublicaApp')
 
     vm.facebookPicture = {};
 
-    const imagemSilhueta = './images/avatar-default.png';
-    const imagemLoading = './images/loading.gif';
+    var imagemSilhueta = './images/avatar-default.png';
+    var imagemLoading = './images/loading.gif';
 
     vm.imgSrcUpload = imagemSilhueta;
     vm.arquivoArmazenadoComSucesso = false;
