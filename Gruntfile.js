@@ -32,7 +32,7 @@ module.exports = function (grunt) {
     ngconstant: {
       options: {
         name: 'config',
-        wrap: '"use strict";\n\n{%= __ngModule %}',
+        wrap: '\'use strict\';\n\n{%= __ngModule %}',
         space: '  '
       },
       development: {
