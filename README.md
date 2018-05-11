@@ -19,7 +19,8 @@ Na raiz do projeto, execute `npm install` e em seguida `bower install`
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Execute `grunt` para o building e `grunt serve` e para rodar (executar um servidor local e abrir o app no browser) apontando para o backand local.
+Para rodar local apontando para o ambiente de produção execte `grunt serve:dist`.
 
 ## Testing
 
