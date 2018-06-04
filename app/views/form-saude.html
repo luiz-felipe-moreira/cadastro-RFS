@@ -1,10 +1,9 @@
-<!-- form-saude.html -->
-
 <div id="form-header" class="page-header text-center">
   <div id="status-buttons" class="text-center">
     <a><span>1</span> Geral</a>
     <a class="active"><span>2</span> Saúde</a>
     <a><span>3</span> Surfe</a>
+    <a><span>4</span> Foto</a>
   </div>
 </div>
 
@@ -68,7 +67,7 @@
 
 <div class="form-group row ">
   <div class="col-sm-6 col-sm-offset-3 ">
-    <a ui-sref="form.surfe" class="btn btn-block btn-info" ng-disabled="form.$invalid" ng-click="formController.marcarPassoSaudeComoConcluido()">
+    <a ui-sref="form.surfe" class="btn btn-block btn-info" ng-disabled="form.$invalid" ng-click="form.$invalid || formController.marcarPassoSaudeComoConcluido()">
     Próximo Passo <span class=" glyphicon glyphicon-circle-arrow-right "></span>
     </a>
   </div>

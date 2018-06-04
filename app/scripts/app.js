@@ -33,16 +33,19 @@ angular
         templateUrl: 'views/form-geral.html'
       })
 
-      // url will be /form/saude
       .state('form.saude', {
         url: '/saude',
         templateUrl: 'views/form-saude.html'
       })
 
-      // url will be /form/surfe
       .state('form.surfe', {
         url: '/surfe',
         templateUrl: 'views/form-surfe.html'
+      })
+
+      .state('form.foto', {
+        url: '/foto',
+        templateUrl: 'views/form-foto.html'
       })
 
       .state('login', {
@@ -50,6 +53,21 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginController',
         controllerAs: 'loginController'
+      })
+
+      .state('lista-membros', {
+        url: '/lista-membros',
+        templateUrl: 'views/lista-membros.html',
+        controller: 'MembrosListController',
+        controllerAs: 'membrosListController'
+        
+      })
+
+      .state('membro', {
+        url: '/membro/:id',
+        templateUrl: 'views/membro.html',
+        controller: 'MembroController',
+        controllerAs: 'membroController'
       })
 
       .state('main', {
@@ -65,8 +83,8 @@ angular
       .state('confirmacao', {
         url: '/confirmacao',
         templateUrl: 'views/confirmacao-cadastro.html',
-        controller: 'FormController',
-        controllerAs: 'formController'
+        controller: 'ConfirmacaoController',
+        controllerAs: 'confirmacaoController'
       });
 
     $urlRouterProvider.otherwise('/login');
@@ -75,6 +93,7 @@ angular
   .run(['$rootScope', '$window', '$document','authenticationService', '$state', function ($rootScope, $window, $document, authenticationService, $state) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+      /* jshint unused:vars */
 
 
       console.log('Detectando mudança de state');
@@ -84,20 +103,33 @@ angular
         console.log('Valor de authenticationService.isLogged: ' + authenticationService.isLogged);
         e.preventDefault();
       }
-      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.saude')) && authenticationService.isRegistered) {
+      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.surfe') || (toState.name === 'form.foto')) && authenticationService.isRegistered) {
         console.log('Impedindo a mudança de página.');
         console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
-        e.preventDefault(); // stop current execution
+        e.preventDefault();
       } else if ((toState.name === 'form.saude') && ($rootScope.passoGeralConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoGeralConcluido: ' + $rootScope.passoGeralConcluido);
-        e.preventDefault(); // stop current execution
+        e.preventDefault();
         $state.go('form.geral');
       } else if ((toState.name === 'form.surfe') && ($rootScope.passoSaudeConcluido === false)) {
         console.log('Impedindo a mudança de página.');
         console.log('$rootScope.passoSaudeConcluido: ' + $rootScope.passoSaudeConcluido);
-        e.preventDefault(); // stop current execution
+        e.preventDefault();
         $state.go('form.saude');
+      } else if ((toState.name === 'form.foto') && ($rootScope.passoSurfeConcluido === false)) {
+        console.log('Impedindo a mudança de página.');
+        console.log('$rootScope.passoSurfeConcluido: ' + $rootScope.passoSurfeConcluido);
+        e.preventDefault();
+        $state.go('form.surfe');
+      }
+
+      if ((toState.name === 'lista-membros') && (!authenticationService.isRegistered)) {
+        console.log('Impedindo a mudança de página.');
+        console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
+        console.log('Direcionando para a página de login...');
+        e.preventDefault();
+        $state.go('login');
       }
 
 

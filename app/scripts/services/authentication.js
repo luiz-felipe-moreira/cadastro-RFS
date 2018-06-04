@@ -10,6 +10,10 @@ angular.module('cadastroRepublicaApp')
       return 'string teste do serviço de autenticação';
     };
 
+    this.setIsRegistered = function (valor) {
+      this.isRegistered = valor;
+    };
+
     this.user = {
       email: '',
       id: ''
@@ -55,18 +59,26 @@ angular.module('cadastroRepublicaApp')
               id: _self.user.id
             })
               .$promise.then(
-              function (response) {
-                console.log(response);
-                _self.isRegistered = true;
-                $rootScope.mensagemErro = 'Você já está cadastrado no República Free Surf';
-                // $state.go('cadastro_preexistente');//
-                $state.go('erro');
-              },
-              function (response) {
-                console.log('Error: ' + response.status + ' ' + response.statusText);
-                _self.isRegistered = false;
-                $state.go('form.geral');//
-              }
+                function (response) {
+                  console.log(response);
+                  _self.isRegistered = true;
+                  if ($state.current !== 'lista-membros') {
+                    $state.go('membro', { id: _self.user.id });
+                  }
+                },
+                function (response) {
+                  _self.isRegistered = false;
+                  if (response.status === 404) {
+                    console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...')
+                    $state.go('form.geral');
+                  }
+                  else {
+                    console.error('Erro ao acessar servidor do República Free Surf');
+                    console.error('Error: ' + response.status + ' ' + response.statusText);
+                    $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
+                    $state.go('erro');
+                  }
+                }
               );
           });
 

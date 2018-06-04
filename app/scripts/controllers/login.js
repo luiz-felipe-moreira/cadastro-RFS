@@ -2,13 +2,14 @@
 
 /**
  * @ngdoc function
- * @name cadastroRepublicaApp.controller:CadastroController
+ * @name cadastroRepublicaApp.controller:LoginController
  * @description
  * # MainCtrl
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('LoginController', ['$window', '$rootScope', '$state', 'facebookService', 'membrosFactory', function ($window, $rootScope, $state, facebookService, membrosFactory) {
+  .controller('LoginController', ['$window', function ($window) {
+    // .controller('LoginController', ['$window', '$rootScope', '$state', 'facebookService', 'membrosFactory', function ($window, $rootScope, $state, facebookService, membrosFactory) {
 
     var ctrl = this;
     this.user = {

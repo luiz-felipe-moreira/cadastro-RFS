@@ -7,7 +7,7 @@ factory('facebookService', function($q) {
             console.log('Obtendo email do usuario...');
             var deferred = $q.defer();
             FB.api('/me', {
-                fields: 'email, id, name, gender'
+                fields: 'email, id, name, gender, picture.width(400)'
             }, function(response) {
                 if (!response || response.error) {
                     deferred.reject('Error occured');

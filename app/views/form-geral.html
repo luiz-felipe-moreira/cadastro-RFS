@@ -1,11 +1,10 @@
-<!-- form-geral.html -->
-
 <div id="form-header" class="page-header text-center">
     <h2>Cadastre-se no República</h2>
     <div id="status-buttons" class="text-center">
         <a class="active"><span>1</span> Geral</a>
         <a><span>2</span> Saúde</a>
         <a><span>3</span> Surfe</a>
+        <a><span>4</span> Foto</a>
     </div>
 </div>
 
@@ -90,12 +89,12 @@
 </div>
 <div class="form-group">
     <label for="radioButtonsSexo">Sexo</label>
-    <div id="radioButtonsSexo" ng-init="formController.formData.sexo='M'">
+    <div id="radioButtonsSexo" ng-init="formController.formData.sexo='Masculino'">
         <label class="radio-inline">
-            <input type="radio" id="inlineRadio1" value="M" ng-model="formController.formData.sexo"> Masculino
+            <input type="radio" id="inlineRadio1" value="masculino" ng-model="formController.formData.sexo"> Masculino
           </label>
         <label class="radio-inline">
-            <input type="radio" id="inlineRadio2" value="F" ng-model="formController.formData.sexo"> Feminino
+            <input type="radio" id="inlineRadio2" value="feminino" ng-model="formController.formData.sexo"> Feminino
           </label>
     </div>
 </div>
@@ -103,7 +102,7 @@
 <div class="form-group row">
     <div class="col-sm-6 col-sm-offset-3">
         <a ui-sref="form.saude" class="btn btn-block btn-info" ng-disabled="
-    form.$invalid" ng-click="formController.marcarPassoGeralComoConcluido()">
+    form.$invalid" ng-click="form.$invalid || formController.marcarPassoGeralComoConcluido()">
     Próximo passo <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </a>
     </div>
