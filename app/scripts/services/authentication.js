@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .service('authenticationService', ['$rootScope', '$state', '$document', 'facebookService', 'membrosFactory', function ($rootScope, $state, $document, facebookService, membrosFactory) {
+  .service('authenticationService', ['$rootScope', '$state', '$document', 'facebookService', 'apiAuthenticationFactory', 'membrosFactory', function ($rootScope, $state, $document, facebookService, apiAuthenticationFactory, membrosFactory) {
 
     //TODO implementar onFBLoginCallBack()
 

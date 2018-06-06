@@ -2,8 +2,8 @@
 
 angular.module('config', [])
 
-.constant('ENV', 'production')
+.constant('ENV', 'development')
 
-.constant('API_URL', 'https://republica-free-surf.herokuapp.com/')
+.constant('API_URL', 'http://localhost:5000/')
 
 ;

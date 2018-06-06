@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name cadastroRepublicaApp.controller:HeaderController
  * @description
- * # MainCtrl
+ * # HeaderController
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
