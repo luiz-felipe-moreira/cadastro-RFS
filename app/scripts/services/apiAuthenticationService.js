@@ -60,8 +60,10 @@ angular.module('cadastroRepublicaApp')
   }
      
     authFac.login = function(loginData) {
+
+        console.log(loginData);
         
-        $resource(API_URL + "users/login")
+        /* $resource(API_URL + "users/login")
         .save(loginData,
            function(response) {
               storeUserCredentials({username:loginData.username, token: response.token});
@@ -70,7 +72,7 @@ angular.module('cadastroRepublicaApp')
            function(response){
               isAuthenticated = false;
             
-              /* var message = '\
+              var message = '\
                 <div class="ngdialog-message">\
                 <div><h3>Login Unsuccessful</h3></div>' +
                   '<div><p>' +  response.data.err.message + '</p><p>' +
@@ -79,10 +81,10 @@ angular.module('cadastroRepublicaApp')
                     <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button>\
                 </div>'
             
-                ngDialog.openConfirm({ template: message, plain: 'true'}); */
+                ngDialog.openConfirm({ template: message, plain: 'true'});
            }
         
-        );
+        ); */
 
     };
     

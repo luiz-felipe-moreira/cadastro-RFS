@@ -44,6 +44,10 @@ angular.module('cadastroRepublicaApp')
           For this purpose you can use the data inside the
           response.authResponse object.
           */
+
+         console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
+         _self.facebookUserToken = response.authResponse.accessToken;
+
           if ($state.current.name === 'login') {
             console.log('Escondendo o botão de login');
             document.getElementById('loginButton').style.display = 'none';
@@ -51,22 +55,25 @@ angular.module('cadastroRepublicaApp')
           console.log('Setando o valor de isLogged para true');
           _self.isLogged = true;
 
-          //TODO consultar o usuário no servidor para ver se ele está registrado
           facebookService.getUserData().then(function (response) {
+            console.debug('Resposta do facebook: ' + JSON.stringify(response));
             $rootScope.user.email = _self.user.email = response.email;
             $rootScope.user.id = _self.user.id = response.id;
             membrosFactory.get({
               id: _self.user.id
             })
               .$promise.then(
+                //se for um membro cadastrado
                 function (response) {
                   console.log(response);
                   _self.isRegistered = true;
+                  apiAuthenticationFactory.login(_self.facebookUserToken);
                   if ($state.current !== 'lista-membros') {
                     $state.go('membro', { id: _self.user.id });
                   }
                 },
                 function (response) {
+                  //se não for um membro cadastrado
                   _self.isRegistered = false;
                   if (response.status === 404) {
                     console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...')
