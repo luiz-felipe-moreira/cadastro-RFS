@@ -169,6 +169,7 @@ angular.module('cadastroRepublicaApp')
         vm.formData.urlFoto = vm.facebookPicture;
         console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
       }
+      vm.formData.registrado = true;
 
       membrosFactory.save(vm.formData,
         function (response) {
