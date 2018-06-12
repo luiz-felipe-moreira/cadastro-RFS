@@ -18,7 +18,7 @@ angular.module('cadastroRepublicaApp')
         getObject: function (key, defaultValue) {
             return JSON.parse($window.localStorage[key] || defaultValue);
         }
-    }
+    };
 }])
 
 .factory('apiAuthenticationFactory', ['$resource', '$http', 'localStorage', '$rootScope', '$window', 'API_URL', function($resource, $http, localStorage, $rootScope, $window, API_URL){
@@ -27,41 +27,52 @@ angular.module('cadastroRepublicaApp')
     var TOKEN_KEY = 'Token';
     var isAuthenticated = false;
     var username = '';
-    var authToken = undefined;
-    
+    // var authToken = undefined;
+    var authToken = {};
 
   function loadUserCredentials() {
     var credentials = localStorage.getObject(TOKEN_KEY,'{}');
-    if (credentials.username != undefined) {
+    if (credentials.username !== undefined) {
       useCredentials(credentials);
     }
   }
  
-  function storeUserCredentials(credentials) {
+  authFac.storeUserCredentials = function (credentials) {
+      console.log('Token armazenado no local storage: ' + JSON.stringify(credentials));
     localStorage.storeObject(TOKEN_KEY, credentials);
     useCredentials(credentials);
-  }
+  };
  
   function useCredentials(credentials) {
     isAuthenticated = true;
     username = credentials.username;
-    authToken = credentials.token;
+    authToken = credentials.apiToken;
  
     // Set the token as header for your requests!
-    $http.defaults.headers.common['x-access-token'] = authToken;
+    $http.defaults.headers.common['x-auth-token'] = authToken;
   }
  
   function destroyUserCredentials() {
     authToken = undefined;
     username = '';
     isAuthenticated = false;
-    $http.defaults.headers.common['x-access-token'] = authToken;
+    $http.defaults.headers.common['x-auth-token'] = authToken;
     localStorage.remove(TOKEN_KEY);
   }
      
-    authFac.login = function(loginData) {
+    authFac.login = function(facebookToken) {
 
-        console.log(loginData);
+        console.log(facebookToken);
+
+        var urlLogin = API_URL + 'login';
+        var requestConfig = {
+            headers: {
+                'access_token': facebookToken
+            },
+            responseType: 'json'
+        };
+        return $http.post(urlLogin, {}, requestConfig);
+        
         
         /* $resource(API_URL + "users/login")
         .save(loginData,
@@ -92,7 +103,7 @@ angular.module('cadastroRepublicaApp')
         destroyUserCredentials();
     };
     
-    authFac.register = function(registerData) {
+    /* authFac.register = function(registerData) {
         
         $resource(API_URL + "users/register")
         .save(registerData,
@@ -107,18 +118,18 @@ angular.module('cadastroRepublicaApp')
            },
            function(response){
             
-              /* var message = '\
+              var message = '\
                 <div class="ngdialog-message">\
                 <div><h3>Registration Unsuccessful</h3></div>' +
                   '<div><p>' +  response.data.err.message + 
                   '</p><p>' + response.data.err.name + '</p></div>';
 
-                ngDialog.openConfirm({ template: message, plain: 'true'}); */
+                ngDialog.openConfirm({ template: message, plain: 'true'});
 
            }
         
         );
-    };
+    }; */
     
     authFac.isAuthenticated = function() {
         return isAuthenticated;

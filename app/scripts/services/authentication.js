@@ -45,9 +45,52 @@ angular.module('cadastroRepublicaApp')
           response.authResponse object.
           */
 
-         console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
-         _self.facebookUserToken = response.authResponse.accessToken;
+          console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
+          _self.facebookUserToken = response.authResponse.accessToken;
+          $rootScope.user.id = _self.user.id = response.authResponse.userID;
 
+          apiAuthenticationFactory.login(_self.facebookUserToken).then(function (response) {
+            var resposta = response.data;
+            console.log('Sucesso no login. Armazenando token no local storage...');
+            console.debug('Reposta do login: ' + JSON.stringify(response));
+            apiAuthenticationFactory.storeUserCredentials({ facebookId: resposta.id, apiToken: resposta.token });
+            if (resposta.registrado) {
+              membrosFactory.get({
+                id: _self.user.id
+              })
+                .$promise.then(
+                  //se for um membro cadastrado
+                  function (response) {
+                    console.log(response);
+                    _self.isRegistered = true;
+                    //apiAuthenticationFactory.login(_self.facebookUserToken);
+                    if ($state.current !== 'lista-membros') {
+                      $state.go('membro', { id: _self.user.id });
+                    }
+                  });
+            } else {
+              _self.isRegistered = false;
+              console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+              $state.go('form.geral');
+            }
+          },
+            function (response) {
+              console.error('O login falhou');
+              console.error('Error: ' + response.status + ' ' + response.statusText);
+              if (response.status === 401) {
+                console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+                $state.go('form.geral');
+              } else {
+                console.error('Erro ao acessar servidor do República Free Surf');
+                $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
+                $state.go('erro');
+              }
+
+            });
+
+          /****/
+
+          /*
           if ($state.current.name === 'login') {
             console.log('Escondendo o botão de login');
             document.getElementById('loginButton').style.display = 'none';
@@ -55,7 +98,7 @@ angular.module('cadastroRepublicaApp')
           console.log('Setando o valor de isLogged para true');
           _self.isLogged = true;
 
-          facebookService.getUserData().then(function (response) {
+           facebookService.getUserData().then(function (response) {
             console.debug('Resposta do facebook: ' + JSON.stringify(response));
             $rootScope.user.email = _self.user.email = response.email;
             $rootScope.user.id = _self.user.id = response.id;
@@ -67,7 +110,7 @@ angular.module('cadastroRepublicaApp')
                 function (response) {
                   console.log(response);
                   _self.isRegistered = true;
-                  apiAuthenticationFactory.login(_self.facebookUserToken);
+                  //apiAuthenticationFactory.login(_self.facebookUserToken);
                   if ($state.current !== 'lista-membros') {
                     $state.go('membro', { id: _self.user.id });
                   }
@@ -76,7 +119,7 @@ angular.module('cadastroRepublicaApp')
                   //se não for um membro cadastrado
                   _self.isRegistered = false;
                   if (response.status === 404) {
-                    console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...')
+                    console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
                     $state.go('form.geral');
                   }
                   else {
@@ -87,7 +130,7 @@ angular.module('cadastroRepublicaApp')
                   }
                 }
               );
-          });
+          }); */
 
         }
         else {

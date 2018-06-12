@@ -171,7 +171,26 @@ angular.module('cadastroRepublicaApp')
       }
       vm.formData.registrado = true;
 
-      membrosFactory.save(vm.formData,
+      membrosFactory.update({
+        //TODO pegar id do apiAuthenticationFactory ao inves do rootScope
+        id: $rootScope.user.id
+      },vm.formData)
+        .$promise.then(
+          function (response) {
+            console.log(response);
+            authenticationService.setIsRegistered(true);
+            $state.go('confirmacao');
+          },
+          function (response) {
+            console.log('Erro ao realizar cadastro :\(');
+            console.log('Error: ' + response.status + ' ' + response.statusText);
+            $rootScope.mensagemErro = 'Erro ao realizar cadastro :\(' + '\nTente novamente mais tarde.';
+            $state.go('erro');
+          }
+        );
+
+
+      /* membrosFactory.save(vm.formData,
         function (response) {
           console.log(response);
           authenticationService.setIsRegistered(true);
@@ -183,7 +202,7 @@ angular.module('cadastroRepublicaApp')
           $rootScope.mensagemErro = 'Erro ao realizar cadastro :\(' + '\nTente novamente mais tarde.';
           $state.go('erro');
         }
-      );
+      ); */
     };
 
     //inicializa os campos referentes à data de nascimento com o dia atual
