@@ -1,0 +1,19 @@
+'use strict';
+
+angular.module('cadastroRepublicaApp')
+.service('authInterceptor', ['$q', '$injector', function ($q, $injector) {
+    var service = this;
+    service.responseError = function (response) {
+      if (response.status === 401) {
+        console.log('Interceptor tratando o erro 401...');
+        
+        FB.logout(function(response) {
+          // user is now logged out
+          console.log('Interceptor fez o logout do facebook.');
+        });
+
+        $injector.get('$state').go('login');
+      }
+      return $q.reject(response);
+    };
+  }]);

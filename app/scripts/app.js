@@ -16,7 +16,10 @@ angular
     'angular-loading-bar',
     'config'
   ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
+
+    //registra interceptor do arquivo authenticationInterceptors.js para respostas HTTP com erro 401 Unauthorized
+    $httpProvider.interceptors.push('authInterceptor');
 
     $stateProvider
       // route to show our basic form (/form)
@@ -60,7 +63,7 @@ angular
         templateUrl: 'views/lista-membros.html',
         controller: 'MembrosListController',
         controllerAs: 'membrosListController'
-        
+
       })
 
       .state('membro', {
@@ -90,7 +93,7 @@ angular
     $urlRouterProvider.otherwise('/login');
 
   })
-  .run(['$rootScope', '$window', '$document','authenticationService', '$state', function ($rootScope, $window, $document, authenticationService, $state) {
+  .run(['$rootScope', '$window', '$document', 'authenticationService', '$state', function ($rootScope, $window, $document, authenticationService, $state) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       /* jshint unused:vars */
