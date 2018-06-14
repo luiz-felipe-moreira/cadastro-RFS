@@ -26,13 +26,16 @@ angular.module('cadastroRepublicaApp')
     var authFac = {};
     var TOKEN_KEY = 'Token';
     var isAuthenticated = false;
-    var username = '';
+    var facebookId = '';
+    var registrado = '';
+    var aprovado = '';
+    var admin = '';
     // var authToken = undefined;
     var authToken = {};
 
   function loadUserCredentials() {
     var credentials = localStorage.getObject(TOKEN_KEY,'{}');
-    if (credentials.username !== undefined) {
+    if (credentials.facebookId !== undefined) {
       useCredentials(credentials);
     }
   }
@@ -45,8 +48,11 @@ angular.module('cadastroRepublicaApp')
  
   function useCredentials(credentials) {
     isAuthenticated = true;
-    username = credentials.username;
+    facebookId = credentials.facebookId;
     authToken = credentials.apiToken;
+    registrado = credentials.registrado;
+    aprovado = credentials.aprovado;
+    admin = credentials.admin;
  
     // Set the token as header for your requests!
     $http.defaults.headers.common['x-auth-token'] = authToken;
@@ -54,7 +60,7 @@ angular.module('cadastroRepublicaApp')
  
   function destroyUserCredentials() {
     authToken = undefined;
-    username = '';
+    facebookId = '';
     isAuthenticated = false;
     $http.defaults.headers.common['x-auth-token'] = authToken;
     localStorage.remove(TOKEN_KEY);
@@ -77,7 +83,7 @@ angular.module('cadastroRepublicaApp')
         /* $resource(API_URL + "users/login")
         .save(loginData,
            function(response) {
-              storeUserCredentials({username:loginData.username, token: response.token});
+              storeUserCredentials({facebookId:loginData.facebookId, token: response.token});
               $rootScope.$broadcast('login:Successful');
            },
            function(response){
@@ -108,10 +114,10 @@ angular.module('cadastroRepublicaApp')
         $resource(API_URL + "users/register")
         .save(registerData,
            function(response) {
-              authFac.login({username:registerData.username, password:registerData.password});
+              authFac.login({facebookId:registerData.facebookId, password:registerData.password});
             if (registerData.rememberMe) {
                 localStorage.storeObject('userinfo',
-                    {username:registerData.username, password:registerData.password});
+                    {facebookId:registerData.facebookId, password:registerData.password});
             }
            
               $rootScope.$broadcast('registration:Successful');
@@ -135,8 +141,20 @@ angular.module('cadastroRepublicaApp')
         return isAuthenticated;
     };
     
-    authFac.getUsername = function() {
-        return username;  
+    authFac.getfacebookId = function() {
+        return facebookId;  
+    };
+
+    authFac.isRegistrado = function() {
+        return registrado;
+    };
+
+    authFac.isAprovado = function() {
+        return aprovado;
+    };
+
+    authFac.isAdmin = function() {
+        return admin;
     };
 
     loadUserCredentials();

@@ -93,7 +93,7 @@ angular
     $urlRouterProvider.otherwise('/login');
 
   })
-  .run(['$rootScope', '$window', '$document', 'authenticationService', '$state', function ($rootScope, $window, $document, authenticationService, $state) {
+  .run(['$rootScope', '$window', '$document', 'authenticationService', 'apiAuthenticationFactory', '$state', function ($rootScope, $window, $document, authenticationService, apiAuthenticationFactory, $state) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       /* jshint unused:vars */
@@ -162,10 +162,13 @@ angular
 
       FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
-          //we are connected
           console.debug("CONNECTED TO FACEBOOK");
           authenticationService.isLogged = true;
-          $state.go('form.geral');
+          if (!apiAuthenticationFactory.isRegistrado){
+            $state.go('form.geral');
+          } else {
+            $state.go('membro', { id: apiAuthenticationFactory.getfacebookId() });
+          }
         } else if (response.status === 'not_authorized') {
           console.debug("NOT AUTHORIZED BY FACEBOOK");
           $state.go('login');

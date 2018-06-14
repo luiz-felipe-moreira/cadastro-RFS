@@ -35,7 +35,15 @@ angular.module('cadastroRepublicaApp')
             var respostaApiLogin = response.data;
             console.log('Sucesso no login. Armazenando token no local storage...');
             console.debug('Reposta do login: ' + JSON.stringify(response));
-            apiAuthenticationFactory.storeUserCredentials({ facebookId: respostaApiLogin.id, apiToken: respostaApiLogin.token });
+            apiAuthenticationFactory.storeUserCredentials(
+              {
+                facebookId: respostaApiLogin.id,
+                registrado: respostaApiLogin.registrado,
+                aprovado: respostaApiLogin.aprovado,
+                admin: respostaApiLogin.admin,
+                apiToken: respostaApiLogin.token
+              }
+            );
 
             if (respostaApiLogin.registrado) {
               membrosFactory.get({ id: vm.user.id }).$promise.then(
