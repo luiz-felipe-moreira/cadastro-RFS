@@ -3,28 +3,79 @@
 angular.module('cadastroRepublicaApp')
   .service('authenticationService', ['$rootScope', '$state', '$document', 'facebookService', 'apiAuthenticationFactory', 'membrosFactory', function ($rootScope, $state, $document, facebookService, apiAuthenticationFactory, membrosFactory) {
 
-    //TODO implementar onFBLoginCallBack()
+    var vm = this;
 
-    //TODO remover esta função
-    this.obterStringTeste = function () {
-      return 'string teste do serviço de autenticação';
-    };
-
-    this.setIsRegistered = function (valor) {
-      this.isRegistered = valor;
-    };
-
-    this.user = {
+    vm.user = {
       email: '',
       id: ''
     };
 
-    this.isLogged = false;
-    this.isRegistered = false;
+    vm.isLogged = false;
+    vm.isRegistered = false;
 
-    this.watchAuthenticationStatusChange = function () {
+    vm.setIsRegistered = function (valor) {
+      vm.isRegistered = valor;
+    };
 
-      var _self = this;
+    vm.login = function () {
+
+      console.debug('Logging into no facebook...');
+
+      FB.login(function (response) {
+        if (response.status === 'connected') {
+          vm.isLogged = true;
+          console.debug('Logged into Facebook.');
+          console.debug('Logging into the backend API...');
+          console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
+          vm.facebookUserToken = response.authResponse.accessToken;
+          $rootScope.user.id = vm.user.id = response.authResponse.userID;
+
+          apiAuthenticationFactory.login(vm.facebookUserToken).then(function (response) {
+
+            var respostaApiLogin = response.data;
+            console.log('Sucesso no login. Armazenando token no local storage...');
+            console.debug('Reposta do login: ' + JSON.stringify(response));
+            apiAuthenticationFactory.storeUserCredentials({ facebookId: respostaApiLogin.id, apiToken: respostaApiLogin.token });
+
+            if (respostaApiLogin.registrado) {
+              membrosFactory.get({ id: vm.user.id }).$promise.then(
+                //se for um membro registrado (isto é, com cadastro completo)
+                function (response) {
+                  console.log(response);
+                  vm.isRegistered = true;
+                  if ($state.current !== 'lista-membros') {
+                    $state.go('membro', { id: vm.user.id });
+                  }
+                });
+            } else {
+              vm.isRegistered = false;
+              console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+              $state.go('form.geral');
+            }
+          },
+            function (response) {
+              console.error('O login falhou');
+              console.error('Error: ' + response.status + ' ' + response.statusText);
+              if (response.status === 401) {
+                console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+                $state.go('form.geral');
+              } else {
+                console.error('Erro ao acessar servidor do República Free Surf');
+                $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
+                $state.go('erro');
+              }
+
+            });
+
+        } else {
+          // The person is not logged into vm app or we are unable to tell. 
+        }
+      }, { scope: 'public_profile,email' });
+    };
+
+    vm.watchAuthenticationStatusChange = function () {
+
+      var _self = vm;
 
       FB.Event.subscribe('auth.statusChange', function (response) {
 
@@ -39,9 +90,9 @@ angular.module('cadastroRepublicaApp')
           // _self.getUserInfo();
 
           /*
-          This is also the point where you should create a
+          vm is also the point where you should create a
           session for the current user.
-          For this purpose you can use the data inside the
+          For vm purpose you can use the data inside the
           response.authResponse object.
           */
 
@@ -152,9 +203,9 @@ angular.module('cadastroRepublicaApp')
       });
     };
 
-    /*  this.getUserInfo = function(){
+    /*  vm.getUserInfo = function(){
 
-         var _self = this;
+         var _self = vm;
 
          FB.api('/me', 'GET', {fields: 'email, first_name, name, id'}, function(response){
            $rootScope.$apply(function() {
@@ -173,9 +224,9 @@ angular.module('cadastroRepublicaApp')
 
      };
 
-     this.logout = function() {
+     vm.logout = function() {
 
-       var _self = this;
+       var _self = vm;
 
        FB.logout(function(response) {
          $rootScope.$apply(function() {

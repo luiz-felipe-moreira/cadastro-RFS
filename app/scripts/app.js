@@ -99,7 +99,7 @@ angular
       /* jshint unused:vars */
 
 
-      console.log('Detectando mudança de state');
+      /* console.log('Detectando mudança de state');
 
       if ((toState.name === 'login') && (authenticationService.isLogged)) {
         console.log('Impedindo a mudança de página.');
@@ -133,7 +133,7 @@ angular
         console.log('Direcionando para a página de login...');
         e.preventDefault();
         $state.go('login');
-      }
+      } */
 
 
     });
@@ -159,25 +159,25 @@ angular
         version: 'v2.8' // use graph api version 2.8
       });
 
-      /*
-            FB.getLoginStatus(function(response) {
-              if (response.status === 'connected') {
-                //we are connected
-                console.debug("CONNECTED TO FACEBOOK");
-                authenticationService.isLogged = true;
-                $state.go('form.geral');
-              } else if (response.status === 'not_authorized') {
-                console.debug("NOT AUTHORIZED BY FACEBOOK");
-                $state.go('login');
-              } else {
-                // we are not logged in facebook
-                console.debug("NOT LOGGED IN TO FACEBOOK");
-                $state.go('login');
-              }
-            });
-            */
 
-      authenticationService.watchAuthenticationStatusChange();
+      FB.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
+          //we are connected
+          console.debug("CONNECTED TO FACEBOOK");
+          authenticationService.isLogged = true;
+          $state.go('form.geral');
+        } else if (response.status === 'not_authorized') {
+          console.debug("NOT AUTHORIZED BY FACEBOOK");
+          $state.go('login');
+        } else {
+          // we are not logged in facebook
+          console.debug("NOT LOGGED IN TO FACEBOOK");
+          $state.go('login');
+        }
+      });
+
+      // comentando em 13/06/2018 para tentar uma nova estratégia de login
+      // authenticationService.watchAuthenticationStatusChange();
 
     };
 
