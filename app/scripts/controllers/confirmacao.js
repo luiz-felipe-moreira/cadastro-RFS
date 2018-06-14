@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-    .controller('ConfirmacaoController', ['authenticationService', '$state', function (authenticationService, $state) {
+    .controller('ConfirmacaoController', ['facebookAuthenticationService', '$state', function (facebookAuthenticationService, $state) {
 
         var vm = this;
-        vm.userId = authenticationService.user.id;
+        vm.userId = facebookAuthenticationService.user.id;
 
         vm.linkClick = function () {
             $state.go('membro', { id: vm.userId });

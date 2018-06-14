@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('LoginController', ['authenticationService', 'apiAuthenticationFactory', 'membrosFactory', '$state', '$rootScope', function (authenticationService, apiAuthenticationFactory, membrosFactory, $state, $rootScope) {
+  .controller('LoginController', ['facebookAuthenticationService', 'apiAuthenticationFactory', 'membrosFactory', '$state', '$rootScope', function (facebookAuthenticationService, apiAuthenticationFactory, membrosFactory, $state, $rootScope) {
     // .controller('LoginController', ['$window', '$rootScope', '$state', 'facebookService', 'membrosFactory', function ($window, $rootScope, $state, facebookService, membrosFactory) {
 
     var vm = this;
@@ -22,7 +22,7 @@ angular.module('cadastroRepublicaApp')
 
     vm.login = function () {
 
-      authenticationService.login();
+      facebookAuthenticationService.login();
 
      /*  FB.login(function (response) {
         if (response.status === 'connected') {

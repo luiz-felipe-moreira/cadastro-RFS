@@ -93,7 +93,7 @@ angular
     $urlRouterProvider.otherwise('/login');
 
   })
-  .run(['$rootScope', '$window', '$document', 'authenticationService', 'apiAuthenticationFactory', '$state', function ($rootScope, $window, $document, authenticationService, apiAuthenticationFactory, $state) {
+  .run(['$rootScope', '$window', '$document', 'facebookAuthenticationService', 'apiAuthenticationFactory', '$state', function ($rootScope, $window, $document, facebookAuthenticationService, apiAuthenticationFactory, $state) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       /* jshint unused:vars */
@@ -101,14 +101,14 @@ angular
 
       /* console.log('Detectando mudança de state');
 
-      if ((toState.name === 'login') && (authenticationService.isLogged)) {
+      if ((toState.name === 'login') && (facebookAuthenticationService.isLogged)) {
         console.log('Impedindo a mudança de página.');
-        console.log('Valor de authenticationService.isLogged: ' + authenticationService.isLogged);
+        console.log('Valor de facebookAuthenticationService.isLogged: ' + facebookAuthenticationService.isLogged);
         e.preventDefault();
       }
-      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.surfe') || (toState.name === 'form.foto')) && authenticationService.isRegistered) {
+      if (((toState.name === 'form.geral') || (toState.name === 'form.saude') || (toState.name === 'form.surfe') || (toState.name === 'form.foto')) && facebookAuthenticationService.isRegistered) {
         console.log('Impedindo a mudança de página.');
-        console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
+        console.log('facebookAuthenticationService.isRegistered: ' + facebookAuthenticationService.isRegistered);
         e.preventDefault();
       } else if ((toState.name === 'form.saude') && ($rootScope.passoGeralConcluido === false)) {
         console.log('Impedindo a mudança de página.');
@@ -127,9 +127,9 @@ angular
         $state.go('form.surfe');
       }
 
-      if ((toState.name === 'lista-membros') && (!authenticationService.isRegistered)) {
+      if ((toState.name === 'lista-membros') && (!facebookAuthenticationService.isRegistered)) {
         console.log('Impedindo a mudança de página.');
-        console.log('authenticationService.isRegistered: ' + authenticationService.isRegistered);
+        console.log('facebookAuthenticationService.isRegistered: ' + facebookAuthenticationService.isRegistered);
         console.log('Direcionando para a página de login...');
         e.preventDefault();
         $state.go('login');
@@ -163,7 +163,7 @@ angular
       FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
           console.debug("CONNECTED TO FACEBOOK");
-          authenticationService.isLogged = true;
+          facebookAuthenticationService.isLogged = true;
           if (!apiAuthenticationFactory.isRegistrado){
             $state.go('form.geral');
           } else {
@@ -180,7 +180,7 @@ angular
       });
 
       // comentando em 13/06/2018 para tentar uma nova estratégia de login
-      // authenticationService.watchAuthenticationStatusChange();
+      // facebookAuthenticationService.watchAuthenticationStatusChange();
 
     };
 

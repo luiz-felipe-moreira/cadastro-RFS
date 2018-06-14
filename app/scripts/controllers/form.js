@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'authenticationService', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', '$window', function ($rootScope, authenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope, $window) {
+  .controller('FormController', ['$rootScope', 'facebookAuthenticationService', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', '$window', function ($rootScope, facebookAuthenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope, $window) {
 
     var vm = this;
 
@@ -178,7 +178,7 @@ angular.module('cadastroRepublicaApp')
         .$promise.then(
           function (response) {
             console.log(response);
-            authenticationService.setIsRegistered(true);
+            facebookAuthenticationService.setIsRegistered(true);
             $state.go('confirmacao');
           },
           function (response) {
@@ -193,7 +193,7 @@ angular.module('cadastroRepublicaApp')
       /* membrosFactory.save(vm.formData,
         function (response) {
           console.log(response);
-          authenticationService.setIsRegistered(true);
+          facebookAuthenticationService.setIsRegistered(true);
           $state.go('confirmacao');
         },
         function (response) {
