@@ -96,6 +96,8 @@ angular
   })
   .run(['$rootScope', '$window', '$document', 'facebookAuthenticationService', 'apiAuthenticationFactory', '$state', 'authService', function ($rootScope, $window, $document, facebookAuthenticationService, apiAuthenticationFactory, $state, authService) {
 
+    console.debug('executando o codigo em .run');
+
     $rootScope.$on('event:auth-forbidden', function () {
       console.error('angular-http-auth captured response code 403');
       console.error('The frontend tried to access a forbidden endpoint!');
@@ -110,9 +112,9 @@ angular
         $state.go('login');
         return;
       }
-      
+
       console.log('Tentativa de renovação de token da API usando facebookToken=' + $rootScope.facebookUserToken);
-      
+
       //renew token, using the login endpoint
       apiAuthenticationFactory.login($rootScope.facebookUserToken).then(function (response) {
         //TODO refatorar substituindo o bloco pela linha abaixo
@@ -130,7 +132,7 @@ angular
             apiToken: respostaApiLogin.token
           }
         );
-        
+
         authService.loginConfirmed('success', function (config) {
           config.headers['x-auth-token'] = respostaApiLogin.token;
           return config;
@@ -205,22 +207,18 @@ angular
 
       FB.init({
         appId: '386727121713923',
-        status: true, // check authentication status at the startup of the app
+        status: false, // check authentication status at the startup of the app
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse social plugins on this page
         version: 'v2.8' // use graph api version 2.8
       });
 
+      //Se for usar o FB.Event.subscribe de 'auth.statusChange', setar status para false
+      // Se for usar FB.getLoginStatus diretamente, setar status para true
 
       FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
-          console.debug("CONNECTED TO FACEBOOK");
-          facebookAuthenticationService.isLogged = true;
-          if (!apiAuthenticationFactory.isRegistrado) {
-            $state.go('form.geral');
-          } else {
-            $state.go('membro', { id: apiAuthenticationFactory.getfacebookId() });
-          }
+          facebookAuthenticationService.processFacebookConnection(response);
         } else if (response.status === 'not_authorized') {
           console.debug("NOT AUTHORIZED BY FACEBOOK");
           $state.go('login');

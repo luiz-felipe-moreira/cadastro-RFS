@@ -23,58 +23,62 @@ angular.module('cadastroRepublicaApp')
 
       FB.login(function (response) {
         if (response.status === 'connected') {
-          vm.isLogged = true;
-          console.debug('Logged into Facebook.');
-          console.debug('Logging into the backend API...');
-          console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
-          $rootScope.facebookUserToken = vm.facebookUserToken = response.authResponse.accessToken;
-          $rootScope.user.id = vm.user.id = response.authResponse.userID;
-
-          apiAuthenticationFactory.login(vm.facebookUserToken).then(function (response) {
-
-            var respostaApiLogin = response.data;
-            console.log('Sucesso no login. Armazenando token no local storage...');
-            console.debug('Reposta do login: ' + JSON.stringify(response));
-            apiAuthenticationFactory.storeUserCredentials(
-              {
-                facebookId: respostaApiLogin.id,
-                registrado: respostaApiLogin.registrado,
-                aprovado: respostaApiLogin.aprovado,
-                admin: respostaApiLogin.admin,
-                apiToken: respostaApiLogin.token
-              }
-            );
-
-            if (respostaApiLogin.registrado) {
-              membrosFactory.get({ id: vm.user.id }).$promise.then(
-                //se for um membro registrado (isto é, com cadastro completo)
-                function (response) {
-                  console.log(response);
-                  vm.isRegistered = true;
-                  if ($state.current !== 'lista-membros') {
-                    $state.go('membro', { id: vm.user.id });
-                  }
-                });
-            } else {
-              vm.isRegistered = false;
-              console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
-              $state.go('form.geral');
-            }
-          },
-            function (response) {
-              console.error('O login na API falhou');
-              console.error('Error Status: ' + response.status + ' ' + response.statusText);
-              console.error('Error Payload: ' + JSON.stringify(response.data));
-              console.error('Erro ao acessar servidor do República Free Surf');
-              $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
-              $state.go('erro');
-
-            });
-
+          vm.processFacebookConnection();
         } else {
           // The person is not logged into vm app or we are unable to tell. 
         }
       }, { scope: 'public_profile,email' });
+    };
+
+    vm.processFacebookConnection = function(response){
+      vm.isLogged = true;
+      console.debug('Logged into Facebook.');
+      console.debug('Logging into the backend API...');
+      console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
+      $rootScope.facebookUserToken = vm.facebookUserToken = response.authResponse.accessToken;
+      $rootScope.user.id = vm.user.id = response.authResponse.userID;
+
+      apiAuthenticationFactory.login(vm.facebookUserToken).then(function (response) {
+
+        var respostaApiLogin = response.data;
+        console.log('Sucesso no login. Armazenando token no local storage...');
+        console.debug('Reposta do login: ' + JSON.stringify(response));
+        apiAuthenticationFactory.storeUserCredentials(
+          {
+            facebookId: respostaApiLogin.id,
+            registrado: respostaApiLogin.registrado,
+            aprovado: respostaApiLogin.aprovado,
+            admin: respostaApiLogin.admin,
+            apiToken: respostaApiLogin.token
+          }
+        );
+
+        if (respostaApiLogin.registrado) {
+          membrosFactory.get({ id: vm.user.id }).$promise.then(
+            //se for um membro registrado (isto é, com cadastro completo)
+            function (response) {
+              console.log(response);
+              vm.isRegistered = true;
+              if ($state.current !== 'lista-membros') {
+                $state.go('membro', { id: vm.user.id });
+              }
+            });
+        } else {
+          vm.isRegistered = false;
+          console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+          $state.go('form.geral');
+        }
+      },
+        function (response) {
+          console.error('O login na API falhou');
+          console.error('Error Status: ' + response.status + ' ' + response.statusText);
+          console.error('Error Payload: ' + JSON.stringify(response.data));
+          console.error('Erro ao acessar servidor do República Free Surf');
+          $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
+          $state.go('erro');
+
+        });
+
     };
 
     vm.watchAuthenticationStatusChange = function () {
