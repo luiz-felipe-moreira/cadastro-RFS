@@ -28,6 +28,7 @@ module.exports = function(config) {
       'bower_components/angular-ui-mask/dist/mask.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
+      'bower_components/angular-http-auth/src/http-auth-interceptor.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

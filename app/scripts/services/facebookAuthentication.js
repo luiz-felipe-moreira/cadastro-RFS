@@ -27,7 +27,7 @@ angular.module('cadastroRepublicaApp')
           console.debug('Logged into Facebook.');
           console.debug('Logging into the backend API...');
           console.debug('Objeto authResponse do facebook: ' + JSON.stringify(response.authResponse));
-          vm.facebookUserToken = response.authResponse.accessToken;
+          $rootScope.facebookUserToken = vm.facebookUserToken = response.authResponse.accessToken;
           $rootScope.user.id = vm.user.id = response.authResponse.userID;
 
           apiAuthenticationFactory.login(vm.facebookUserToken).then(function (response) {
@@ -62,16 +62,12 @@ angular.module('cadastroRepublicaApp')
             }
           },
             function (response) {
-              console.error('O login falhou');
-              console.error('Error: ' + response.status + ' ' + response.statusText);
-              if (response.status === 401) {
-                console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
-                $state.go('form.geral');
-              } else {
-                console.error('Erro ao acessar servidor do República Free Surf');
-                $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
-                $state.go('erro');
-              }
+              console.error('O login na API falhou');
+              console.error('Error Status: ' + response.status + ' ' + response.statusText);
+              console.error('Error Payload: ' + JSON.stringify(response.data));
+              console.error('Erro ao acessar servidor do República Free Surf');
+              $rootScope.mensagemErro = 'Erro ao acessar servidor do República Free Surf :\(' + '\nTente novamente mais tarde.';
+              $state.go('erro');
 
             });
 
@@ -111,8 +107,9 @@ angular.module('cadastroRepublicaApp')
           apiAuthenticationFactory.login(_self.facebookUserToken).then(function (response) {
             var resposta = response.data;
             console.log('Sucesso no login. Armazenando token no local storage...');
-            console.debug('Reposta do login: ' + JSON.stringify(response));
-            apiAuthenticationFactory.storeUserCredentials({ facebookId: resposta.id, apiToken: resposta.token });
+            console.debug('Reposta do login: ' + JSON.stringify(response));o
+            //o parametro passado para storeUserCredentiasl abaixo está errado
+           // apiAuthenticationFactory.storeUserCredentials({ facebookId: resposta.id, apiToken: resposta.token });
             if (resposta.registrado) {
               membrosFactory.get({
                 id: _self.user.id

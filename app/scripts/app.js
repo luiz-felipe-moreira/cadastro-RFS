@@ -14,12 +14,13 @@ angular
     'ui.router',
     'ui.mask',
     'angular-loading-bar',
-    'config'
+    'config',
+    'http-auth-interceptor'
   ])
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
 
     //registra interceptor do arquivo authenticationInterceptors.js para respostas HTTP com erro 401 Unauthorized
-    $httpProvider.interceptors.push('authInterceptor');
+    // $httpProvider.interceptors.push('authInterceptor');
 
     $stateProvider
       // route to show our basic form (/form)
@@ -93,14 +94,65 @@ angular
     $urlRouterProvider.otherwise('/login');
 
   })
-  .run(['$rootScope', '$window', '$document', 'facebookAuthenticationService', 'apiAuthenticationFactory', '$state', function ($rootScope, $window, $document, facebookAuthenticationService, apiAuthenticationFactory, $state) {
+  .run(['$rootScope', '$window', '$document', 'facebookAuthenticationService', 'apiAuthenticationFactory', '$state', 'authService', function ($rootScope, $window, $document, facebookAuthenticationService, apiAuthenticationFactory, $state, authService) {
+
+    $rootScope.$on('event:auth-forbidden', function () {
+      console.error('angular-http-auth captured response code 403');
+      console.error('The frontend tried to access a forbidden endpoint!');
+    });
+
+    //interceptador do coponente http-auth-interceptor dispara esse evento no caso de resposta HTTP Status 401
+    $rootScope.$on('event:auth-loginRequired', function () {
+
+      console.log('angular-http-auth captured response code 401');
+      if (!$rootScope.facebookUserToken) {
+        console.error('facebookUerToken is empty :(');
+        $state.go('login');
+        return;
+      }
+      
+      console.log('Tentativa de renovação de token da API usando facebookToken=' + $rootScope.facebookUserToken);
+      
+      //renew token, using the login endpoint
+      apiAuthenticationFactory.login($rootScope.facebookUserToken).then(function (response) {
+        //TODO refatorar substituindo o bloco pela linha abaixo
+        // apiAuthenticationFactory.processSuccessfulLoginResponse(response);
+
+        var respostaApiLogin = response.data;
+        console.log('Sucesso no login. Armazenando token no local storage...');
+        console.debug('Reposta do login: ' + JSON.stringify(response));
+        apiAuthenticationFactory.storeUserCredentials(
+          {
+            facebookId: respostaApiLogin.id,
+            registrado: respostaApiLogin.registrado,
+            aprovado: respostaApiLogin.aprovado,
+            admin: respostaApiLogin.admin,
+            apiToken: respostaApiLogin.token
+          }
+        );
+        
+        authService.loginConfirmed('success', function (config) {
+          config.headers['x-auth-token'] = respostaApiLogin.token;
+          return config;
+        })
+
+      }, function (response) {
+        console.error('O login na API falhou');
+        console.error('Error Status: ' + response.status + ' ' + response.statusText);
+        console.error('Error Payload: ' + JSON.stringify(response.data));
+        console.error('Erro ao obter novo token');
+        authService.loginCancelled();
+        $state.go('login');
+      });
+
+    });
 
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
       /* jshint unused:vars */
 
 
       /* console.log('Detectando mudança de state');
-
+    
       if ((toState.name === 'login') && (facebookAuthenticationService.isLogged)) {
         console.log('Impedindo a mudança de página.');
         console.log('Valor de facebookAuthenticationService.isLogged: ' + facebookAuthenticationService.isLogged);
@@ -126,7 +178,7 @@ angular
         e.preventDefault();
         $state.go('form.surfe');
       }
-
+    
       if ((toState.name === 'lista-membros') && (!facebookAuthenticationService.isRegistered)) {
         console.log('Impedindo a mudança de página.');
         console.log('facebookAuthenticationService.isRegistered: ' + facebookAuthenticationService.isRegistered);
@@ -164,7 +216,7 @@ angular
         if (response.status === 'connected') {
           console.debug("CONNECTED TO FACEBOOK");
           facebookAuthenticationService.isLogged = true;
-          if (!apiAuthenticationFactory.isRegistrado){
+          if (!apiAuthenticationFactory.isRegistrado) {
             $state.go('form.geral');
           } else {
             $state.go('membro', { id: apiAuthenticationFactory.getfacebookId() });
