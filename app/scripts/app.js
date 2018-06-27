@@ -13,9 +13,9 @@ angular
     'ngResource',
     'ui.router',
     'ui.mask',
-    'angular-loading-bar',
     'config',
-    'http-auth-interceptor'
+    'http-auth-interceptor',
+    'angular-loading-bar'
   ])
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
 
@@ -103,6 +103,10 @@ angular
       console.error('The frontend tried to access a forbidden endpoint!');
     });
 
+    $rootScope.$on('event:auth-loginCancelled', function (event, data) {
+      $state.go('login');
+    });
+
     //interceptador do coponente http-auth-interceptor dispara esse evento no caso de resposta HTTP Status 401
     $rootScope.$on('event:auth-loginRequired', function () {
 
@@ -117,34 +121,24 @@ angular
 
       //renew token, using the login endpoint
       apiAuthenticationFactory.login($rootScope.facebookUserToken).then(function (response) {
-        //TODO refatorar substituindo o bloco pela linha abaixo
-        // apiAuthenticationFactory.processSuccessfulLoginResponse(response);
 
-        var respostaApiLogin = response.data;
-        console.log('Sucesso no login. Armazenando token no local storage...');
-        console.debug('Reposta do login: ' + JSON.stringify(response));
-        apiAuthenticationFactory.storeUserCredentials(
-          {
-            facebookId: respostaApiLogin.id,
-            registrado: respostaApiLogin.registrado,
-            aprovado: respostaApiLogin.aprovado,
-            admin: respostaApiLogin.admin,
-            apiToken: respostaApiLogin.token
-          }
-        );
+        apiAuthenticationFactory.processSuccessfulLoginResponse(response);
 
         authService.loginConfirmed('success', function (config) {
-          config.headers['x-auth-token'] = respostaApiLogin.token;
+          config.headers['x-auth-token'] = apiAuthenticationFactory.getAuthToken;
           return config;
         })
 
       }, function (response) {
-        console.error('O login na API falhou');
+        console.error('Erro ao obter novo token da API');
         console.error('Error Status: ' + response.status + ' ' + response.statusText);
-        console.error('Error Payload: ' + JSON.stringify(response.data));
-        console.error('Erro ao obter novo token');
-        authService.loginCancelled();
-        $state.go('login');
+        console.error('Error Message: ' + response.data.message);
+        if (response.data.error.name == 'InternalOAuthError') {
+          console.error('Falha ao validar token do Facebook a partir do servidor do Republica');
+          console.error('Verifique se token do Facebook está expirado ou o usuário não está mais logado no Facebook');
+          console.error('oauthError: ' + JSON.stringify(response.data.error.oauthError));
+        }
+        authService.loginCancelled('authentication failed', response);
       });
 
     });

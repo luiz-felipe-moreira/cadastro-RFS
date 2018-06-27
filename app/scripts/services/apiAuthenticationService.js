@@ -33,6 +33,8 @@ angular.module('cadastroRepublicaApp')
         // var authToken = undefined;
         var authToken = {};
 
+        var self = this;
+
         function loadUserCredentials() {
             var credentials = localStorage.getObject(TOKEN_KEY, '{}');
             if (credentials.facebookId !== undefined) {
@@ -141,7 +143,7 @@ angular.module('cadastroRepublicaApp')
             var respostaApiLogin = response.data;
             console.log('Sucesso no login. Armazenando token no local storage...');
             console.debug('Reposta do login: ' + JSON.stringify(response));
-            this.storeUserCredentials(
+            authFac.storeUserCredentials(
                 {
                     facebookId: respostaApiLogin.id,
                     registrado: respostaApiLogin.registrado,
@@ -158,6 +160,10 @@ angular.module('cadastroRepublicaApp')
         authFac.getfacebookId = function () {
             return facebookId;
         };
+
+        authFac.getAuthToken = function () {
+            return authToken;
+        }
 
         authFac.isRegistrado = function () {
             return registrado;

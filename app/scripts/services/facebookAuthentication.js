@@ -23,7 +23,7 @@ angular.module('cadastroRepublicaApp')
 
       FB.login(function (response) {
         if (response.status === 'connected') {
-          vm.processFacebookConnection();
+          vm.processFacebookConnection(response);
         } else {
           // The person is not logged into vm app or we are unable to tell. 
         }
