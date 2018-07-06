@@ -130,15 +130,35 @@ angular
         })
 
       }, function (response) {
-        console.error('Erro ao obter novo token da API');
-        console.error('Error Status: ' + response.status + ' ' + response.statusText);
-        console.error('Error Message: ' + response.data.message);
+        console.debug('Erro ao obter novo token da API');
+        console.debug('Error Status: ' + response.status + ' ' + response.statusText);
+        console.debug('Error Message: ' + response.data.message);
         if (response.data.error.name == 'InternalOAuthError') {
-          console.error('Falha ao validar token do Facebook a partir do servidor do Republica');
-          console.error('Verifique se token do Facebook está expirado ou o usuário não está mais logado no Facebook');
-          console.error('oauthError: ' + JSON.stringify(response.data.error.oauthError));
+          console.debug('Falha ao validar token do Facebook a partir do servidor do Republica');
+          console.debug('O token do Facebook pode estar expirado ou o usuário não está mais logado no Facebook');
+          console.debug('oauthError: ' + JSON.stringify(response.data.error.oauthError));
+
+          console.log('Logging into no facebook to get new access token...');
+  
+          FB.login(function (response) {
+            if (response.status === 'connected') {
+              $rootScope.facebookUserToken = response.authResponse.accessToken;
+              apiAuthenticationFactory.login($rootScope.facebookUserToken).then(function (response) {
+  
+                apiAuthenticationFactory.processSuccessfulLoginResponse(response);
+  
+                authService.loginConfirmed('success', function (config) {
+                  config.headers['x-auth-token'] = apiAuthenticationFactory.getAuthToken;
+                  return config;
+                })
+  
+              }, function (response) { });
+            } else {
+              console.log('User cancelled login or did not fully authorize.');
+              authService.loginCancelled('authentication failed', response);
+            }
+          }, { scope: 'public_profile,email' });
         }
-        authService.loginCancelled('authentication failed', response);
       });
 
     });
