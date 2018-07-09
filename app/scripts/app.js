@@ -111,23 +111,23 @@ angular
     $rootScope.$on('event:auth-loginRequired', function () {
 
       console.log('angular-http-auth captured response code 401');
+
       if (!$rootScope.facebookUserToken) {
         console.error('facebookUerToken is empty :(');
         $state.go('login');
         return;
       }
 
-      console.log('Tentativa de renovação de token da API usando facebookToken=' + $rootScope.facebookUserToken);
-
       //renew token, using the login endpoint
       apiAuthenticationFactory.login($rootScope.facebookUserToken).then(function (response) {
 
-        apiAuthenticationFactory.processSuccessfulLoginResponse(response);
+        var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
+        apiAuthenticationFactory.storeUserCredentials(userCredentials);
 
         authService.loginConfirmed('success', function (config) {
-          config.headers['x-auth-token'] = apiAuthenticationFactory.getAuthToken;
+          config.headers['x-auth-token'] = apiAuthenticationFactory.getAuthToken();
           return config;
-        })
+        });
 
       }, function (response) {
         console.debug('Erro ao obter novo token da API');
@@ -139,20 +139,24 @@ angular
           console.debug('oauthError: ' + JSON.stringify(response.data.error.oauthError));
 
           console.log('Logging into no facebook to get new access token...');
-  
+
           FB.login(function (response) {
             if (response.status === 'connected') {
               $rootScope.facebookUserToken = response.authResponse.accessToken;
               apiAuthenticationFactory.login($rootScope.facebookUserToken).then(function (response) {
-  
-                apiAuthenticationFactory.processSuccessfulLoginResponse(response);
-  
+
+                // apiAuthenticationFactory.processSuccessfulLoginResponse(response);
+                var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
+                apiAuthenticationFactory.storeUserCredentials(userCredentials);
+
                 authService.loginConfirmed('success', function (config) {
-                  config.headers['x-auth-token'] = apiAuthenticationFactory.getAuthToken;
+                  config.headers['x-auth-token'] = apiAuthenticationFactory.getAuthToken();
                   return config;
-                })
-  
-              }, function (response) { });
+                });
+
+              }, function (response) {
+                console.error('Erro irrecuperavel. Não foi possivel o login na backend com token recém obtido.')
+              });
             } else {
               console.log('User cancelled login or did not fully authorize.');
               authService.loginCancelled('authentication failed', response);

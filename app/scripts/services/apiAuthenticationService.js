@@ -30,10 +30,7 @@ angular.module('cadastroRepublicaApp')
         var registrado = '';
         var aprovado = '';
         var admin = '';
-        // var authToken = undefined;
         var authToken = {};
-
-        var self = this;
 
         function loadUserCredentials() {
             var credentials = localStorage.getObject(TOKEN_KEY, '{}');
@@ -139,18 +136,27 @@ angular.module('cadastroRepublicaApp')
             );
         }; */
 
-        authFac.processSuccessfulLoginResponse = function (response) {
-            var respostaApiLogin = response.data;
+        authFac.getUserCredentials = function (response) {
+
             console.log('Sucesso no login. Armazenando token no local storage...');
             console.debug('Reposta do login: ' + JSON.stringify(response));
-            authFac.storeUserCredentials(
+            var userCredentials = {
+                facebookId: response.data.id,
+                registrado: response.data.registrado,
+                aprovado: response.data.aprovado,
+                admin: response.data.admin,
+                apiToken: response.data.token
+            };
+            return userCredentials;
+
+/*             authFac.storeUserCredentials(
                 {
-                    facebookId: respostaApiLogin.id,
-                    registrado: respostaApiLogin.registrado,
-                    aprovado: respostaApiLogin.aprovado,
-                    admin: respostaApiLogin.admin,
-                    apiToken: respostaApiLogin.token
-                })
+                    facebookId: response.data.id,
+                    registrado: response.data.registrado,
+                    aprovado: response.data.aprovado,
+                    admin: response.data.admin,
+                    apiToken: response.data.token
+                }); */
         };
 
         authFac.isAuthenticated = function () {

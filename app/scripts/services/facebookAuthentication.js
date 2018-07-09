@@ -43,15 +43,8 @@ angular.module('cadastroRepublicaApp')
         var respostaApiLogin = response.data;
         console.log('Sucesso no login. Armazenando token no local storage...');
         console.debug('Reposta do login: ' + JSON.stringify(response));
-        apiAuthenticationFactory.storeUserCredentials(
-          {
-            facebookId: respostaApiLogin.id,
-            registrado: respostaApiLogin.registrado,
-            aprovado: respostaApiLogin.aprovado,
-            admin: respostaApiLogin.admin,
-            apiToken: respostaApiLogin.token
-          }
-        );
+        var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
+        apiAuthenticationFactory.storeUserCredentials(userCredentials);
 
         if (respostaApiLogin.registrado) {
           membrosFactory.get({ id: vm.user.id }).$promise.then(
@@ -109,12 +102,12 @@ angular.module('cadastroRepublicaApp')
           $rootScope.user.id = _self.user.id = response.authResponse.userID;
 
           apiAuthenticationFactory.login(_self.facebookUserToken).then(function (response) {
-            var resposta = response.data;
+            // var resposta = response.data;
             console.log('Sucesso no login. Armazenando token no local storage...');
-            console.debug('Reposta do login: ' + JSON.stringify(response));o
-            //o parametro passado para storeUserCredentiasl abaixo está errado
-           // apiAuthenticationFactory.storeUserCredentials({ facebookId: resposta.id, apiToken: resposta.token });
-            if (resposta.registrado) {
+            console.debug('Reposta do login: ' + JSON.stringify(response));
+            var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
+            apiAuthenticationFactory.storeUserCredentials(userCredentials);
+            if (userCredentials.registrado) {
               membrosFactory.get({
                 id: _self.user.id
               })
@@ -123,7 +116,6 @@ angular.module('cadastroRepublicaApp')
                   function (response) {
                     console.log(response);
                     _self.isRegistered = true;
-                    //apiAuthenticationFactory.login(_self.facebookUserToken);
                     if ($state.current !== 'lista-membros') {
                       $state.go('membro', { id: _self.user.id });
                     }
