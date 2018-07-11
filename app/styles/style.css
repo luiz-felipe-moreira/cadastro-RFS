@@ -1,41 +1,178 @@
 /* BASIC STYLINGS
 ============================================================================= */
-body                            { padding-top:20px; background:#233960; color:#FFF; }
-a                               { color: #FFF;}
-a:hover                         { color: #FFF;}
-/* form styling */
-#form-container                { background:#233960; margin-bottom:20px;
-    border-radius:5px; }
-#form-container .page-header   { margin-top:0; margin-bottom: 15px; padding:30px; border-bottom: 0px;
-    border-top-left-radius:5px; border-top-right-radius:5px; }
-#form-header                   {margin-bottom: 15px;}
 
-/* numbered buttons */
-#status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
-#status-buttons a:hover         { text-decoration:none; }
-
-/* we will style the span as the circled number */
-#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; border-radius:50%; }
-
-/* active buttons turn light green-blue*/
-/* #status-buttons a.active span   { background:#00BC8C; } */
-#status-buttons a.active span   { background:#0093bd; }
-
-#legendContatoEmergencia         {color:#FFF; font-weight: bold; font-size: 17px; margin-bottom: 0;}
-
-.profile                        { margin: 20px 0;}
-.profile-sidebar                { padding: 20px 0 10px 0;}
-/* .profile-user-pic               { float: none; margin: 0 auto; width: 50%; height: 50%} */
-.profile-user-title             { text-align: center; margin-top: 20px;}
-.profile-user-name              { font-size: 18px; font-weight: 600; color: greenyellow;}
-.profile-user-apelido           { font-size: 13px; text-transform: uppercase; font-weight: 600; margin-bottom: 15px;}
-ul li                           { border-bottom: 2px solid #726f6f !important;}
-.nav li a:hover                 { background-color: grey; }
-/* li.active a                     {background-color: lightskyblue} */
-
-.profile-detail                 { padding: 20px; }
-.dl-horizontal dt {
-	white-space: normal;
+body {
+  padding-top: 20px;
+  /*background: #233960;*/
+  background: #0093bd;
+  color: #FFF;
 }
 
-.filtro-membros                 { color: black;}
+a {
+  color: #FFF;
+}
+
+a:hover {
+  color: #FFF;
+}
+
+/* form styling */
+
+#form-container {
+  background: #233960;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+#form-container .page-header {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding: 30px;
+  border-bottom: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+#form-header {
+  margin-bottom: 15px;
+}
+
+/* numbered buttons */
+
+#status-buttons a {
+  color: #FFF;
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#status-buttons a:hover {
+  text-decoration: none;
+}
+
+/* we will style the span as the circled number */
+
+#status-buttons span {
+  background: #080808;
+  display: block;
+  height: 30px;
+  margin: 0 auto 10px;
+  padding-top: 5px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+/* active buttons turn light green-blue*/
+
+/* #status-buttons a.active span   { background:#00BC8C; } */
+
+#status-buttons a.active span {
+  background: #0093bd;
+}
+
+#legendContatoEmergencia {
+  color: #FFF;
+  font-weight: bold;
+  font-size: 17px;
+  margin-bottom: 0;
+}
+
+.profile {
+  margin: 20px 0;
+  color: black;
+}
+
+.profile-side-bar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+
+.profile-user-pic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%
+}
+
+.profile-user-title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-user-name {
+  color: #233960;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-user-apelido {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-user-menu {
+  margin-top: 30px;
+}
+
+.profile-user-menu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-user-menu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-user-menu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-user-menu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-user-menu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-user-menu ul li.active {
+  border-bottom: none;
+}
+
+.profile-user-menu ul li.active a {
+  color: #233960;
+  background-color: #f6f9fb;
+  border-left: 2px solid #233960;
+  margin-left: -2px;
+}
+
+/* ul li {
+  border-bottom: 2px solid #726f6f !important;
+}
+
+.nav li a:hover {
+  background-color: grey;
+} */
+
+/* li.active a                     {background-color: lightskyblue} */
+
+.profile-detail {
+  padding: 20px;
+  background: #fff;
+}
+
+.dl-horizontal dt {
+  white-space: normal;
+}
+
+.filtro-membros {
+  color: black;
+}

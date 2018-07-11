@@ -1,5 +1,5 @@
 <div class="row profile">
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="profile-side-bar">
             <div class="profile-user-pic">
                 <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}}>
@@ -10,15 +10,15 @@
             </div>
             <div class="profile-user-menu">
                 <ul class="nav">
-                    <li class="active">
+                    <li ng-class="{active: membroController.estaSelecionado('geral')}">
                         <a href="" ng-click="membroController.selecionarGrupoDados('geral')">
                             <i class="glyphicon glyphicon-user"></i> Dados Gerais</a>
                     </li>
-                    <li>
+                    <li ng-class="{active: membroController.estaSelecionado('saude')}">
                         <a href="" ng-click="membroController.selecionarGrupoDados('saude')">
                             <i class="glyphicon glyphicon-heart"></i> Saúde</a>
                     </li>
-                    <li>
+                    <li ng-class="{active: membroController.estaSelecionado('surf')}">
                         <a href="" ng-click="membroController.selecionarGrupoDados('surf')">
                             <i class="glyphicon glyphicon-fire"></i> Surfe</a>
                     </li>
