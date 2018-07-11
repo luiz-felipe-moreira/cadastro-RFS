@@ -3,9 +3,7 @@
 
 body {
   padding-top: 20px;
-  /*background: #233960;*/
-  background: #0093bd;
-  color: #FFF;
+  background: #DFE3EE;
 }
 
 a {
@@ -19,7 +17,6 @@ a:hover {
 /* form styling */
 
 #form-container {
-  background: #233960;
   margin-bottom: 20px;
   border-radius: 5px;
 }
@@ -38,9 +35,8 @@ a:hover {
 }
 
 /* numbered buttons */
-
 #status-buttons a {
-  color: #FFF;
+  color: #080808;
   display: inline-block;
   font-size: 12px;
   margin-right: 10px;
@@ -53,9 +49,8 @@ a:hover {
 }
 
 /* we will style the span as the circled number */
-
 #status-buttons span {
-  background: #080808;
+  background: grey;
   display: block;
   height: 30px;
   margin: 0 auto 10px;
@@ -64,16 +59,15 @@ a:hover {
   border-radius: 50%;
 }
 
-/* active buttons turn light green-blue*/
-
-/* #status-buttons a.active span   { background:#00BC8C; } */
-
 #status-buttons a.active span {
   background: #0093bd;
 }
 
-#legendContatoEmergencia {
-  color: #FFF;
+#status-buttons a.past span {
+  background: green;
+}
+
+#legendaContatoEmergencia {
   font-weight: bold;
   font-size: 17px;
   margin-bottom: 0;
@@ -153,16 +147,6 @@ a:hover {
   border-left: 2px solid #233960;
   margin-left: -2px;
 }
-
-/* ul li {
-  border-bottom: 2px solid #726f6f !important;
-}
-
-.nav li a:hover {
-  background-color: grey;
-} */
-
-/* li.active a                     {background-color: lightskyblue} */
 
 .profile-detail {
   padding: 20px;

@@ -1,6 +1,6 @@
 <div id="form-header" class="page-header text-center">
   <div id="status-buttons" class="text-center">
-    <a><span>1</span> Geral</a>
+    <a class="past"><span>1</span> Geral</a>
     <a class="active"><span>2</span> Saúde</a>
     <a><span>3</span> Surfe</a>
     <a><span>4</span> Foto</a>
@@ -46,7 +46,7 @@
 </div>
 
 <fieldset>
-  <legend id="legendContatoEmergencia">Contato de Emergência</legend>
+  <legend id="legendaContatoEmergencia">Contato de Emergência</legend>
   <div class="form-group">
     <small>Informe abaixo os dados da pessoa que deve ser comunicada em caso de acidente</small>
   </div>
@@ -67,7 +67,7 @@
 
 <div class="form-group row ">
   <div class="col-sm-6 col-sm-offset-3 ">
-    <a ui-sref="form.surfe" class="btn btn-block btn-info" ng-disabled="form.$invalid" ng-click="form.$invalid || formController.marcarPassoSaudeComoConcluido()">
+    <a ui-sref="form.surfe" class="btn btn-block btn-primary" ng-disabled="form.$invalid" ng-click="form.$invalid || formController.marcarPassoSaudeComoConcluido()">
     Próximo Passo <span class=" glyphicon glyphicon-circle-arrow-right "></span>
     </a>
   </div>
