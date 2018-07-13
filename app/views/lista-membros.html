@@ -1,112 +1,128 @@
-<h1 style="margin-bottom: 20px">Membros</h1>
-<div class="row" style="margin-bottom: 15px">
-    <div class="pull-right">
-        <!-- <label for="filtroNomeApelido">Nome ou Apelido:</label> -->
-        <input type="text" class="filtro-membros" ng-model="membrosListController.filtro" placeholder="Procurar..." id="filtroNomeApelido">
-    </div>
-</div>
 <div class="row">
-
-    <ul class="media-list">
-        <li class="media" ng-repeat="membro in membrosListController.listaMembros | filter:membrosListController.filtro">
-            <a ui-sref="membro({id: membro.id})">
-                <div class="media-left">
-                    <img class="media-object img-circle" style="width:60px" ng-src={{membro.urlFoto}}>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{membro.nome}}</h4>
-                    <p>{{membro.apelido}}</p>
-                </div>
-            </a>
-        </li>
-    </ul>
-
-</div>
-
-<div class="table-wrapper table-responsive">
+  <div class="table-wrapper table-responsive">
     <div class="table-title">
-        <div class="row">
-            <div class="col-sm-4">
-                <h2>Order <b>Details</b></h2>
-            </div>
-            <div class="col-sm-8">						
-                <a href="#" class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></a>
-                <a href="#" class="btn btn-info"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
-            </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <h2>Membros</h2>
         </div>
+        <div class="col-sm-8">
+          <a href="#" class="btn btn-primary">
+            <i class="material-icons">&#xE863;</i>
+            <span>Refresh List</span>
+          </a>
+          <a href="#" class="btn btn-info">
+            <i class="material-icons">&#xE24D;</i>
+            <span>Export to Excel</span>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="table-filter">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="show-entries">
-                    <span>Show</span>
-                    <select class="form-control">
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
-                    </select>
-                    <span>entries</span>
-                </div>
-            </div>
-            <div class="col-sm-9">
-                <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                <div class="filter-group">
-                    <label>Nome</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="filter-group">
-                    <label>Apelido</label>
-                    <input type="text" class="form-control">
-                 </div>
-                <div class="filter-group">
-                    <label>Status</label>
-                    <select class="form-control">
-                        <option>Any</option>
-                        <option>Delivered</option>
-                        <option>Shipped</option>
-                        <option>Pending</option>
-                        <option>Cancelled</option>
-                    </select>
-                </div>
-                <span class="filter-icon"><i class="fa fa-filter"></i></span>
-            </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="show-entries">
+            <span>Show</span>
+            <select class="form-control">
+              <option>5</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+            </select>
+            <span>entries</span>
+          </div>
         </div>
+        <div class="col-sm-9">
+          <button type="button" class="btn btn-primary">
+            <i class="fa fa-search"></i>
+          </button>
+          <div class="filter-group">
+            <label>Nome</label>
+            <input type="text" class="form-control" ng-model="membrosListController.filtro">
+          </div>
+          <div class="filter-group">
+            <label>Apelido</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="filter-group">
+            <label>Status</label>
+            <select class="form-control">
+              <option>Any</option>
+              <option>Delivered</option>
+              <option>Shipped</option>
+              <option>Pending</option>
+              <option>Cancelled</option>
+            </select>
+          </div>
+          <span class="filter-icon">
+            <i class="fa fa-filter"></i>
+          </span>
+        </div>
+      </div>
     </div>
     <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Nome</th>
-                <th>Apelido</th>						
-                <th>Status</th>						
-                <th>Net Amount</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="membro in membrosListController.listaMembros | filter:membrosListController.filtro">
-                <td><img class="avatar" style="width:60px" ng-src={{membro.urlFoto}}></td>
-                <td><a href="#">{{membro.nome}}</a></td>
-                <td>{{membro.apelido}}</td>                        
-                <td><span class="status text-success">&bull;</span> Delivered</td>
-                <td>$254</td>
-                <td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nome</th>
+          <th>Apelido</th>
+          <th>Status</th>
+          <th>Net Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="membro in membrosListController.listaMembros | filter:membrosListController.filtro">
+          <td>
+            <img class="avatar" style="width:60px" ng-src={{membro.urlFoto}}>
+          </td>
+          <td>
+            <a href="#">{{membro.nome}}</a>
+          </td>
+          <td>{{membro.apelido}}</td>
+          <td>
+            <span class="status text-success">&bull;</span> Delivered</td>
+          <td>$254</td>
+          <td>
+            <a href="#" class="view" title="View Details" data-toggle="tooltip">
+              <i class="material-icons">&#xE5C8;</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <div class="clearfix">
-        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-        <ul class="pagination">
-            <li class="page-item disabled"><a href="#">Previous</a></li>
-            <li class="page-item"><a href="#" class="page-link">1</a></li>
-            <li class="page-item"><a href="#" class="page-link">2</a></li>
-            <li class="page-item"><a href="#" class="page-link">3</a></li>
-            <li class="page-item active"><a href="#" class="page-link">4</a></li>
-            <li class="page-item"><a href="#" class="page-link">5</a></li>
-            <li class="page-item"><a href="#" class="page-link">6</a></li>
-            <li class="page-item"><a href="#" class="page-link">7</a></li>
-            <li class="page-item"><a href="#" class="page-link">Next</a></li>
-        </ul>
+      <div class="hint-text">Showing
+        <b>5</b> out of
+        <b>25</b> entries</div>
+      <ul class="pagination">
+        <li class="page-item disabled">
+          <a href="#">Previous</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">1</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">2</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">3</a>
+        </li>
+        <li class="page-item active">
+          <a href="#" class="page-link">4</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">5</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">6</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">7</a>
+        </li>
+        <li class="page-item">
+          <a href="#" class="page-link">Next</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
