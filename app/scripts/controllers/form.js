@@ -170,6 +170,7 @@ angular.module('cadastroRepublicaApp')
         console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
       }
       vm.formData.registrado = true;
+      vm.formData.status = 'Aprovação pendente';
 
       membrosFactory.update({
         //TODO pegar id do apiAuthenticationFactory ao inves do rootScope
