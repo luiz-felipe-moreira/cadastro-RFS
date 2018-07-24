@@ -76,7 +76,7 @@
             <img class="avatar" style="width:60px" ng-src={{membro.urlFoto}}>
           </td>
           <td>
-            <a href="#">{{membro.nome}}</a>
+            <a ui-sref="membro({ id: membro.id })">{{membro.nome}}</a>
           </td>
           <td>{{membro.apelido}}</td>
           <td>
