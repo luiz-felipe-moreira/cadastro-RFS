@@ -46,11 +46,10 @@
           <div class="filter-group">
             <label>Status</label>
             <select class="form-control">
-              <option>Any</option>
-              <option>Delivered</option>
-              <option>Shipped</option>
-              <option>Pending</option>
-              <option>Cancelled</option>
+              <option>Todos</option>
+              <option>Ativo</option>
+              <option>Aprovação pendente</option>
+              <option>Cadastro pendente</option>
             </select>
           </div>
           <span class="filter-icon">
@@ -66,8 +65,8 @@
           <th>Nome</th>
           <th>Apelido</th>
           <th>Status</th>
-          <th>Net Amount</th>
-          <th>Action</th>
+          <th>Telefone</th>
+          <th>Ação</th>
         </tr>
       </thead>
       <tbody>
@@ -80,11 +79,15 @@
           </td>
           <td>{{membro.apelido}}</td>
           <td>
-            <span class="status text-success">&bull;</span> Delivered</td>
-          <td>$254</td>
+            <span ng-if="(membro.status==='Aprovação pendente')" class="status text-warning">&bull;</span>
+            <span ng-if="(membro.status==='Ativo')" class="status text-success">&bull;</span>
+            <span ng-if="(membro.status==='Cadastro pendente')" class="status text-info">&bull;</span>
+            {{membro.status}}
+          </td>
+          <td>{{membro.telefoneCelular}}</td>
           <td>
-            <a href="#" class="view" title="View Details" data-toggle="tooltip">
-              <i class="material-icons">&#xE5C8;</i>
+            <a href="#" class="view" title="Visualizar detalhes" data-toggle="tooltip">
+              <i class="glyphicon glyphicon-eye-open"></i>
             </a>
           </td>
         </tr>
