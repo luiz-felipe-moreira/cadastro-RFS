@@ -10,6 +10,7 @@ angular.module('cadastroRepublicaApp')
         FB.logout(function(response) {
           // user is now logged out
           console.log('Interceptor fez o logout do facebook.');
+          console.log('Resposta do logout do Facebook: ' + response);
         });
         console.log('Direcionando para a pagina de login...');
         $injector.get('$state').go('login');

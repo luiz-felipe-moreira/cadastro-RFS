@@ -169,7 +169,7 @@ angular.module('cadastroRepublicaApp')
 
         authFac.getAuthToken = function () {
             return authToken;
-        }
+        };
 
         authFac.isRegistrado = function () {
             return registrado;

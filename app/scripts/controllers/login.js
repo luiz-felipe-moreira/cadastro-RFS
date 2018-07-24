@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('LoginController', ['facebookAuthenticationService', 'apiAuthenticationFactory', 'membrosFactory', '$state', '$rootScope', function (facebookAuthenticationService, apiAuthenticationFactory, membrosFactory, $state, $rootScope) {
+  .controller('LoginController', ['facebookAuthenticationService', function (facebookAuthenticationService) {
     // .controller('LoginController', ['$window', '$rootScope', '$state', 'facebookService', 'membrosFactory', function ($window, $rootScope, $state, facebookService, membrosFactory) {
 
     var vm = this;

@@ -104,6 +104,8 @@ angular
     });
 
     $rootScope.$on('event:auth-loginCancelled', function (event, data) {
+      console.log('Event: ' + event);
+      console.log('Data: ' + data);
       $state.go('login');
     });
 
@@ -133,7 +135,7 @@ angular
         console.debug('Erro ao obter novo token da API');
         console.debug('Error Status: ' + response.status + ' ' + response.statusText);
         console.debug('Error Message: ' + response.data.message);
-        if (response.data.error.name == 'InternalOAuthError') {
+        if (response.data.error.name === 'InternalOAuthError') {
           console.debug('Falha ao validar token do Facebook a partir do servidor do Republica');
           console.debug('O token do Facebook pode estar expirado ou o usuário não está mais logado no Facebook');
           console.debug('oauthError: ' + JSON.stringify(response.data.error.oauthError));
@@ -155,7 +157,8 @@ angular
                 });
 
               }, function (response) {
-                console.error('Erro irrecuperavel. Não foi possivel o login na backend com token recém obtido.')
+                console.error('Erro irrecuperavel. Não foi possivel o login na backend com token recém obtido.');
+                console.error('Error response: ' + response);
               });
             } else {
               console.log('User cancelled login or did not fully authorize.');
@@ -238,11 +241,11 @@ angular
         if (response.status === 'connected') {
           facebookAuthenticationService.processFacebookConnection(response);
         } else if (response.status === 'not_authorized') {
-          console.debug("NOT AUTHORIZED BY FACEBOOK");
+          console.debug('NOT AUTHORIZED BY FACEBOOK');
           $state.go('login');
         } else {
           // we are not logged in facebook
-          console.debug("NOT LOGGED IN TO FACEBOOK");
+          console.debug('NOT LOGGED IN TO FACEBOOK');
           $state.go('login');
         }
       });
