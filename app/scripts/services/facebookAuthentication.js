@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .service('facebookAuthenticationService', ['$rootScope', '$state', '$document', 'facebookService', 'apiAuthenticationFactory', 'membrosFactory', function ($rootScope, $state, $document, facebookService, apiAuthenticationFactory, membrosFactory) {
+  .service('facebookAuthenticationService', ['$rootScope', '$state', '$document', 'facebookService', 'apiAuthenticationFactory', 'meFactory', function ($rootScope, $state, $document, facebookService, apiAuthenticationFactory, meFactory) {
 
     var vm = this;
 
@@ -27,10 +27,12 @@ angular.module('cadastroRepublicaApp')
         } else {
           // The person is not logged into vm app or we are unable to tell. 
         }
-      }, { scope: 'public_profile,email' });
+      }, {
+        scope: 'public_profile,email'
+      });
     };
 
-    vm.processFacebookConnection = function(response){
+    vm.processFacebookConnection = function (response) {
       vm.isLogged = true;
       console.debug('Logged into Facebook.');
       console.debug('Logging into the backend API...');
@@ -40,28 +42,28 @@ angular.module('cadastroRepublicaApp')
 
       apiAuthenticationFactory.login(vm.facebookUserToken).then(function (response) {
 
-        var respostaApiLogin = response.data;
-        console.log('Sucesso no login. Armazenando token no local storage...');
-        console.debug('Reposta do login: ' + JSON.stringify(response));
-        var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
-        apiAuthenticationFactory.storeUserCredentials(userCredentials);
+          var respostaApiLogin = response.data;
+          console.log('Sucesso no login. Armazenando token no local storage...');
+          console.debug('Reposta do login: ' + JSON.stringify(response));
+          var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
+          apiAuthenticationFactory.storeUserCredentials(userCredentials);
 
-        if (respostaApiLogin.registrado) {
-          membrosFactory.get({ id: vm.user.id }).$promise.then(
-            //se for um membro registrado (isto é, com cadastro completo)
-            function (response) {
-              console.log(response);
-              vm.isRegistered = true;
-              if ($state.current !== 'lista-membros') {
-                $state.go('membro', { id: vm.user.id });
-              }
-            });
-        } else {
-          vm.isRegistered = false;
-          console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
-          $state.go('form.geral');
-        }
-      },
+          if (respostaApiLogin.registrado) {
+            meFactory.get().$promise.then(
+              //se for um membro registrado (isto é, com cadastro completo)
+              function (response) {
+                console.log(response);
+                vm.isRegistered = true;
+                if ($state.current !== 'lista-membros') {
+                  $state.go('me');
+                }
+              });
+          } else {
+            vm.isRegistered = false;
+            console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+            $state.go('form.geral');
+          }
+        },
         function (response) {
           console.error('O login na API falhou');
           console.error('Error Status: ' + response.status + ' ' + response.statusText);
@@ -102,30 +104,29 @@ angular.module('cadastroRepublicaApp')
           $rootScope.user.id = _self.user.id = response.authResponse.userID;
 
           apiAuthenticationFactory.login(_self.facebookUserToken).then(function (response) {
-            // var resposta = response.data;
-            console.log('Sucesso no login. Armazenando token no local storage...');
-            console.debug('Reposta do login: ' + JSON.stringify(response));
-            var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
-            apiAuthenticationFactory.storeUserCredentials(userCredentials);
-            if (userCredentials.registrado) {
-              membrosFactory.get({
-                id: _self.user.id
-              })
-                .$promise.then(
-                  //se for um membro cadastrado
-                  function (response) {
-                    console.log(response);
-                    _self.isRegistered = true;
-                    if ($state.current !== 'lista-membros') {
-                      $state.go('membro', { id: _self.user.id });
-                    }
-                  });
-            } else {
-              _self.isRegistered = false;
-              console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
-              $state.go('form.geral');
-            }
-          },
+              // var resposta = response.data;
+              console.log('Sucesso no login. Armazenando token no local storage...');
+              console.debug('Reposta do login: ' + JSON.stringify(response));
+              var userCredentials = apiAuthenticationFactory.getUserCredentials(response);
+              apiAuthenticationFactory.storeUserCredentials(userCredentials);
+              if (userCredentials.registrado) {
+                meFactory.get()
+                  .$promise.then(
+                    //se for um membro cadastrado
+                    function (response) {
+                      console.log(response);
+                      _self.isRegistered = true;
+                      if ($state.current !== 'lista-membros') {
+                        $state.go('me');
+
+                      }
+                    });
+              } else {
+                _self.isRegistered = false;
+                console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
+                $state.go('form.geral');
+              }
+            },
             function (response) {
               console.error('O login falhou');
               console.error('Error: ' + response.status + ' ' + response.statusText);
@@ -184,8 +185,7 @@ angular.module('cadastroRepublicaApp')
               );
           }); */
 
-        }
-        else {
+        } else {
 
           /*
           The user is not logged to the app, or into Facebook:

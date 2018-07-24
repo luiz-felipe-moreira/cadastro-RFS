@@ -74,6 +74,13 @@ angular
         controllerAs: 'membroController'
       })
 
+      .state('me', {
+        url: '/me',
+        templateUrl: 'views/membro.html',
+        controller: 'MembroController',
+        controllerAs: 'membroController'
+      })
+
       .state('main', {
         url: '/main',
         templateUrl: 'views/main.html',

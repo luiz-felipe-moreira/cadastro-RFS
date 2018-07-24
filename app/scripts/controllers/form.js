@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'facebookAuthenticationService', 'facebookService', 'signedS3RequestService', 'membrosFactory', '$state', '$scope', '$window', function ($rootScope, facebookAuthenticationService, facebookService, signedS3RequestService, membrosFactory, $state, $scope, $window) {
+  .controller('FormController', ['$rootScope', 'facebookAuthenticationService', 'facebookService', 'signedS3RequestService', 'meFactory', '$state', '$scope', '$window', function ($rootScope, facebookAuthenticationService, facebookService, signedS3RequestService, meFactory, $state, $scope, $window) {
 
     var vm = this;
 
@@ -35,17 +35,16 @@ angular.module('cadastroRepublicaApp')
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
     facebookService.getUserData().then(function (response) {
-      vm.formData.email = response.email;
-      vm.formData.id = response.id;
-      vm.formData.nome = response.name;
-      if (response.gender === 'male') {
-        vm.formData.sexo = 'masculino';
-      } else if (response.gender === 'female') {
-        vm.formData.sexo = 'feminino';
-      }
-      vm.facebookPicture = response.picture.data;
-    }
-    )
+        vm.formData.email = response.email;
+        vm.formData.id = response.id;
+        vm.formData.nome = response.name;
+        if (response.gender === 'male') {
+          vm.formData.sexo = 'masculino';
+        } else if (response.gender === 'female') {
+          vm.formData.sexo = 'feminino';
+        }
+        vm.facebookPicture = response.picture.data;
+      })
       .catch(function (response) {
         console.error('Erro ao obter dados do usuário no Facebook');
         console.error('Resposta do Facebook: ' + response);
@@ -112,16 +111,14 @@ angular.module('cadastroRepublicaApp')
           vm.mensagemValidacaoArquivo = 'Selecione o arquivo.';
           vm.imgSrcUpload = imagemSilhueta;
         });
-      }
-      else if (fileSizeMB > 5) {
+      } else if (fileSizeMB > 5) {
         $window.alert('O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.');
         $scope.$apply(function () {
           vm.arquivoValido = false;
           vm.mensagemValidacaoArquivo = 'O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.';
           vm.imgSrcUpload = imagemSilhueta;
         });
-      }
-      else if (!fileTypePermitido) {
+      } else if (!fileTypePermitido) {
         $window.alert('O formato do arquivo deve ser JPEG! Selecione outra foto.');
         $scope.$apply(function () {
           vm.arquivoValido = false;
@@ -171,11 +168,7 @@ angular.module('cadastroRepublicaApp')
       }
       vm.formData.registrado = true;
       vm.formData.status = 'Aprovação pendente';
-
-      membrosFactory.update({
-        //TODO pegar id do apiAuthenticationFactory ao inves do rootScope
-        id: $rootScope.user.id
-      },vm.formData)
+      meFactory.update(vm.formData)
         .$promise.then(
           function (response) {
             console.log(response);
@@ -189,21 +182,6 @@ angular.module('cadastroRepublicaApp')
             $state.go('erro');
           }
         );
-
-
-      /* membrosFactory.save(vm.formData,
-        function (response) {
-          console.log(response);
-          facebookAuthenticationService.setIsRegistered(true);
-          $state.go('confirmacao');
-        },
-        function (response) {
-          console.log('Erro ao realizar cadastro :\(');
-          console.log('Error: ' + response.status + ' ' + response.statusText);
-          $rootScope.mensagemErro = 'Erro ao realizar cadastro :\(' + '\nTente novamente mais tarde.';
-          $state.go('erro');
-        }
-      ); */
     };
 
     //inicializa os campos referentes à data de nascimento com o dia atual
