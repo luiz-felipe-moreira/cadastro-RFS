@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="table-wrapper table-responsive">
+  <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
         <div class="col-sm-4">
@@ -19,29 +19,11 @@
     </div>
     <div class="table-filter">
       <div class="row">
-        <div class="col-sm-3">
-          <div class="show-entries">
-            <span>Mostrar</span>
-            <select class="form-control">
-              <option>5</option>
-              <option>10</option>
-              <option>15</option>
-              <option>20</option>
-            </select>
-            <span>membros</span>
-          </div>
-        </div>
-        <div class="col-sm-9">
-          <button type="button" class="btn btn-primary">
-            <i class="fa fa-search"></i>
-          </button>
+
+        <div class="col-sm-9 col-sm-offset-3">
           <div class="filter-group">
-            <label>Nome</label>
+            <label>Nome / Apelido</label>
             <input type="text" class="form-control" ng-model="membrosListController.filtro">
-          </div>
-          <div class="filter-group">
-            <label>Apelido</label>
-            <input type="text" class="form-control">
           </div>
           <div class="filter-group">
             <label>Status</label>
