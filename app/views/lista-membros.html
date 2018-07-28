@@ -1,113 +1,116 @@
 <div class="row">
-  <div class="table-wrapper">
-    <div class="table-title">
-      <div class="row">
-        <div class="col-sm-4">
-          <h2>Membros</h2>
-        </div>
-        <div class="col-sm-8">
-          <a href="#" class="btn btn-primary">
-            <i class="glyphicon glyphicon-refresh"></i>
-            <span>Atualizar Lista</span>
-          </a>
-          <a href="#" class="btn btn-info">
-            <i class="glyphicon glyphicon-file"></i>
-            <span>Exportar Lista</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="table-filter">
-      <div class="row">
-
-        <div class="col-sm-9 col-sm-offset-3">
-          <div class="filter-group">
-            <label>Nome / Apelido</label>
-            <input type="text" class="form-control" ng-model="membrosListController.filtro">
+  <div class="column-xs-12">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-xs-6 col-md-4">
+            <h2>Membros</h2>
           </div>
-          <div class="filter-group">
-            <label>Status</label>
-            <select class="form-control">
-              <option>Todos</option>
-              <option>Ativo</option>
-              <option>Aprovação pendente</option>
-              <option>Cadastro pendente</option>
-            </select>
-          </div>
-          <span class="filter-icon">
-            <i class="fa fa-filter"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Nome</th>
-          <th class="hidden-xs hidden-sm">Apelido</th>
-          <th>Status</th>
-          <th class="hidden-xs hidden-sm">Telefone</th>
-          <th class="hidden-xs hidden-sm">Ação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="membro in membrosListController.listaMembros | filter:membrosListController.filtro">
-          <td>
-            <img class="avatar" style="width:60px" ng-src={{membro.urlFoto}}>
-          </td>
-          <td>
-            <a ui-sref="membro({ id: membro.id })">{{membro.nome}}</a>
-          </td>
-          <td class="hidden-xs hidden-sm">{{membro.apelido}}</td>
-          <td>
-            <span ng-if="(membro.status==='Aprovação pendente')" class="status text-warning">&bull;</span>
-            <span ng-if="(membro.status==='Ativo')" class="status text-success">&bull;</span>
-            <span ng-if="(membro.status==='Cadastro pendente')" class="status text-info">&bull;</span>
-            {{membro.status}}
-          </td>
-          <td class="hidden-xs hidden-sm">{{membro.telefoneCelular}}</td>
-          <td class="hidden-xs hidden-sm">
-            <a href="#" class="view" title="Visualizar detalhes" data-toggle="tooltip">
-              <i class="glyphicon glyphicon-arrow-right"></i>
+          <div class="col-xs-6 col-md-8">
+            <a href="#" class="btn btn-primary">
+              <i class="glyphicon glyphicon-refresh"></i>
+              <span>Atualizar</span>
             </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="clearfix">
-      <div class="hint-text">Showing
-        <b>5</b> out of
-        <b>25</b> entries</div>
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <a href="#">Previous</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">1</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">2</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">3</a>
-        </li>
-        <li class="page-item active">
-          <a href="#" class="page-link">4</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">5</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">6</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">7</a>
-        </li>
-        <li class="page-item">
-          <a href="#" class="page-link">Next</a>
-        </li>
-      </ul>
+            <!-- Todo: Implementar exportação-->
+            <!-- <a href="#" class="hidden-xs btn btn-info">
+              <i class="glyphicon glyphicon-file"></i>
+              <span>Exportar</span>
+            </a> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="table-filter">
+        <div class="column-xs-12">
+          <div class="row">
+            <!--TODO: rever disposicao das colunas e css dos filtros-->
+            <div class="col-sm-9 col-sm-offset-3">
+              <div class="filter-group">
+                <label>Nome / Apelido</label>
+                <input type="text" class="form-control" ng-model="membrosListController.filtro">
+              </div>
+              <div class="filter-group">
+                <label>Status</label>
+                <select class="form-control">
+                  <option>Todos</option>
+                  <option>Ativo</option>
+                  <option>Aprovação pendente</option>
+                  <option>Cadastro pendente</option>
+                </select>
+              </div>
+              <span class="filter-icon">
+                <i class="fa fa-filter"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Surfista</th>
+            <th class="hidden-xs hidden-sm">Apelido</th>
+            <th>Status</th>
+            <th class="hidden-xs hidden-sm">Telefone</th>
+            <th class="hidden-xs hidden-sm">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="membro in membrosListController.listaMembros | filter:membrosListController.filtro">
+            <td>
+              <img class="avatar" style="width:60px" ng-src={{membro.urlFoto}}>
+              <a ui-sref="membro({ id: membro.id })">{{membro.nome}}</a>
+            </td>
+            <td class="hidden-xs hidden-sm">{{membro.apelido}}</td>
+            <td>
+              <span ng-if="(membro.status==='Aprovação pendente')" class="status text-warning">&bull;</span>
+              <span ng-if="(membro.status==='Ativo')" class="status text-success">&bull;</span>
+              <span ng-if="(membro.status==='Cadastro pendente')" class="status text-info">&bull;</span>
+              {{membro.status}}
+            </td>
+            <td class="hidden-xs hidden-sm">{{membro.telefoneCelular}}</td>
+            <td class="hidden-xs hidden-sm">
+              <a href="#" class="view" title="Visualizar detalhes" data-toggle="tooltip">
+                <i class="glyphicon glyphicon-arrow-right"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="clearfix">
+        <div class="hint-text">Showing
+          <b>5</b> out of
+          <b>25</b> entries</div>
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a href="#">Previous</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">1</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">2</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">3</a>
+          </li>
+          <li class="page-item active">
+            <a href="#" class="page-link">4</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">5</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">6</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">7</a>
+          </li>
+          <li class="page-item">
+            <a href="#" class="page-link">Next</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
