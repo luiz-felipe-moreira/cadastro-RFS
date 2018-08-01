@@ -77,39 +77,30 @@
           </tr>
         </tbody>
       </table>
+      <!-- Current page: {{membrosListController.pager.currentPage}}
+      Total pages: {{membrosListController.pager.totalPages}}
+      Total items: {{membrosListController.pager.totalItems}}
+      End page: {{membrosListController.pager.endPage}}
+      Pages: {{membrosListController.pager.pages}} -->
 
-      <!--TODO: implementar paginacao descrta em http://jasonwatmore.com/post/2016/01/31/angularjs-pagination-example-with-logic-like-google-->
       <div class="clearfix">
-        <div class="hint-text">Showing
-          <b>5</b> out of
-          <b>25</b> entries</div>
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <a href="#">Previous</a>
+        <div class="hint-text">Total: 
+          <b>{{membrosListController.pager.totalItems}}</b> membros</div>
+        <ul ng-if="membrosListController.pager.pages.length" class="pagination">
+          <li ng-class="{disabled:membrosListController.pager.currentPage === 1}">
+            <a ng-click="membrosListController.setPage(1)">Primeira</a>
           </li>
-          <li class="page-item">
-            <a href="#" class="page-link">1</a>
+          <li ng-class="{disabled:membrosListController.pager.currentPage === 1}">
+            <a ng-click="membrosListController.setPage(membrosListController.pager.currentPage - 1)">Anterior</a>
           </li>
-          <li class="page-item">
-            <a href="#" class="page-link">2</a>
+          <li ng-repeat="page in membrosListController.pager.pages" ng-class="{active:membrosListController.pager.currentPage === page}">
+            <a ng-click="membrosListController.setPage(page)">{{page}}</a>
           </li>
-          <li class="page-item">
-            <a href="#" class="page-link">3</a>
-          </li>
-          <li class="page-item active">
-            <a href="#" class="page-link">4</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">5</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">6</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">7</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">Next</a>
+          <li ng-class="{disabled:membrosListController.pager.currentPage === membrosListController.pager.totalPages}">
+            <a href="#" class="page-link">Próxima</a>
+            <li ng-class="{disabled:membrosListController.pager.currentPage === membrosListController.pager.totalPages}">
+                <a ng-click="membrosListController.setPage(membrosListController.pager.totalPages)">Última</a>
+            </li>
           </li>
         </ul>
       </div>
