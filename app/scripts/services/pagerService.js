@@ -15,8 +15,8 @@ angular.module('cadastroRepublicaApp')
       // default to first page
       currentPage = currentPage || 1;
 
-      // default page size is 10
-      pageSize = pageSize || 10;
+      // default page size is 5
+      pageSize = pageSize || 5;
 
       // calculate total pages
       var totalPages = Math.ceil(totalItems / pageSize);
@@ -45,7 +45,7 @@ angular.module('cadastroRepublicaApp')
       var endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
       // create an array of pages to ng-repeat in the pager control
-      var pages = range(startPage, endPage + 1);
+      var pages = range(startPage, endPage);
 
       // return object with all pager properties required by the view
       return {
@@ -61,11 +61,11 @@ angular.module('cadastroRepublicaApp')
       };
     }
 
-    function range(start, stop, step) {
-      var a = [start],
-        b = start;
+    function range(start, stop) {
+      var a = [start];
+      var b = start;
       while (b < stop) {
-        b += (step || 1);
+        b ++;
         a.push(b)
       }
       return a;
