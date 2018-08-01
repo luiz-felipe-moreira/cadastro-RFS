@@ -91,13 +91,14 @@
             <a ng-click="membrosListController.setPage(1)">Primeira</a>
           </li>
           <li ng-class="{disabled:membrosListController.pager.currentPage === 1}">
-            <a ng-click="membrosListController.setPage(membrosListController.pager.currentPage - 1)">Anterior</a>
+            <a aria-label="Anterior" ng-click="membrosListController.setPage(membrosListController.pager.currentPage - 1)">&laquo;</a>
           </li>
           <li ng-repeat="page in membrosListController.pager.pages" ng-class="{active:membrosListController.pager.currentPage === page}">
             <a ng-click="membrosListController.setPage(page)">{{page}}</a>
           </li>
           <li ng-class="{disabled:membrosListController.pager.currentPage === membrosListController.pager.totalPages}">
-            <a href="#" class="page-link">Próxima</a>
+            <a aria-label="Próxima" class="page-link">&raquo;</a>
+            </li>
             <li ng-class="{disabled:membrosListController.pager.currentPage === membrosListController.pager.totalPages}">
                 <a ng-click="membrosListController.setPage(membrosListController.pager.totalPages)">Última</a>
             </li>
