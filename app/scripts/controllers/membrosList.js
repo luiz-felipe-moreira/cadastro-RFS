@@ -19,15 +19,13 @@ angular.module('cadastroRepublicaApp')
         function (response) {
           console.log(response);
           vm.listaMembros = response;
+          vm.setPage(1);
         },
         function (response) {
           console.log('Erro ao obter a lista de membros!');
           console.log('Error: ' + response.status + ' ' + response.statusText);
         }
       );
-
-      vm.setPage(1);
-
     }
 
     function setPage(page) {
