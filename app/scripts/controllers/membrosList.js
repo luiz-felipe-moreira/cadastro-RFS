@@ -8,6 +8,7 @@ angular.module('cadastroRepublicaApp')
     vm.pager = {};
     vm.setPage = setPage;
     vm.pageItens = [];
+    vm.atualizar = initController;
 
     vm.filtro = '';
 

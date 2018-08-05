@@ -7,7 +7,7 @@
             <h2>Membros</h2>
           </div>
           <div class="col-xs-6 col-md-8">
-            <a href="#" class="btn btn-primary">
+            <a ng-click="membrosListController.atualizar()" class="btn btn-primary">
               <i class="glyphicon glyphicon-refresh"></i>
               <span>Atualizar</span>
             </a>
@@ -97,7 +97,7 @@
             <a ng-click="membrosListController.setPage(page)">{{page}}</a>
           </li>
           <li ng-class="{disabled:membrosListController.pager.currentPage === membrosListController.pager.totalPages}">
-            <a aria-label="Próxima" class="page-link">&raquo;</a>
+            <a aria-label="Próxima" ng-click="membrosListController.setPage(membrosListController.pager.currentPage + 1)">&raquo;</a>
             </li>
             <li ng-class="{disabled:membrosListController.pager.currentPage === membrosListController.pager.totalPages}">
                 <a ng-click="membrosListController.setPage(membrosListController.pager.totalPages)">Última</a>
