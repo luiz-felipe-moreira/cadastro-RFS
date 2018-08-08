@@ -31,7 +31,7 @@
               </div>
               <div class="filter-group">
                 <label>Status</label>
-                <select class="form-control">
+                <select class="form-control" ng-model="membrosListController.filtroStatus" ng-change="membrosListController.filterByStatus()">
                   <option>Todos</option>
                   <option>Ativo</option>
                   <option>Aprovação pendente</option>

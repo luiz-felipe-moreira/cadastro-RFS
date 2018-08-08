@@ -66,7 +66,7 @@ angular.module('cadastroRepublicaApp')
       var b = start;
       while (b < stop) {
         b ++;
-        a.push(b)
+        a.push(b);
       }
       return a;
     }
