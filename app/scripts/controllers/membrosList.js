@@ -59,12 +59,6 @@ angular.module('cadastroRepublicaApp')
       vm.setPage(1);
     };
 
-    vm.filterByName = function () {
-      vm.listaMembrosFiltrada = vm.listaMembros.filter(contemNomeOuApelido);
-      console.debug(vm.listaMembrosFiltrada);
-      vm.setPage(1);
-    };
-
     vm.filtrar = function () {
       if (vm.filtroStatus === 'Todos') {
         vm.listaMembrosFiltrada = vm.listaMembros.filter(contemNomeOuApelido);
