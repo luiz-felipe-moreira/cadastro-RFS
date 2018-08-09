@@ -18,6 +18,9 @@ angular.module('cadastroRepublicaApp')
 
     function initController() {
 
+      vm.filtro = '';
+      vm.filtroStatus = 'Todos';
+
       membrosFactory.query(
         function (response) {
           console.log(response);
@@ -55,5 +58,30 @@ angular.module('cadastroRepublicaApp')
       console.debug(vm.listaMembrosFiltrada);
       vm.setPage(1);
     };
+
+    vm.filterByName = function () {
+      vm.listaMembrosFiltrada = vm.listaMembros.filter(contemNomeOuApelido);
+      console.debug(vm.listaMembrosFiltrada);
+      vm.setPage(1);
+    };
+
+    vm.filtrar = function () {
+      if (vm.filtroStatus === 'Todos') {
+        vm.listaMembrosFiltrada = vm.listaMembros.filter(contemNomeOuApelido);
+      } else {
+        vm.listaMembrosFiltrada = vm.listaMembros.filter(function (membro) {
+          return membro.status === vm.filtroStatus;
+        }).filter(contemNomeOuApelido);
+      }
+      console.debug(vm.listaMembrosFiltrada);
+      vm.setPage(1);
+    };
+
+    var contemNomeOuApelido = function (membro) {
+      var nomeLowerCase = membro.nome.toLowerCase();
+      var apelidoLowerCase = membro.apelido.toLowerCase();
+      var filtroLowerCase = vm.filtro.toLowerCase();
+      return ((nomeLowerCase.indexOf(filtroLowerCase) >= 0) || (apelidoLowerCase.indexOf(filtroLowerCase) >= 0));
+    }
 
   }]);
