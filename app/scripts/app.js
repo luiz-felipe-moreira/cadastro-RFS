@@ -61,9 +61,19 @@ angular
 
       .state('lista-membros', {
         url: '/lista-membros',
-        templateUrl: 'views/lista-membros.html',
+        views: {
+          'header': {
+            templateUrl: 'views/header.html'
+          },
+          'content': {
+            templateUrl: 'views/lista-membros.html',
+            controller: 'MembrosListController',
+            controllerAs: 'membrosListController'
+          }
+        }
+        /* templateUrl: 'views/lista-membros.html',
         controller: 'MembrosListController',
-        controllerAs: 'membrosListController'
+        controllerAs: 'membrosListController' */
 
       })
 
@@ -76,9 +86,19 @@ angular
 
       .state('me', {
         url: '/me',
-        templateUrl: 'views/membro.html',
-        controller: 'MembroController',
-        controllerAs: 'membroController'
+        views: {
+          'header': {
+            templateUrl: 'views/header.html'
+          },
+          'content': {
+            templateUrl: 'views/membro.html',
+            controller: 'MembroController',
+            controllerAs: 'membroController'
+          }
+        }
+        /*  templateUrl: 'views/membro.html',
+         controller: 'MembroController',
+         controllerAs: 'membroController' */
       })
 
       .state('main', {
@@ -171,7 +191,9 @@ angular
               console.log('User cancelled login or did not fully authorize.');
               authService.loginCancelled('authentication failed', response);
             }
-          }, { scope: 'public_profile,email' });
+          }, {
+            scope: 'public_profile,email'
+          });
         }
       });
 
