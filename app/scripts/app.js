@@ -79,9 +79,16 @@ angular
 
       .state('membro', {
         url: '/membro/:id',
-        templateUrl: 'views/membro.html',
-        controller: 'MembroController',
-        controllerAs: 'membroController'
+        views: {
+          'header': {
+            templateUrl: 'views/header.html'
+          },
+          'content': {
+            templateUrl: 'views/membro.html',
+            controller: 'MembroController',
+            controllerAs: 'membroController'
+          }
+        }
       })
 
       .state('me', {
@@ -96,9 +103,20 @@ angular
             controllerAs: 'membroController'
           }
         }
-        /*  templateUrl: 'views/membro.html',
-         controller: 'MembroController',
-         controllerAs: 'membroController' */
+      })
+
+      .state('edicao-membro', {
+        url: '/edicao-membro/:id',
+        views: {
+          'header': {
+            templateUrl: 'views/header.html'
+          },
+          'content': {
+            templateUrl: 'views/edicao-membro.html',
+            controller: 'MembroController',
+            controllerAs: 'membroController'
+          }
+        }
       })
 
       .state('main', {

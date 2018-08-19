@@ -76,13 +76,17 @@ a:hover {
 }
 
 .profile {
-  margin: 20px 0;
+  /* margin: 20px 0; */
   color: black;
 }
 
 .profile-side-bar {
   padding: 20px 0 10px 0;
   background: #fff;
+}
+
+.profile-buttons {
+  padding-top: 15px;
 }
 
 .profile-user-pic img {

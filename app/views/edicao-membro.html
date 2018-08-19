@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="row profile">
+      <div class="col-md-3">
+        <div class="profile-side-bar">
+          <div class="profile-user-pic">
+            <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}}>
+          </div>
+          <div class="profile-user-title">
+            <div class="profile-user-name">{{membroController.membro.nome}} </div>
+            <div class="profile-user-apelido">{{membroController.membro.apelido}}</div>
+          </div>
+          <div class="profile-user-menu">
+            <ul class="nav">
+              <li ng-class="{active: membroController.estaSelecionado('geral')}">
+                <a href="" ng-click="membroController.selecionarGrupoDados('geral')">
+                  <i class="glyphicon glyphicon-user"></i> Dados Gerais</a>
+              </li>
+              <li ng-class="{active: membroController.estaSelecionado('saude')}">
+                <a href="" ng-click="membroController.selecionarGrupoDados('saude')">
+                  <i class="glyphicon glyphicon-heart"></i> Saúde</a>
+              </li>
+              <li ng-class="{active: membroController.estaSelecionado('surf')}">
+                <a href="" ng-click="membroController.selecionarGrupoDados('surf')">
+                  <i class="glyphicon glyphicon-fire"></i> Surfe</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="profile-detail">
+              <dl class="dl-horizontal" ng-show="membroController.estaSelecionado('geral')">
+                  <div class="form-group" ng-class="{ 'has-error' : form.inputNome.$error.required && !form.inputNome.$pristine }">
+                      <label for="inputNome">Nome Completo</label>
+                      <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Seu nome completo" ng-model="membroController.membro.nome"
+                          required>
+                      <span class="help-block" ng-show="form.inputNome.$error.required && !form.inputNome.$pristine">É obrigatório informar o seu nome!</span>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="inputApelido">Apelido <small>(opcional)</small></label>
+                      <input type="text" class="form-control" id="inputApelido" placeholder="Seu apelido no República Free Surf" ng-model="membroController.membro.apelido">
+                  </div>
+                  
+                  <div class="row">
+                      <div class="col-xs-6">
+                          <div class="form-group" ng-class="{ 'has-error' : form.inputTelefoneCelular.$error.required && !form.inputTelefoneCelular.$pristine }">
+                              <label for="inputTelefoneCelular">Telefone Celular</label>
+                              <input type="text" class="form-control" id="inputTelefoneCelular" name="inputTelefoneCelular" ng-model="membroController.membro.telefoneCelular"
+                                  ui-mask="(99) 99999-9999" ui-mask-placeholder ui-mask-placeholder-char="_" required>
+                              <span class="help-block" ng-show="form.inputTelefoneCelular.$error.required && !form.inputTelefoneCelular.$pristine">É obrigatório o seu celular, com DDD e 9 dígitos no número!</span>
+                          </div>
+                      </div>
+                      <div class="col-xs-6" style="padding-left: 0px;">
+                          <div class="form-group">
+                              <label for="inputTelefoneFixo">Tel. Fixo <small>(opcional)</small></label>
+                              <input type="text" class="form-control" id="inputTelefoneFixo" ng-model="membroController.membro.telefoneFixo" ui-mask="(99) 9999-9999"
+                                  ui-mask-placeholder ui-mask-placeholder-char="_">
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group" ng-class="{ 'has-error has-feedback' : form.inputEmail.$invalid && !form.inputEmail.$pristine }">
+                      <label for="inputEmail">Email</label>
+                      <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Seu endereço de email" ng-model="membroController.membro.email"
+                          required>
+                      <span ng-show="(form.inputEmail.$invalid ||
+                                                            form.inputEmail.$error.required) &&
+                                                            !form.inputEmail.$pristine" class="help-block">É obrigatório informar um endereço de email válido</span>
+                  </div>
+                  
+                  <div class="form-group" ng-class="{ 'has-error' : form.inputProfissao.$error.required && !form.inputProfissao.$pristine }">
+                      <label for="inputProfissao">Profissão</label>
+                      <input type="text" class="form-control" id="inputProfissao" name="inputProfissao" placeholder="Sua ocupação principal" ng-model="membroController.membro.profissao"
+                          required>
+                      <span class="help-block" ng-show="form.inputProfissao.$error.required && !form.inputProfissao.$pristine">É obrigatório informar sua profissão!</span>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="inputGroupDia">Data de Nascimento</label>
+                      <div class="input-group" id="inputGroupDia">
+                          <div class="col-xs-3" style="padding-left: 0px;" ng-class="{ 'has-error' : (form.diaNascimento.$error.required || form.diaNascimento.$error.max || form.diaNascimento.$error.min) && !form.diaNascimento.$pristine }">
+                              <input class="form-control" placeholder="dia" type="number" name="diaNascimento" min="1" max="31" maxlength="2" required
+                                  only-digits ng-model="membroController.diaNascimento" ng-change="membroController.atualizarDataNascimento()">
+                              <span class="help-block" ng-show="(form.diaNascimento.$error.required || form.diaNascimento.$error.max || form.diaNascimento.$error.min) && !form.diaNascimento.$pristine">Informe um dia de nascimento válido!</span>
+                          </div>
+                          <div class="col-xs-5" style="padding-left: 0px;" ng-class="{ 'has-error' : !form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required }">
+                              <select class="form-control" required name="mesNascimento" ng-model="membroController.mesNascimento" ng-change="membroController.atualizarDataNascimento()">
+                                  <option value="" disabled selected>mês</option>
+                                  <option value="0">Janeiro</option>
+                                  <option value="1">Fevereiro</option>
+                                  <option value="2">Março</option>
+                                  <option value="3">Abril</option>
+                                  <option value="4">Maio</option>
+                                  <option value="5">Junho</option>
+                                  <option value="6">Julho</option>
+                                  <option value="7">Agosto</option>
+                                  <option value="8">Setembro</option>
+                                  <option value="9">Outubro</option>
+                                  <option value="10">Novembro</option>
+                                  <option value="11">Dezembro</option>
+                              </select>
+                              <span class="help-block" ng-show="!form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required">Informe um mês de nascimento válido!</span>
+                          </div>
+                          <div class="col-xs-4" style="padding-left: 0px;" ng-class="{ 'has-error' : (form.anoNascimento.$error.required || form.anoNascimento.$error.max || form.anoNascimento.$error.min) && !form.anoNascimento.$pristine }">
+                              <input class="form-control" placeholder="ano" name="anoNascimento" type="number" min="1900" max="2050" maxlength="4" required
+                                  only-digits ng-model="membroController.anoNascimento" ng-change="membroController.atualizarDataNascimento()">
+                              <span class="help-block" ng-show="(form.anoNascimento.$error.required || form.anoNascimento.$error.max|| form.anoNascimento.$error.min) && !form.anoNascimento.$pristine">Informe um ano de nascimento válido!</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="radioButtonsSexo">Sexo</label>
+                      <div id="radioButtonsSexo" ng-init="membroController.membro.sexo='Masculino'">
+                          <label class="radio-inline">
+                              <input type="radio" id="inlineRadio1" value="masculino" ng-model="membroController.membro.sexo"> Masculino
+                            </label>
+                          <label class="radio-inline">
+                              <input type="radio" id="inlineRadio2" value="feminino" ng-model="membroController.membro.sexo"> Feminino
+                            </label>
+                      </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div class="row profile-buttons">
+          <div class="col-xs-12">
+            <a class="btn btn-primary" ui-sref="edicao-membro" role="button">Salvar Alterações</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
