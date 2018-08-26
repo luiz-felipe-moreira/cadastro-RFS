@@ -8,20 +8,22 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('HeaderController', ['facebookAuthenticationService', function (facebookAuthenticationService) {
-    
-    this.dadosCadastrais = {nome:'', apelido:'', email:'', telefoneCelular:'',
-                         telefoneFixo:false, profissao:'', dataNascimento:'', sexo:'' };
+  .controller('HeaderController', ['facebookAuthenticationService', 'apiAuthenticationFactory', function (facebookAuthenticationService, apiAuthenticationFactory) {
 
-    this.hideHeader = function() {
+    var vm = this;
+
+    vm.hideHeader = function () {
       console.debug('Executando a função hideHeader. Valor de facebookAuthenticationService.isRegistered: ' + facebookAuthenticationService.isRegistered);
-      if (facebookAuthenticationService.isRegistered === false){
+      if (facebookAuthenticationService.isRegistered === false) {
         console.log('Usuário não cadastrado ou ainda não autenticado!!!');
         return true;
-      } else{
+      } else {
         return false;
       }
     };
 
+    vm.isAdminMember = function () {
+      return apiAuthenticationFactory.isAdmin();
+    };
 
   }]);

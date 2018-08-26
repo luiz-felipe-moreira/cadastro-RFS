@@ -398,11 +398,6 @@ table.table .avatar {
   color:#fff;
 }
 
-.navbar-custom .navbar-nav > .active > a {
-  color: #ffffff;
-  background-color:transparent;
-}
-
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus,
 .navbar-custom .navbar-nav > .active > a:hover,

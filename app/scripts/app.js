@@ -63,7 +63,9 @@ angular
         url: '/lista-membros',
         views: {
           'header': {
-            templateUrl: 'views/header.html'
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
           },
           'content': {
             templateUrl: 'views/lista-membros.html',
@@ -81,7 +83,9 @@ angular
         url: '/membro/:id',
         views: {
           'header': {
-            templateUrl: 'views/header.html'
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
           },
           'content': {
             templateUrl: 'views/membro.html',
@@ -95,7 +99,9 @@ angular
         url: '/me',
         views: {
           'header': {
-            templateUrl: 'views/header.html'
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
           },
           'content': {
             templateUrl: 'views/membro.html',
@@ -110,7 +116,9 @@ angular
         url: '/edicao-membro',
         views: {
           'header': {
-            templateUrl: 'views/header.html'
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
           },
           'content': {
             templateUrl: 'views/edicao-membro.html',
