@@ -83,9 +83,10 @@
           </div>
         </div>
       </div>
-      <div class="row profile-buttons">
+      <div class="row profile-buttons" ng-show="membroController.dataBelongsToCurrenteUser()">
         <div class="col-xs-12">
-          <a class="btn btn-primary" ui-sref="edicao-membro({ id: membroController.membro.id })" role="button">Editar Perfil</a>
+          <!-- <a class="btn btn-primary" ui-sref="edicao-membro({ id: membroController.membro.id })" role="button">Editar Perfil</a> -->
+          <a class="btn btn-primary" ui-sref="edicao-membro" role="button">Editar Perfil</a>
         </div>
       </div>
     </div>

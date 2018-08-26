@@ -106,7 +106,8 @@ angular
       })
 
       .state('edicao-membro', {
-        url: '/edicao-membro/:id',
+        // url: '/edicao-membro/:id',
+        url: '/edicao-membro',
         views: {
           'header': {
             templateUrl: 'views/header.html'
