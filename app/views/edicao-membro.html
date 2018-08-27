@@ -27,12 +27,12 @@
         </div>
       </div>
     </div>
-    <form id="signup-form" name="form" role="form" ng-submit="formController.processForm()" novalidate>
+    <form id="signup-form" name="form" role="form" ng-submit="membroController.processForm()" novalidate>
       <div class="col-md-9">
         <div class="row">
           <div class="col-xs-12">
             <div class="profile-detail">
-              <dl class="dl-horizontal" ng-show="membroController.estaSelecionado('geral')">
+              <div ng-show="membroController.estaSelecionado('geral')">
                 <div class="form-group" ng-class="{ 'has-error' : form.inputNome.$error.required && !form.inputNome.$pristine }">
                   <label for="inputNome">Nome Completo</label>
                   <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Seu nome completo" ng-model="membroController.membro.nome"
@@ -126,16 +126,137 @@
                     </label>
                   </div>
                 </div>
+              </div>
+
+              <div ng-show="membroController.estaSelecionado('saude')">
+
+                <div class="form-group row">
+                  <div class="col-xs-6">
+                    <label for="selectGrupoSanguineo">Grupo Sanguíneo</label>
+                    <select class="form-control" id="selectGrupoSanguineo" name="selectGrupoSanguineo" required ng-model="membroController.membro.grupoSanguineo">
+                      <option value="" disabled>selecione</option>
+                      <option value="A">A</option>
+                      <option value="AB">AB</option>
+                      <option value="B">B</option>
+                      <option value="O">O</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="radioButtonsFatorRH">Fator RH</label>
+                  <div id="radioButtonsFatorRH" ng-init="membroController.membro.fatorRH='+'">
+                    <label class="radio-inline">
+                      <input type="radio" ng-model="membroController.membro.fatorRH" value="+"> + Positivo
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" ng-model="membroController.membro.fatorRH" value="-"> - Negativo
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputAlergias">Alergias
+                    <small>(opcional)</small>
+                  </label>
+                  <input type="text" class="form-control" id="inputAlergias" name="inputAlergias" placeholder="ex.: AAS, dipirona, camarão"
+                    ng-model="membroController.membro.alergias">
+                </div>
+
+                <div class="form-group">
+                  <label for="inputProblemasSaude">Problemas de Saúde
+                    <small>(opcional)</small>
+                  </label>
+                  <input type="text" class="form-control" id="inputProblemasSaude" name="inputProblemasSaude" placeholder="ex.: diabetes, eplepsia, hipertensão"
+                    ng-model="membroController.membro.problemasSaude">
+                </div>
+
+                <fieldset>
+                  <legend id="legendaContatoEmergencia">Contato de Emergência</legend>
+                  <div class="form-group">
+                    <small>Informe abaixo os dados da pessoa que deve ser comunicada em caso de acidente</small>
+                  </div>
+                  <div class="form-group" ng-class="{ 'has-error' : form.inputNomeContatoEmergencia.$error.required && !form.inputNomeContatoEmergencia.$pristine }">
+                    <label for="inputNomeContatoEmergencia">Nome</label>
+                    <input type="text" class="form-control" id="inputNomeContatoEmergencia" name="inputNomeContatoEmergencia" placeholder="Nome do contato de emergêcia"
+                      ng-model="membroController.membro.nomeContatoEmergencia" required>
+                    <span class="help-block" ng-show="form.inputNomeContatoEmergencia.$error.required && !form.inputNomeContatoEmergencia.$pristine">É obrigatório informar o nome do seu contato de emergência!</span>
+                  </div>
+                  <div class="form-group col-xs-6" style="padding-left: 0px;" ng-class="{ 'has-error' : form.inputelefoneContatoEmergencia.$error.required && !form.inputelefoneContatoEmergencia.$pristine
+                    }">
+                    <label for="inputelefoneContatoEmergencia">Telefone Celular</label>
+                    <input type="text" class="form-control" id="inputelefoneContatoEmergencia" name="inputelefoneContatoEmergencia" ng-model="membroController.membro.telefoneContatoEmergencia "
+                      ui-mask="(99) 99999-9999" ui-mask-placeholder ui-mask-placeholder-char="_" required>
+                    <span class="help-block " ng-show="form.inputelefoneContatoEmergencia.$error.required && !form.inputelefoneContatoEmergencia.$pristine ">É obrigatório informar um celular, com DDD e 9 dígitos no número!</span>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div ng-show="membroController.estaSelecionado('surf')">
+
+                  <div class="form-group">
+                      <label for="radioButtonsNivel">Nível de surfe</label>
+                      <div id="radioButtonsNivel">
+                          <div class="radio">
+                              <label>
+                              <input type="radio" name="nivel" id="nivelIniciante" value="iniciante" ng-model="membroController.membro.nivel" required>
+                              iniciante
+                          </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                              <input type="radio" name="nivel" id="nivelIntermediario" value="intermediario" ng-model="membroController.membro.nivel">
+                              intermediário
+                          </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                              <input type="radio" name="nivel" id="nivelAvancado" value="avancado" ng-model="membroController.membro.nivel">
+                              avançado
+                          </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                              <input type="radio" name="nivel" id="nivelProfissional" value="profissional" ng-model="membroController.membro.nivel">
+                              profissional
+                          </label>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="form-group">
+                      <label for="checkboxesTipoPrancha">Tipo de prancha</label>
+                      <div class="checkbox" ng-repeat="tipo in membroController.tiposPrancha">
+                          <label>
+                              <input type="checkbox" value={{tipo}} ng-click="membroController.toggleTipoPrancha(tipo)" ng-checked="membroController.membro.tiposPrancha.indexOf(tipo) > -1">{{tipo}}
+                          </label>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group" ng-class="{ 'has-error' : form.inputAnoComecoSurfe.$error.required && !form.inputAnoComecoSurfe.$pristine }">
+                      <label for="inputAnoComecoSurfe">Ano em que começou a surfar</label>
+                      <small>(se não lembrar o ano exato, informe um ano aproximado)</small>
+                      <input class="form-control" id="inputAnoComecoSurfe" name="inputAnoComecoSurfe" style="width: 50%;" placeholder="ano" type="number"
+                          min="1900" max="2050" maxlength="4" required only-digits ng-model="membroController.membro.anoComecoSurfe">
+                      <span class="help-block" ng-show="form.inputAnoComecoSurfe.$error.required && !form.inputAnoComecoSurfe.$pristine">É obrigatório informar o ano!</span>
+                  </div>
+                  
+                  <div class="form-group" ng-class="{ 'has-error' : form.inputPraia.$error.required && !form.inputPraia.$pristine }">
+                      <label for="inputPraia">Praia onde surfa mais frequentemente</label>
+                      <input type="text" class="form-control" id="inputPraia" name="inputPraia" placeholder="ex.: Praia de Jaguaribe" ng-model="membroController.membro.praia"
+                          required>
+                      <span class="help-block" ng-show="form.inputPraia.$error.required && !form.inputPraia.$pristine">É obrigatório informar o nome da praia!</span>
+                  </div>
+                  
+              </div>
             </div>
           </div>
         </div>
         <div class="row profile-buttons">
           <div class="col-xs-12">
-            <a class="btn btn-success" ui-sref="edicao-membro" role="button" ng-disabled="(form.$invalid || form.$pristine)"
-            ng-click="membroController.atualizarPerfil()">Salvar Alterações</a>
+            <a class="btn btn-success" ui-sref="edicao-membro" role="button" ng-disabled="(form.$invalid || form.$pristine)" ng-click="membroController.atualizarPerfil()">Salvar Alterações</a>
           </div>
         </div>
-      </div>
     </form>
+    </div>
   </div>
-</div>
