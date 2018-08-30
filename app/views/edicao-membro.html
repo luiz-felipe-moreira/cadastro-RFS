@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <form id="signup-form" name="form" role="form" ng-submit="membroController.processForm()" novalidate>
+    <form id="edit-profile-form" name="form" role="form" ng-submit="membroController.processForm()" novalidate>
       <div class="col-md-9">
         <div class="row">
           <div class="col-xs-12">
@@ -254,7 +254,8 @@
         </div>
         <div class="row profile-buttons">
           <div class="col-xs-12">
-            <a class="btn btn-success" ui-sref="edicao-membro" role="button" ng-disabled="(form.$invalid || form.$pristine)" ng-click="membroController.atualizarPerfil()">Salvar Alterações</a>
+            <a class="btn btn-success" role="button" ng-disabled="(form.$invalid || form.$pristine)" ng-click="membroController.atualizarPerfil()">Salvar Alterações</a>
+            <a class="btn btn-default" ui-sref="me" role="button">Cancelar</a>
           </div>
         </div>
     </form>

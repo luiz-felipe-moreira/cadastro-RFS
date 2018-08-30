@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService) {
+  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', '$scope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, $scope) {
 
     var vm = this;
     vm.membro = {};
@@ -9,7 +9,7 @@ angular.module('cadastroRepublicaApp')
     vm.diaNascimento = '';
     vm.mesNascimento = '';
     vm.anoNascimento = '';
-    vm.tiposPranchaSelecionados = [];
+    vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard'];
 
     if ($stateParams.id) {
       membrosFactory.get({
@@ -27,7 +27,6 @@ angular.module('cadastroRepublicaApp')
           vm.diaNascimento = dataNascimento.getDate();
           vm.mesNascimento = dataNascimento.getMonth().toString();
           vm.anoNascimento = dataNascimento.getFullYear();
-          vm.tiposPranchaSelecionados = vm.membro.tiposPrancha;
         },
         function (response) {
           console.log('Erro ao obter dado do membro de id ' + $stateParams.id);
@@ -48,6 +47,7 @@ angular.module('cadastroRepublicaApp')
           vm.diaNascimento = dataNascimento.getDate();
           vm.mesNascimento = dataNascimento.getMonth().toString();
           vm.anoNascimento = dataNascimento.getFullYear();
+
         },
         function (response) {
           console.log('Erro ao obter dado do membro de id ' + $stateParams.id);
@@ -69,19 +69,17 @@ angular.module('cadastroRepublicaApp')
       vm.dataNascimento = new Date(vm.anoNascimento, vm.mesNascimento, vm.diaNascimento);
     };
 
-    vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard'];
-
-    //TODO verificar se não dá para eliminar a variável tiposPranchaSelecionados (este codigo foi copiado de form.js)
 
     vm.toggleTipoPrancha = function (tipoPrancha) {
-      var index = vm.tiposPranchaSelecionados.indexOf(tipoPrancha);
+
+      $scope.form.$setDirty();
+      var index = vm.membro.tiposPrancha.indexOf(tipoPrancha);
 
       if (index > -1) {
-        vm.tiposPranchaSelecionados.splice(index, 1);
+        vm.membro.tiposPrancha.splice(index, 1);
       } else {
-        vm.tiposPranchaSelecionados.push(tipoPrancha);
+        vm.membro.tiposPrancha.push(tipoPrancha);
       }
-      vm.membro.tiposPrancha = vm.tiposPranchaSelecionados;
     };
 
     vm.dataBelongsToCurrenteUser = function () {
