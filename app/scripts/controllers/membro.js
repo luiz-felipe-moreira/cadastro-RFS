@@ -11,47 +11,36 @@ angular.module('cadastroRepublicaApp')
     vm.anoNascimento = '';
     vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard'];
 
+    var successGetMemberCallback = function (response) {
+      console.debug(response);
+      vm.membro = response;
+      var dataNascimento = new Date(vm.membro.dataNascimento);
+      var options = {
+        month: 'long',
+        day: 'numeric'
+      };
+      vm.dataAniversario = dataNascimento.toLocaleDateString('pt-BR', options);
+      vm.diaNascimento = dataNascimento.getDate();
+      vm.mesNascimento = dataNascimento.getMonth().toString();
+      vm.anoNascimento = dataNascimento.getFullYear();
+    };
+
     if ($stateParams.id) {
       membrosFactory.get({
           id: $stateParams.id
         },
+        successGetMemberCallback,
         function (response) {
-          console.log(response);
-          vm.membro = response;
-          var dataNascimento = new Date(vm.membro.dataNascimento);
-          var options = {
-            month: 'long',
-            day: 'numeric'
-          };
-          vm.dataAniversario = dataNascimento.toLocaleDateString('pt-BR', options);
-          vm.diaNascimento = dataNascimento.getDate();
-          vm.mesNascimento = dataNascimento.getMonth().toString();
-          vm.anoNascimento = dataNascimento.getFullYear();
-        },
-        function (response) {
-          console.log('Erro ao obter dado do membro de id ' + $stateParams.id);
-          console.log('Error: ' + response.status + ' ' + response.statusText);
+          console.error('Erro ao obter dado do membro de id ' + $stateParams.id);
+          console.error('Error: ' + response.status + ' ' + response.statusText);
         }
       );
     } else {
       meFactory.get(
+        successGetMemberCallback,
         function (response) {
-          console.log(response);
-          vm.membro = response;
-          var dataNascimento = new Date(vm.membro.dataNascimento);
-          var options = {
-            month: 'long',
-            day: 'numeric'
-          };
-          vm.dataAniversario = dataNascimento.toLocaleDateString('pt-BR', options);
-          vm.diaNascimento = dataNascimento.getDate();
-          vm.mesNascimento = dataNascimento.getMonth().toString();
-          vm.anoNascimento = dataNascimento.getFullYear();
-
-        },
-        function (response) {
-          console.log('Erro ao obter dado do membro de id ' + $stateParams.id);
-          console.log('Error: ' + response.status + ' ' + response.statusText);
+          console.error('Erro ao obter dado do membro');
+          console.error('Error: ' + response.status + ' ' + response.statusText);
         }
       );
     }
@@ -90,12 +79,12 @@ angular.module('cadastroRepublicaApp')
       meFactory.update(vm.membro)
         .$promise.then(
           function (response) {
-            console.log(response);
+            console.debug(response);
             $state.go('me');
           },
           function (response) {
-            console.log('Erro ao realizar cadastro :\(');
-            console.log('Error: ' + response.status + ' ' + response.statusText);
+            console.error('Erro ao realizar cadastro :\(');
+            console.error('Error: ' + response.status + ' ' + response.statusText);
             $rootScope.mensagemErro = 'Erro ao realizar operação :\(' + '\nTente novamente mais tarde.';
             $state.go('erro');
           }
