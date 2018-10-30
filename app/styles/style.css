@@ -128,7 +128,7 @@ a:hover {
 }
 
 .profile-user-menu ul li a {
-  color: #93a3b5;
+  color: #337ab7;
   font-size: 14px;
   font-weight: 400;
 }
@@ -140,7 +140,7 @@ a:hover {
 
 .profile-user-menu ul li a:hover {
   background-color: #fafcfd;
-  color: #5b9bd1;
+  color: #233960;
 }
 
 .profile-user-menu ul li.active {
@@ -152,6 +152,7 @@ a:hover {
   background-color: #f6f9fb;
   border-left: 2px solid #233960;
   margin-left: -2px;
+  font-weight: bold;
 }
 
 .profile-detail {
