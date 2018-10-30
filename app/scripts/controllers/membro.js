@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', '$scope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, $scope) {
+  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', '$scope', '$rootScope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, $scope, $rootScope) {
 
     var vm = this;
     vm.membro = {};
@@ -83,12 +83,31 @@ angular.module('cadastroRepublicaApp')
             $state.go('me');
           },
           function (response) {
-            console.error('Erro ao realizar cadastro :\(');
+            console.error('Erro ao atualizar cadastro :\(');
             console.error('Error: ' + response.status + ' ' + response.statusText);
             $rootScope.mensagemErro = 'Erro ao realizar operação :\(' + '\nTente novamente mais tarde.';
             $state.go('erro');
           }
         );
+    };
+
+    vm.aprovarMembro = function () {
+      
+      vm.membro.aprovado = true;
+      vm.membro.status = 'Ativo';
+
+      membrosFactory.update({id: vm.membro.id}, vm.membro)
+      .$promise.then(
+        function (response) {
+          console.debug(response);
+        },
+        function (response) {
+          console.error('Erro ao aprovar membro :\(');
+          console.error('Error: ' + response.status + ' ' + response.statusText);
+          $rootScope.mensagemErro = 'Erro ao realizar operação :\(' + '\nTente novamente mais tarde.';
+          $state.go('erro');
+        }
+      );
     };
 
   }]);

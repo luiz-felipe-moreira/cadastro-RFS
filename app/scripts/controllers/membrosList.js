@@ -7,14 +7,22 @@ angular.module('cadastroRepublicaApp')
     vm.listaMembros = [];
     vm.listaMembrosFiltrada = [];
     vm.pager = {};
-    vm.setPage = setPage;
     vm.pageItens = [];
-    vm.atualizar = initController;
 
     vm.filtro = '';
     vm.filtroStatus = 'Todos';
 
-    initController();
+    vm.setPage = function setPage(page) {
+      if (page < 1) {
+        return;
+      }
+
+      // get pager object from service
+      vm.pager = pagerService.getPager(vm.listaMembrosFiltrada.length, page);
+
+      // get current page of items
+      vm.pageItens = vm.listaMembrosFiltrada.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
+    };
 
     function initController() {
 
@@ -35,17 +43,7 @@ angular.module('cadastroRepublicaApp')
       );
     }
 
-    function setPage(page) {
-      if (page < 1) {
-        return;
-      }
-
-      // get pager object from service
-      vm.pager = pagerService.getPager(vm.listaMembrosFiltrada.length, page);
-
-      // get current page of items
-      vm.pageItens = vm.listaMembrosFiltrada.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
-    }
+    initController();
 
     vm.filterByStatus = function () {
       if (vm.filtroStatus === 'Todos') {
@@ -76,6 +74,8 @@ angular.module('cadastroRepublicaApp')
       var apelidoLowerCase = membro.apelido.toLowerCase();
       var filtroLowerCase = vm.filtro.toLowerCase();
       return ((nomeLowerCase.indexOf(filtroLowerCase) >= 0) || (apelidoLowerCase.indexOf(filtroLowerCase) >= 0));
-    }
+    };
+
+    vm.atualizar = initController;
 
   }]);

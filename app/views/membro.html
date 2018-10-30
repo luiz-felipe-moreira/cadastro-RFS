@@ -83,10 +83,15 @@
           </div>
         </div>
       </div>
-      <div class="row profile-buttons" ng-show="membroController.dataBelongsToCurrenteUser()">
-        <div class="col-xs-12">
+      <div class="row profile-buttons">
+        <div class="col-xs-12" ng-show="membroController.dataBelongsToCurrenteUser()">
           <!-- <a class="btn btn-primary" ui-sref="edicao-membro({ id: membroController.membro.id })" role="button">Editar Perfil</a> -->
           <a class="btn btn-primary" ui-sref="edicao-membro" role="button">Editar Perfil</a>
+        </div>
+        <div class="col-xs-12" ng-hide="membroController.dataBelongsToCurrenteUser()">
+          <!-- <a class="btn btn-primary" ui-sref="edicao-membro({ id: membroController.membro.id })" role="button">Editar Perfil</a> -->
+          <a class="btn btn-success" role="button" ng-click="membroController.aprovarMembro()" ng-hide="membroController.membro.aprovado">Aprovar Cadastro</a>
+          <a class="btn btn-default" ui-sref="lista-membros" role="button">Voltar</a>
         </div>
       </div>
     </div>
