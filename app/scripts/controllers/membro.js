@@ -100,6 +100,7 @@ angular.module('cadastroRepublicaApp')
       .$promise.then(
         function (response) {
           console.debug(response);
+          $state.go('lista-membros');
         },
         function (response) {
           console.error('Erro ao aprovar membro :\(');
