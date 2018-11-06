@@ -26,4 +26,7 @@ angular.module('cadastroRepublicaApp')
       return apiAuthenticationFactory.isAdmin();
     };
 
+    vm.isRegisteredMember = function () {
+      return apiAuthenticationFactory.isRegistrado();
+    };
   }]);

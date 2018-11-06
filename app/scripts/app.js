@@ -26,9 +26,21 @@ angular
       // route to show our basic form (/form)
       .state('form', {
         url: '/form',
-        templateUrl: 'views/form.html',
-        controller: 'FormController',
-        controllerAs: 'formController'
+        // templateUrl: 'views/form.html',
+        // controller: 'FormController',
+        // controllerAs: 'formController'
+        views: {
+          'header': {
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
+          },
+          'content': {
+            templateUrl: 'views/form.html',
+            controller: 'FormController',
+            controllerAs: 'formController'
+          }
+        }
       })
       // nested states, each of these sections will have their own view
       // url will be nested (/form/geral)

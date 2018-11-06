@@ -16,7 +16,7 @@
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Membros</a>
         </li>
-        <li>
+        <li ng-show="headerController.isRegisteredMember()">
           <a ui-sref="me">
             <i class="fa fa-user-circle" aria-hidden="true"></i> Meu Perfil</a>
         </li>
