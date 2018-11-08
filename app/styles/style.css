@@ -5,7 +5,10 @@ body {
   padding-top: 70px;
   background: #DFE3EE;
 }
-
+.navbar-brand>img {
+  height: 100%;
+  width: auto;
+}
 /* a {
   color: #FFF;
 }
