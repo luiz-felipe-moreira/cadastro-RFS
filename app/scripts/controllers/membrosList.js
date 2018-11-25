@@ -70,10 +70,20 @@ angular.module('cadastroRepublicaApp')
     };
 
     var contemNomeOuApelido = function (membro) {
-      var nomeLowerCase = membro.nome.toLowerCase();
-      var apelidoLowerCase = membro.apelido.toLowerCase();
+      
       var filtroLowerCase = vm.filtro.toLowerCase();
-      return ((nomeLowerCase.indexOf(filtroLowerCase) >= 0) || (apelidoLowerCase.indexOf(filtroLowerCase) >= 0));
+      var encontradoNome = false;
+      var encontradoApelido = false;
+      
+      if (membro.nome !== undefined) {
+        var nomeLowerCase = membro.nome.toLowerCase();
+        encontradoNome = (nomeLowerCase.indexOf(filtroLowerCase) >= 0);
+      }
+      if (membro.apelido !== undefined) {
+        var apelidoLowerCase = membro.apelido.toLowerCase();
+        encontradoApelido = (apelidoLowerCase.indexOf(filtroLowerCase) >= 0);
+      }
+      return ( encontradoNome || encontradoApelido);
     };
 
     vm.atualizar = initController;
