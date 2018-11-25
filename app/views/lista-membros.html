@@ -64,8 +64,9 @@
       <tbody>
         <tr ng-repeat="membro in membrosListController.pageItens | filter:membrosListController.contemNomeOuApelido">
           <td>
+            <a ui-sref="membro({ id: membro.id })">
             <img class="avatar" style="width:60px" ng-src={{membro.urlFoto}}>
-            <a ui-sref="membro({ id: membro.id })">{{membro.nome}}</a>
+            {{membro.nome}}</a>
           </td>
           <td class="hidden-xs hidden-sm">{{membro.apelido}}</td>
           <td>
