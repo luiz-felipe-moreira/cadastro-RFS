@@ -30,4 +30,4 @@ Running `grunt test` will run the unit tests with karma.
 
 Executar os seguintes comandos:
 grunt build
-netlify deploy
+netlify deploy --dir=dist --prod
