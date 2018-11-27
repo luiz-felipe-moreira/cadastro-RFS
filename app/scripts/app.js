@@ -71,6 +71,22 @@ angular
         controllerAs: 'loginController'
       })
 
+      .state('regras', {
+        url: '/regras',
+        views: {
+          'header': {
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
+          },
+          'content': {
+            templateUrl: 'views/regras.html',
+            controller: 'RegrasController',
+            controllerAs: 'regrasController'
+          }
+        }
+      })
+
       .state('lista-membros', {
         url: '/lista-membros',
         views: {

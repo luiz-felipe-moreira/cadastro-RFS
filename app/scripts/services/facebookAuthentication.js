@@ -61,7 +61,7 @@ angular.module('cadastroRepublicaApp')
           } else {
             vm.isRegistered = false;
             console.log('Usuário não cadastrado. Direcionando para o formulário de cadastro...');
-            $state.go('form.geral');
+            $state.go('regras');
           }
         },
         function (response) {

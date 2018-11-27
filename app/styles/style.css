@@ -9,6 +9,11 @@ body {
   height: 100%;
   width: auto;
 }
+
+.rulesText {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 /* a {
   color: #FFF;
 }
