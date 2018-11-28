@@ -60,7 +60,7 @@ angular.module('cadastroRepublicaApp')
     $rootScope.passoSaudeConcluido = false;
     $rootScope.passoSurfeConcluido = false;
 
-    vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard'];
+    vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard', 'stand up paddle'];
     vm.tiposPranchaSelecionados = [];
 
     vm.atualizarDataNascimento = function () {
