@@ -9,7 +9,7 @@ angular.module('cadastroRepublicaApp')
     vm.diaNascimento = '';
     vm.mesNascimento = '';
     vm.anoNascimento = '';
-    vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard'];
+    vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard', 'stand up paddle'];
 
     var successGetMemberCallback = function (response) {
       console.debug(response);
