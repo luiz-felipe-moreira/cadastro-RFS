@@ -9,9 +9,7 @@
  */
 angular.module('cadastroRepublicaApp')
   .controller('RegrasController', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    var vm = this;
+
+    vm.concordanciaRegras = false;
   });

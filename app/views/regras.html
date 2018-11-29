@@ -1,21 +1,43 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <strong>Objetivos e regras do Republica Free Surf</strong>
-            <p class="rulesText">Para fazer parte do República Free Surf da cidade de Salvador-BA será
-                 necessário que você participe dos encontros do grupo pelo menos uma vez 
-                 a cada três encontros, porque o objetivo principal do grupo é proporcionar um Free Surf 
-                 cercados de amigos colaborando para a motivação do Free Surf. A colaboração no grupo do 
-                 WhatsApp do República Free Surf (Oficial) será imprescindível. É necessário que você colabore 
-                 com pelo menos um report sobre as condições do mar a cada mês. São permitidos anúncios de equipamentos 
-                 para o surf e fotos ou vídeos dos participantes na prática do esporte. Outros tipos de postagens só 
-                 serão permitidos se estiver relacionado a surf e mar. Todos devem respeitar as diferenças políticas, 
-                 religiosas, raciais e de gêneros. Portanto participe dos nossos encontros de coração aberto, com o propósito 
-                 de fazer amigos e se divertir com eles. Colabore com os nossos eventos e seja bem vindo ao República Free Surf! 
-                 Aloha!</p>
             <div class="row">
+                <div class="col-xs-12">
+                    <strong>Objetivos e regras do Republica Free Surf</strong>
+                    <p class="rulesText text-justify">Para fazer parte do República Free Surf da cidade de Salvador-BA
+                        será
+                        necessário que você participe dos encontros do grupo pelo menos uma vez
+                        a cada três encontros, porque o objetivo principal do grupo é proporcionar um Free Surf
+                        cercados de amigos colaborando para a motivação do Free Surf. A colaboração no grupo do
+                        WhatsApp do República Free Surf (Oficial) será imprescindível. É necessário que você colabore
+                        com pelo menos um report das condições do mar a cada mês. São permitidos anúncios de
+                        equipamentos
+                        para o surf e fotos ou vídeos dos participantes na prática do esporte. Outros tipos de
+                        postagens só
+                        serão permitidos se estiver relacionado a surf e mar. Todos devem respeitar as diferenças
+                        políticas,
+                        religiosas, raciais e de gênero. Portanto participe dos nossos encontros de coração aberto,
+                        com o
+                        propósito
+                        de fazer amigos e se divertir com eles. Colabore com os nossos eventos e seja bem vindo ao
+                        República
+                        Free Surf!
+                        Aloha!</p>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-xs-12">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="regrasController.concordanciaRegras"> <strong>Li e concordo com as
+                            regras acima</strong>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <a ui-sref="form.geral" class="btn btn-block btn-primary">
+                    <a ui-sref="form.geral" class="btn btn-block btn-primary" ng-disabled="!(regrasController.concordanciaRegras)">
                         Continuar <span class="glyphicon glyphicon-circle-arrow-right"></span>
                     </a>
                 </div>
