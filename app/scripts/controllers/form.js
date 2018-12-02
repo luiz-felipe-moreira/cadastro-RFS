@@ -34,7 +34,9 @@ angular.module('cadastroRepublicaApp')
 
     console.log('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
 
-    facebookService.getUserData().then(function (response) {
+    var promise = facebookService.getUserData();
+    promise.then(function (response) {
+        console.debug(JSON.stringify(response));
         vm.formData.email = response.email;
         vm.formData.id = response.id;
         vm.formData.nome = response.name;
@@ -44,8 +46,7 @@ angular.module('cadastroRepublicaApp')
           vm.formData.sexo = 'feminino';
         }
         vm.facebookPicture = response.picture.data;
-      })
-      .catch(function (response) {
+      }, function (response) {
         console.error('Erro ao obter dados do usuário no Facebook');
         console.error('Resposta do Facebook: ' + response);
         console.error('Direcionando para a pagina de login...');
@@ -163,7 +164,7 @@ angular.module('cadastroRepublicaApp')
     vm.processForm = function () {
 
       if (vm.formData.fotoFacebook) {
-        vm.formData.urlFoto = vm.facebookPicture;
+        vm.formData.urlFoto = vm.facebookPicture.url;
         console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
       }
       vm.formData.registrado = true;

@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp').
-factory('facebookService', function($q) {
+factory('facebookService', ['$q', function($q) {
     return {
         getUserData: function() {
-            console.log('Obtendo email do usuario...');
+            console.log('Obtendo dados e foto do usuario...');
             var deferred = $q.defer();
             FB.api('/me', {
                 fields: 'email, id, name, gender, picture.width(400)'
@@ -18,4 +18,4 @@ factory('facebookService', function($q) {
             return deferred.promise;
         }
     };
-});
+}]);
