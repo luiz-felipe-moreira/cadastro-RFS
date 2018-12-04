@@ -40,6 +40,7 @@ angular.module('cadastroRepublicaApp')
         vm.formData.email = response.email;
         vm.formData.id = response.id;
         vm.formData.nome = response.name;
+        //a partir de agosto de 2018 o Facebook só retornará o gender para aplicações submetidas à analise 
         if (response.gender === 'male') {
           vm.formData.sexo = 'masculino';
         } else if (response.gender === 'female') {

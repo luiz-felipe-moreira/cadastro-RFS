@@ -315,7 +315,7 @@ angular
         status: false, // check authentication status at the startup of the app
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true, // parse social plugins on this page
-        version: 'v2.8' // use graph api version 2.8
+        version: 'v3.2' // use graph api version 2.8
       });
 
       //Se for usar o FB.Event.subscribe de 'auth.statusChange', setar status para false

@@ -88,7 +88,7 @@
 </div>
 <div class="form-group">
     <label for="radioButtonsSexo">Sexo</label>
-    <div id="radioButtonsSexo" ng-init="formController.formData.sexo='Masculino'">
+    <div id="radioButtonsSexo" ng-init="formController.formData.sexo='masculino'">
         <label class="radio-inline">
             <input type="radio" id="inlineRadio1" value="masculino" ng-model="formController.formData.sexo"> Masculino
           </label>
@@ -100,7 +100,7 @@
 
 <div class="form-group row">
     <div class="col-sm-6 col-sm-offset-3">
-        <a ui-sref="form.saude" class="btn btn-block btn-primary" ng-disabled="
+        <button ui-sref="form.saude" class="btn btn-block btn-primary" ng-disabled="
     form.$invalid" ng-click="form.$invalid || formController.marcarPassoGeralComoConcluido()">
     Próximo passo <span class="glyphicon glyphicon-circle-arrow-right"></span>
     </a>
