@@ -29,6 +29,9 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
       'bower_components/angular-http-auth/src/http-auth-interceptor.js',
+      'bower_components/exif-js/exif.js',
+      'bower_components/angular-croppie/angular-croppie.js',
+      'bower_components/Croppie/croppie.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
