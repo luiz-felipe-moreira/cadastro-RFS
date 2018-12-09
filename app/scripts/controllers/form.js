@@ -162,6 +162,29 @@ angular.module('cadastroRepublicaApp')
 
     };
 
+    $scope.cropped = {
+      source: 'https://raw.githubusercontent.com/Foliotek/Croppie/master/demo/demo-1.jpg'
+    };
+
+    /*
+    // Assign blob to component when selecting a image
+    $scope.fileNameChanged2 = function (input) {
+    // var input = this;
+    
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        // bind new Image to Component
+        $scope.$apply(function () {
+          $scope.cropped.source = e.target.result;
+        });
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };*/
+
     vm.processForm = function () {
 
       if (vm.formData.fotoFacebook) {

@@ -15,7 +15,8 @@ angular
     'ui.mask',
     'config',
     'http-auth-interceptor',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'angularCroppie'
   ])
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
 
