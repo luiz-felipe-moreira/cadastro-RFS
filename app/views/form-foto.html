@@ -24,6 +24,9 @@
     <img ng-src="{{formController.facebookPicture.url}}" class="img-responsive center-block">
   </div>
 </div>
+
+<!--
+
 <div class="from-group" ng-hide="formController.formData.fotoFacebook">
   <div class="row">
     <label for="file-input" class="btn btn-primary" style="margin-left: 15px;">Selecionar foto...</label>
@@ -36,8 +39,8 @@
     </div>
   </div>
 </div>
-<!--teste-->
-<!--
+-->
+
 <div class="from-group" ng-hide="formController.formData.fotoFacebook">
 
   <div class="row">
@@ -51,9 +54,13 @@
       <img id="preview2" src="{{cropped.image}}" class="img-responsive center-block">
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-2">
+      <button ng-click="formController.confirmarFoto()">Confirmar foto</button>
+    </div>
+  </div>
 </div>
--->
-<!--fim teste-->
+
 <div class="form-group row" style="margin-top: 15px;">
   <div class="col-sm-6 col-sm-offset-3">
     <button type="submit" class="btn btn-primary btn-block" ng-disabled="(form.$invalid || ((!formController.arquivoArmazenadoComSucesso) && (!formController.formData.fotoFacebook)))">Concluir</button>

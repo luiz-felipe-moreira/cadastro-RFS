@@ -36,23 +36,23 @@ angular.module('cadastroRepublicaApp')
 
     var promise = facebookService.getUserData();
     promise.then(function (response) {
-        console.debug(JSON.stringify(response));
-        vm.formData.email = response.email;
-        vm.formData.id = response.id;
-        vm.formData.nome = response.name;
-        //a partir de agosto de 2018 o Facebook só retornará o gender para aplicações submetidas à analise 
-        if (response.gender === 'male') {
-          vm.formData.sexo = 'masculino';
-        } else if (response.gender === 'female') {
-          vm.formData.sexo = 'feminino';
-        }
-        vm.facebookPicture = response.picture.data;
-      }, function (response) {
-        console.error('Erro ao obter dados do usuário no Facebook');
-        console.error('Resposta do Facebook: ' + response);
-        console.error('Direcionando para a pagina de login...');
-        $state.go('login');
-      });
+      console.debug(JSON.stringify(response));
+      vm.formData.email = response.email;
+      vm.formData.id = response.id;
+      vm.formData.nome = response.name;
+      //a partir de agosto de 2018 o Facebook só retornará o gender para aplicações submetidas à analise 
+      if (response.gender === 'male') {
+        vm.formData.sexo = 'masculino';
+      } else if (response.gender === 'female') {
+        vm.formData.sexo = 'feminino';
+      }
+      vm.facebookPicture = response.picture.data;
+    }, function (response) {
+      console.error('Erro ao obter dados do usuário no Facebook');
+      console.error('Resposta do Facebook: ' + response);
+      console.error('Direcionando para a pagina de login...');
+      $state.go('login');
+    });
 
     vm.diaNascimento = null;
     vm.mesNascimento = null;
@@ -166,26 +166,81 @@ angular.module('cadastroRepublicaApp')
       source: 'https://raw.githubusercontent.com/Foliotek/Croppie/master/demo/demo-1.jpg'
     };
 
-    /*
     // Assign blob to component when selecting a image
     $scope.fileNameChanged2 = function (input) {
-    // var input = this;
-    
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
+      // var input = this;
 
-      reader.onload = function (e) {
-        // bind new Image to Component
-        $scope.$apply(function () {
-          $scope.cropped.source = e.target.result;
-        });
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          // bind new Image to Component
+          $scope.$apply(function () {
+            $scope.cropped.source = e.target.result;
+          });
+        }
+
+        reader.readAsDataURL(input.files[0]);
       }
+    };
 
-      reader.readAsDataURL(input.files[0]);
+    vm.confirmarFoto = function () {
+      var nomeArquivoS3 = vm.formData.id + '.jpg';
+
+      var file = base64ImageToBlob($scope.cropped.image);
+      console.debug(file);
+      signedS3RequestService.getSignedS3Request(file, nomeArquivoS3).then(function (response) {
+
+        var signedRequest = response.data.signedRequest;
+        var urlFileS3 = response.data.url;
+
+        signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function (response) {
+          console.log('Foto do usuario enviada para o bucket S3!');
+          console.debug('Response status: ' + response.status);
+          //adiciona um numero aleatorio ao final da url da imagem para evitar que o browser use a imagem do cache
+          vm.imgSrcUpload = urlFileS3 + '?' + Date.now();
+          vm.formData.urlFoto = urlFileS3;
+          console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
+          vm.arquivoArmazenadoComSucesso = true;
+        }, function (errorResponse) {
+          console.log('Erro ao enviar foto para o bucket S3!');
+          console.debug('Response status: ' + errorResponse.status);
+          $scope.$apply(function () {
+            vm.imgSrcUpload = imagemSilhueta;
+          });
+        });
+
+      }, function (response) {
+        $scope.data = response.data || 'Request failed';
+        console.log('Response status: ' + response.status);
+      });
+    };
+
+    function base64ImageToBlob(str) {
+      // extract content type and base64 payload from original string
+      var pos = str.indexOf(';base64,');
+      var type = str.substring(5, pos);
+      var b64 = str.substr(pos + 8);
+    
+      // decode base64
+      var imageContent = atob(b64);
+    
+      // create an ArrayBuffer and a view (as unsigned 8-bit)
+      var buffer = new ArrayBuffer(imageContent.length);
+      var view = new Uint8Array(buffer);
+    
+      // fill the view, using the decoded base64
+      for(var n = 0; n < imageContent.length; n++) {
+        view[n] = imageContent.charCodeAt(n);
+      }
+    
+      // convert ArrayBuffer to Blob
+      var blob = new Blob([buffer], { type: type });
+    
+      return blob;
     }
-  };*/
 
-    vm.processForm = function () {
+ /*    vm.processForm = function () {
 
       if (vm.formData.fotoFacebook) {
         vm.formData.urlFoto = vm.facebookPicture.url;
@@ -207,7 +262,7 @@ angular.module('cadastroRepublicaApp')
             $state.go('erro');
           }
         );
-    };
+    }; */
 
     //inicializa os campos referentes à data de nascimento com o dia atual
     vm.atualizarDataNascimento();
