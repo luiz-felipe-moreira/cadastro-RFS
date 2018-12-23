@@ -15,7 +15,8 @@
 <div class="formGroup">
   <div class="checkbox" ng-hide="formController.facebookPicture.is_silhouette">
     <label>
-      <input type="checkbox" ng-model="formController.formData.fotoFacebook"> Usar minha foto de perfil do Facebook (obs.: somente de rosto frontal)
+      <input type="checkbox" ng-model="formController.formData.fotoFacebook"> Usar minha foto de perfil do Facebook
+      (obs.: somente de rosto frontal)
     </label>
   </div>
 </div>
@@ -43,20 +44,28 @@
 
 <div class="from-group" ng-hide="formController.formData.fotoFacebook">
 
-  <div class="row">
+  <div class="row" style="margin-bottom: 15px;">
     <label for="file-input2" class="btn btn-primary" style="margin-left: 15px;">Selecionar foto...</label>
-    <p class="text-danger" style="margin-left: 15px;" ng-hide="formController.arquivoValido">{{formController.mensagemValidacaoArquivo}}</span>
-    <input type="file" id="file-input2" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged2(this)" style="padding-left: 20px; opacity: 0;">
+    <p class="text-danger" style="margin-left: 15px;" ng-hide="formController.arquivoValido">{{formController.mensagemValidacaoArquivo}}</p>
+    <input type="file" id="file-input2" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)"
+      style="padding-left: 20px; opacity: 0;">
   </div>
-  <croppie ng-if="cropped.source" src="cropped.source" ng-model="cropped.image" options="{enableExif:true, boundary:{width:300,height:350, type: square}}"></croppie>
-  <div class="row">
+  <div class="row" ng-show="!formController.arquivoFotoSelecionado">
     <div class="col-xs-8 col-xs-offset-2">
-      <img id="preview2" src="{{cropped.image}}" class="img-responsive center-block">
+      <img id="preview" src="{{formController.imgSrcUpload}}" class="img-responsive center-block" img-orientation>
     </div>
   </div>
-  <div class="row">
+  <div class="row" ng-hide="(formController.recorteFotoConfirmado || !formController.arquivoFotoSelecionado)">
+    <croppie ng-if="cropped.source" src="cropped.source" ng-model="cropped.image" options="{enableExif:true, boundary:{width:350,height:350, type: square}}"></croppie>
+  </div>
+  <div class="row" ng-hide="(formController.recorteFotoConfirmado || !formController.arquivoFotoSelecionado)">
     <div class="col-xs-2">
-      <button ng-click="formController.confirmarFoto()">Confirmar foto</button>
+      <button type="button" class="btn btn-success" ng-click="formController.confirmarFoto()">Confirmar foto</button>
+    </div>
+  </div>
+  <div class="row" ng-show="formController.recorteFotoConfirmado">
+    <div class="col-xs-8 col-xs-offset-2">
+      <img id="preview2" src="{{cropped.image}}" class="img-responsive center-block">
     </div>
   </div>
 </div>

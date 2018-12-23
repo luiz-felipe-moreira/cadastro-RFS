@@ -25,9 +25,11 @@ angular.module('cadastroRepublicaApp')
     vm.facebookPicture = {};
 
     var imagemSilhueta = './images/avatar-default.png';
-    var imagemLoading = './images/loading.gif';
+    var imagemLoading = './imagamazonawses/loading.gif';
 
     vm.imgSrcUpload = imagemSilhueta;
+    vm.arquivoFotoSelecionado = false;
+    vm.recorteFotoConfirmado = false;
     vm.arquivoArmazenadoComSucesso = false;
     vm.mensagemValidacaoArquivo = '';
     vm.arquivoValido = true;
@@ -94,7 +96,8 @@ angular.module('cadastroRepublicaApp')
       vm.formData.tiposPrancha = vm.tiposPranchaSelecionados;
     };
 
-    $scope.fileNameChanged = function (fileInputElement) {
+    $scope.fileNameChangedOld = function (fileInputElement) {
+
       $scope.$apply(function () {
         vm.mensagemValidacaoArquivo = '';
         vm.arquivoValido = true;
@@ -163,12 +166,15 @@ angular.module('cadastroRepublicaApp')
     };
 
     $scope.cropped = {
-      source: 'https://raw.githubusercontent.com/Foliotek/Croppie/master/demo/demo-1.jpg'
+      source: imagemSilhueta
     };
 
     // Assign blob to component when selecting a image
-    $scope.fileNameChanged2 = function (input) {
+    $scope.fileNameChanged = function (input) {
       // var input = this;
+      vm.arquivoFotoSelecionado = true;
+      vm.recorteFotoConfirmado = false;
+      vm.arquivoArmazenadoComSucesso = false;
 
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -185,7 +191,9 @@ angular.module('cadastroRepublicaApp')
     };
 
     vm.confirmarFoto = function () {
-      var nomeArquivoS3 = vm.formData.id + '.jpg';
+
+      vm.recorteFotoConfirmado = true;
+      var nomeArquivoS3 = vm.formData.id + '.png';
 
       var file = base64ImageToBlob($scope.cropped.image);
       console.debug(file);
@@ -240,7 +248,7 @@ angular.module('cadastroRepublicaApp')
       return blob;
     }
 
- /*    vm.processForm = function () {
+    vm.processForm = function () {
 
       if (vm.formData.fotoFacebook) {
         vm.formData.urlFoto = vm.facebookPicture.url;
@@ -262,7 +270,7 @@ angular.module('cadastroRepublicaApp')
             $state.go('erro');
           }
         );
-    }; */
+    };
 
     //inicializa os campos referentes à data de nascimento com o dia atual
     vm.atualizarDataNascimento();
