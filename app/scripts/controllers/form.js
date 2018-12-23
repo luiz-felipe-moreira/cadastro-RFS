@@ -96,74 +96,74 @@ angular.module('cadastroRepublicaApp')
       vm.formData.tiposPrancha = vm.tiposPranchaSelecionados;
     };
 
-    $scope.fileNameChangedOld = function (fileInputElement) {
+    // $scope.fileNameChangedOld = function (fileInputElement) {
 
-      $scope.$apply(function () {
-        vm.mensagemValidacaoArquivo = '';
-        vm.arquivoValido = true;
-      });
+    //   $scope.$apply(function () {
+    //     vm.mensagemValidacaoArquivo = '';
+    //     vm.arquivoValido = true;
+    //   });
 
-      vm.arquivoArmazenadoComSucesso = false;
-      var files = fileInputElement.files;
-      var file = files[0];
-      var fileSizeMB = ((file.size / 1024) / 1024).toFixed(4);
-      var fileTypePermitido = (file.type === 'image/jpeg');
+    //   vm.arquivoArmazenadoComSucesso = false;
+    //   var files = fileInputElement.files;
+    //   var file = files[0];
+    //   var fileSizeMB = ((file.size / 1024) / 1024).toFixed(4);
+    //   var fileTypePermitido = (file.type === 'image/jpeg');
 
-      if (file === null) {
-        $window.alert('Selecione o arquivo');
-        $scope.$apply(function () {
-          vm.arquivoValido = false;
-          vm.mensagemValidacaoArquivo = 'Selecione o arquivo.';
-          vm.imgSrcUpload = imagemSilhueta;
-        });
-      } else if (fileSizeMB > 5) {
-        $window.alert('O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.');
-        $scope.$apply(function () {
-          vm.arquivoValido = false;
-          vm.mensagemValidacaoArquivo = 'O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.';
-          vm.imgSrcUpload = imagemSilhueta;
-        });
-      } else if (!fileTypePermitido) {
-        $window.alert('O formato do arquivo deve ser JPEG! Selecione outra foto.');
-        $scope.$apply(function () {
-          vm.arquivoValido = false;
-          vm.mensagemValidacaoArquivo = 'O formato do arquivo deve ser JPEG! Selecione outra foto.';
-          vm.imgSrcUpload = imagemSilhueta;
-        });
-      } else {
-        $scope.$apply(function () {
-          vm.imgSrcUpload = imagemLoading;
-        });
-        var nomeArquivoS3 = vm.formData.id + '.jpg';
+    //   if (file === null) {
+    //     $window.alert('Selecione o arquivo');
+    //     $scope.$apply(function () {
+    //       vm.arquivoValido = false;
+    //       vm.mensagemValidacaoArquivo = 'Selecione o arquivo.';
+    //       vm.imgSrcUpload = imagemSilhueta;
+    //     });
+    //   } else if (fileSizeMB > 5) {
+    //     $window.alert('O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.');
+    //     $scope.$apply(function () {
+    //       vm.arquivoValido = false;
+    //       vm.mensagemValidacaoArquivo = 'O tamanho do arquivo deve ser no máximo 5 MB! Selecione outra foto.';
+    //       vm.imgSrcUpload = imagemSilhueta;
+    //     });
+    //   } else if (!fileTypePermitido) {
+    //     $window.alert('O formato do arquivo deve ser JPEG! Selecione outra foto.');
+    //     $scope.$apply(function () {
+    //       vm.arquivoValido = false;
+    //       vm.mensagemValidacaoArquivo = 'O formato do arquivo deve ser JPEG! Selecione outra foto.';
+    //       vm.imgSrcUpload = imagemSilhueta;
+    //     });
+    //   } else {
+    //     $scope.$apply(function () {
+    //       vm.imgSrcUpload = imagemLoading;
+    //     });
+    //     var nomeArquivoS3 = vm.formData.id + '.jpg';
 
-        signedS3RequestService.getSignedS3Request(file, nomeArquivoS3).then(function (response) {
+    //     signedS3RequestService.getSignedS3Request(file, nomeArquivoS3).then(function (response) {
 
-          var signedRequest = response.data.signedRequest;
-          var urlFileS3 = response.data.url;
+    //       var signedRequest = response.data.signedRequest;
+    //       var urlFileS3 = response.data.url;
 
-          signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function (response) {
-            console.log('Foto do usuario enviada para o bucket S3!');
-            console.debug('Response status: ' + response.status);
-            //adiciona um numero aleatorio ao final da url da imagem para evitar que o browser use a imagem do cache
-            vm.imgSrcUpload = urlFileS3 + '?' + Date.now();
-            vm.formData.urlFoto = urlFileS3;
-            console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
-            vm.arquivoArmazenadoComSucesso = true;
-          }, function (errorResponse) {
-            console.log('Erro ao enviar foto para o bucket S3!');
-            console.debug('Response status: ' + errorResponse.status);
-            $scope.$apply(function () {
-              vm.imgSrcUpload = imagemSilhueta;
-            });
-          });
+    //       signedS3RequestService.uploadFile(file, signedRequest, urlFileS3).then(function (response) {
+    //         console.log('Foto do usuario enviada para o bucket S3!');
+    //         console.debug('Response status: ' + response.status);
+    //         //adiciona um numero aleatorio ao final da url da imagem para evitar que o browser use a imagem do cache
+    //         vm.imgSrcUpload = urlFileS3 + '?' + Date.now();
+    //         vm.formData.urlFoto = urlFileS3;
+    //         console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
+    //         vm.arquivoArmazenadoComSucesso = true;
+    //       }, function (errorResponse) {
+    //         console.log('Erro ao enviar foto para o bucket S3!');
+    //         console.debug('Response status: ' + errorResponse.status);
+    //         $scope.$apply(function () {
+    //           vm.imgSrcUpload = imagemSilhueta;
+    //         });
+    //       });
 
-        }, function (response) {
-          $scope.data = response.data || 'Request failed';
-          console.log('Response status: ' + response.status);
-        });
-      }
+    //     }, function (response) {
+    //       $scope.data = response.data || 'Request failed';
+    //       console.log('Response status: ' + response.status);
+    //     });
+    //   }
 
-    };
+    // };
 
     $scope.cropped = {
       source: imagemSilhueta
