@@ -9,60 +9,89 @@
 
 <div class="form-group" ng-class="{ 'has-error' : form.inputNome.$error.required && !form.inputNome.$pristine }">
     <label for="inputNome">Nome Completo</label>
-    <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Seu nome completo" ng-model="formController.formData.nome"
-        required>
-    <span class="help-block" ng-show="form.inputNome.$error.required && !form.inputNome.$pristine">É obrigatório informar o seu nome!</span>
+    <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Seu nome completo"
+        ng-model="formController.formData.nome" required>
+    <span class="help-block" ng-show="form.inputNome.$error.required && !form.inputNome.$pristine">É obrigatório
+        informar o seu nome!</span>
 </div>
 
 <div class="form-group">
     <label for="inputApelido">Apelido <small>(opcional)</small></label>
-    <input type="text" class="form-control" id="inputApelido" placeholder="Seu apelido no República Free Surf" ng-model="formController.formData.apelido">
+    <input type="text" class="form-control" id="inputApelido" placeholder="Seu apelido no República Free Surf"
+        ng-model="formController.formData.apelido">
 </div>
 
 <div class="row">
     <div class="col-xs-6">
-        <div class="form-group" ng-class="{ 'has-error' : form.inputTelefoneCelular.$error.required && !form.inputTelefoneCelular.$pristine }">
+        <div class="form-group"
+            ng-class="{ 'has-error' : form.inputTelefoneCelular.$error.required && !form.inputTelefoneCelular.$pristine }">
             <label for="inputTelefoneCelular">Telefone Celular</label>
-            <input type="text" class="form-control" id="inputTelefoneCelular" name="inputTelefoneCelular" ng-model="formController.formData.telefoneCelular"
-                ui-mask="(99) 99999-9999" ui-mask-placeholder ui-mask-placeholder-char="_" required>
-            <span class="help-block" ng-show="form.inputTelefoneCelular.$error.required && !form.inputTelefoneCelular.$pristine">É obrigatório o seu celular, com DDD e 9 dígitos no número!</span>
+            <input type="text" class="form-control" id="inputTelefoneCelular" name="inputTelefoneCelular"
+                ng-model="formController.formData.telefoneCelular" ui-mask="(99) 99999-9999" ui-mask-placeholder
+                ui-mask-placeholder-char="_" required>
+            <span class="help-block"
+                ng-show="form.inputTelefoneCelular.$error.required && !form.inputTelefoneCelular.$pristine">É
+                obrigatório o seu celular, com DDD e 9 dígitos no número!</span>
         </div>
     </div>
     <div class="col-xs-6" style="padding-left: 0px;">
         <div class="form-group">
             <label for="inputTelefoneFixo">Tel. Fixo <small>(opcional)</small></label>
-            <input type="text" class="form-control" id="inputTelefoneFixo" ng-model="formController.formData.telefoneFixo" ui-mask="(99) 9999-9999"
-                ui-mask-placeholder ui-mask-placeholder-char="_">
+            <input type="text" class="form-control" id="inputTelefoneFixo"
+                ng-model="formController.formData.telefoneFixo" ui-mask="(99) 9999-9999" ui-mask-placeholder
+                ui-mask-placeholder-char="_">
         </div>
     </div>
 </div>
 
-<div class="form-group" ng-class="{ 'has-error has-feedback' : form.inputEmail.$invalid && !form.inputEmail.$pristine }">
+<div class="form-group"
+    ng-class="{ 'has-error has-feedback' : form.inputEmail.$invalid && !form.inputEmail.$pristine }">
     <label for="inputEmail">Email</label>
-    <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Seu endereço de email" ng-model="formController.formData.email"
-        required>
+    <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Seu endereço de email"
+        ng-model="formController.formData.email" required>
     <span ng-show="(form.inputEmail.$invalid ||
                                           form.inputEmail.$error.required) &&
-                                          !form.inputEmail.$pristine" class="help-block">É obrigatório informar um endereço de email válido</span>
+                                          !form.inputEmail.$pristine" class="help-block">É obrigatório informar um
+        endereço de email válido</span>
 </div>
 
-<div class="form-group" ng-class="{ 'has-error' : form.inputProfissao.$error.required && !form.inputProfissao.$pristine }">
-    <label for="inputProfissao">Profissão</label>
-    <input type="text" class="form-control" id="inputProfissao" name="inputProfissao" placeholder="Sua ocupação principal" ng-model="formController.formData.profissao"
-        required>
-    <span class="help-block" ng-show="form.inputProfissao.$error.required && !form.inputProfissao.$pristine">É obrigatório informar sua profissão!</span>
+<div class="row">
+    <div class="form-group col-xs-6"
+        ng-class="{ 'has-error' : form.inputNumeroIdentidade.$error.required && !form.inputNumeroIdentidade.$pristine }">
+        <label for="inputNumeroIdentidade">RG</label>
+        <input type="text" class="form-control" id="inputNumeroIdentidade" name="inputNumeroIdentidade"
+            ng-model="formController.formData.numeroIdentidade" placeholder="número do RG" required>
+        <span class="help-block"
+            ng-show="form.inputNumeroIdentidade.$error.required && !form.inputNumeroIdentidade.$pristine">É obrigatório
+            informar o número da identidade!</span>
+    </div>
+    <div class="form-group col-xs-6" style="padding-left: 0px;" ng-class="{ 'has-error' : form.inputOrgaoEmissorIdentidade.$error.required && !form.inputOrgaoEmissorIdentidade.$pristine
+}">
+        <label for="inputOrgaoEmissorIdentidade">Órgão Emissor</label>
+        <input type="text" class="form-control" id="inputOrgaoEmissorIdentidade" name="inputOrgaoEmissorIdentidade"
+            placeholder="ex.: SSP/BA" ng-model="formController.formData.orgaoEmissorIdentidade" required>
+        <span class="help-block "
+            ng-show="form.inputOrgaoEmissorIdentidade.$error.required && !form.inputOrgaoEmissorIdentidade.$pristine ">É
+            obrigatório informar o órgão emissor!</span>
+    </div>
 </div>
 
 <div class="form-group">
     <label for="inputGroupDia">Data de Nascimento</label>
     <div class="input-group" id="inputGroupDia">
-        <div class="col-xs-3" style="padding-left: 0px;" ng-class="{ 'has-error' : (form.diaNascimento.$error.required || form.diaNascimento.$error.max || form.diaNascimento.$error.min) && !form.diaNascimento.$pristine }">
-            <input class="form-control" placeholder="dia" type="number" name="diaNascimento" min="1" max="31" maxlength="2" required
-                only-digits ng-model="formController.diaNascimento" ng-change="formController.atualizarDataNascimento()">
-            <span class="help-block" ng-show="(form.diaNascimento.$error.required || form.diaNascimento.$error.max || form.diaNascimento.$error.min) && !form.diaNascimento.$pristine">Informe um dia de nascimento válido!</span>
+        <div class="col-xs-3" style="padding-left: 0px;"
+            ng-class="{ 'has-error' : (form.diaNascimento.$error.required || form.diaNascimento.$error.max || form.diaNascimento.$error.min) && !form.diaNascimento.$pristine }">
+            <input class="form-control" placeholder="dia" type="number" name="diaNascimento" min="1" max="31"
+                maxlength="2" required only-digits ng-model="formController.diaNascimento"
+                ng-change="formController.atualizarDataNascimento()">
+            <span class="help-block"
+                ng-show="(form.diaNascimento.$error.required || form.diaNascimento.$error.max || form.diaNascimento.$error.min) && !form.diaNascimento.$pristine">Informe
+                um dia de nascimento válido!</span>
         </div>
-        <div class="col-xs-5" style="padding-left: 0px;" ng-class="{ 'has-error' : !form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required }">
-            <select class="form-control" required name="mesNascimento" ng-model="formController.mesNascimento" ng-change="formController.atualizarDataNascimento()">
+        <div class="col-xs-5" style="padding-left: 0px;"
+            ng-class="{ 'has-error' : !form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required }">
+            <select class="form-control" required name="mesNascimento" ng-model="formController.mesNascimento"
+                ng-change="formController.atualizarDataNascimento()">
                 <option value="" disabled selected>mês</option>
                 <option value="0">Janeiro</option>
                 <option value="1">Fevereiro</option>
@@ -77,12 +106,18 @@
                 <option value="10">Novembro</option>
                 <option value="11">Dezembro</option>
             </select>
-            <span class="help-block" ng-show="!form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required">Informe um mês de nascimento válido!</span>
+            <span class="help-block"
+                ng-show="!form.anoNascimento.$pristine && !form.diaNascimento.$pristine && form.mesNascimento.$error.required">Informe
+                um mês de nascimento válido!</span>
         </div>
-        <div class="col-xs-4" style="padding-left: 0px;" ng-class="{ 'has-error' : (form.anoNascimento.$error.required || form.anoNascimento.$error.max || form.anoNascimento.$error.min) && !form.anoNascimento.$pristine }">
-            <input class="form-control" placeholder="ano" name="anoNascimento" type="number" min="1900" max="2050" maxlength="4" required
-                only-digits ng-model="formController.anoNascimento" ng-change="formController.atualizarDataNascimento()">
-            <span class="help-block" ng-show="(form.anoNascimento.$error.required || form.anoNascimento.$error.max|| form.anoNascimento.$error.min) && !form.anoNascimento.$pristine">Informe um ano de nascimento válido!</span>
+        <div class="col-xs-4" style="padding-left: 0px;"
+            ng-class="{ 'has-error' : (form.anoNascimento.$error.required || form.anoNascimento.$error.max || form.anoNascimento.$error.min) && !form.anoNascimento.$pristine }">
+            <input class="form-control" placeholder="ano" name="anoNascimento" type="number" min="1900" max="2050"
+                maxlength="4" required only-digits ng-model="formController.anoNascimento"
+                ng-change="formController.atualizarDataNascimento()">
+            <span class="help-block"
+                ng-show="(form.anoNascimento.$error.required || form.anoNascimento.$error.max|| form.anoNascimento.$error.min) && !form.anoNascimento.$pristine">Informe
+                um ano de nascimento válido!</span>
         </div>
     </div>
 </div>
@@ -91,10 +126,10 @@
     <div id="radioButtonsSexo" ng-init="formController.formData.sexo='masculino'">
         <label class="radio-inline">
             <input type="radio" id="inlineRadio1" value="masculino" ng-model="formController.formData.sexo"> Masculino
-          </label>
+        </label>
         <label class="radio-inline">
             <input type="radio" id="inlineRadio2" value="feminino" ng-model="formController.formData.sexo"> Feminino
-          </label>
+        </label>
     </div>
 </div>
 
@@ -102,7 +137,7 @@
     <div class="col-sm-6 col-sm-offset-3">
         <button ui-sref="form.saude" class="btn btn-block btn-primary" ng-disabled="
     form.$invalid" ng-click="form.$invalid || formController.marcarPassoGeralComoConcluido()">
-    Próximo passo <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    </a>
+            Próximo passo <span class="glyphicon glyphicon-circle-arrow-right"></span>
+            </a>
     </div>
 </div>

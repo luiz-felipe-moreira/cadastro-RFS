@@ -76,12 +76,20 @@
                                                             !form.inputEmail.$pristine" class="help-block">É obrigatório informar um endereço de email válido</span>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-error' : form.inputProfissao.$error.required && !form.inputProfissao.$pristine }">
-                  <label for="inputProfissao">Profissão</label>
-                  <input type="text" class="form-control" id="inputProfissao" name="inputProfissao" placeholder="Sua ocupação principal" ng-model="membroController.membro.profissao"
-                    required>
-                  <span class="help-block" ng-show="form.inputProfissao.$error.required && !form.inputProfissao.$pristine">É obrigatório informar sua profissão!</span>
-                </div>
+                <div class="row">
+                  <div class="form-group col-xs-6" ng-class="{ 'has-error' : form.inputNumeroIdentidade.$error.required && !form.inputNumeroIdentidade.$pristine }">
+                  <label for="inputNumeroIdentidade">RG</label>
+                  <input type="text" class="form-control" id="inputNumeroIdentidade" name="inputNumeroIdentidade" ng-model="membroController.membro.numeroIdentidade" placeholder="número do RG" required>
+                  <span class="help-block" ng-show="form.inputNumeroIdentidade.$error.required && !form.inputNumeroIdentidade.$pristine">É obrigatório informar o número da identidade!</span>
+                  </div>
+                  <div class="form-group col-xs-6" style="padding-left: 0px;" ng-class="{ 'has-error' : form.inputOrgaoEmissorIdentidade.$error.required && !form.inputOrgaoEmissorIdentidade.$pristine
+              }">
+                  <label for="inputOrgaoEmissorIdentidade">Órgão Emissor</label>
+                  <input type="text" class="form-control" id="inputOrgaoEmissorIdentidade" name="inputOrgaoEmissorIdentidade" placeholder="ex.: SSP/BA" ng-model="membroController.membro.orgaoEmissorIdentidade"
+                      required>
+                  <span class="help-block " ng-show="form.inputOrgaoEmissorIdentidade.$error.required && !form.inputOrgaoEmissorIdentidade.$pristine ">É obrigatório informar o órgão emissor!</span>
+                  </div>
+              </div>
 
                 <div class="form-group">
                   <label for="inputGroupDia">Data de Nascimento</label>
