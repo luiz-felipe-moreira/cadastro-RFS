@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         },
         constants: {
           ENV: 'development',
-          API_URL: 'http://localhost:5000/'
+          API_URL: 'https://localhost:444/'
         }
       },
       production: {
@@ -98,9 +98,18 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
+        protocol: 'https',
+        key: grunt.file.read('localhost.key').toString(),
+        cert: grunt.file.read('localhost.crt').toString(),
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        //livereload: 35729
+        livereload: {
+        host: 'localhost',
+        port: 35729,
+        key: grunt.file.read('localhost.key'),
+        cert: grunt.file.read('localhost.crt')
+        }
       },
       livereload: {
         options: {
