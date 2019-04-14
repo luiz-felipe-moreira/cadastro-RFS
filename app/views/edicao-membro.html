@@ -5,6 +5,9 @@
         <div class="profile-user-pic">
           <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}} img-orientation>
         </div>
+        <div class="profile-change-photo-button">
+          <a class="btn btn-primary btn-sm" ui-sref="alteracao-foto" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Alterar Foto</a>
+        </div>
         <div class="profile-user-title">
           <div class="profile-user-name">{{membroController.membro.nome}} </div>
           <div class="profile-user-apelido">{{membroController.membro.apelido}}</div>

@@ -8,7 +8,7 @@
  * Controller of the cadastroRepublicaApp
  */
 angular.module('cadastroRepublicaApp')
-  .controller('FormController', ['$rootScope', 'facebookAuthenticationService', 'facebookService', 'signedS3RequestService', 'meFactory', '$state', '$scope', '$window', function ($rootScope, facebookAuthenticationService, facebookService, signedS3RequestService, meFactory, $state, $scope, $window) {
+  .controller('FormController', ['$rootScope', 'facebookAuthenticationService', 'facebookService', 'signedS3RequestService', 'meFactory', '$state', '$scope', function ($rootScope, facebookAuthenticationService, facebookService, signedS3RequestService, meFactory, $state, $scope) {
 
     var vm = this;
 
@@ -25,13 +25,11 @@ angular.module('cadastroRepublicaApp')
     vm.facebookPicture = {};
 
     var imagemSilhueta = './images/avatar-default.png';
-    // var imagemLoading = './images/loading.gif';
 
     vm.imgSrcUpload = imagemSilhueta;
     vm.arquivoFotoSelecionado = false;
     vm.recorteFotoConfirmado = false;
     vm.arquivoArmazenadoComSucesso = false;
-    //vm.mensagemValidacaoArquivo = '';
     vm.arquivoValido = true;
 
     console.debug('Valor do $rootScope.user no controller: ' + JSON.stringify($rootScope.user));
@@ -115,7 +113,7 @@ angular.module('cadastroRepublicaApp')
           $scope.$apply(function () {
             $scope.cropped.source = e.target.result;
           });
-        }
+        };
 
         reader.readAsDataURL(input.files[0]);
       }

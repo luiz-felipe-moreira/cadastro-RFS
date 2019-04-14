@@ -104,6 +104,11 @@ a:hover {
   height: 50%
 }
 
+.profile-change-photo-button{
+  text-align: center;
+  padding-top: 5px
+}
+
 .profile-user-title {
   text-align: center;
   margin-top: 20px;

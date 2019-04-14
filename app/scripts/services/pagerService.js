@@ -2,14 +2,6 @@
 
 angular.module('cadastroRepublicaApp')
   .factory('pagerService', ['$resource', 'API_URL', function () {
-
-    // service definition
-    var service = {};
-
-    service.getPager = getPager;
-
-    return service;
-
     // service implementation
     function getPager(totalItems, currentPage, pageSize) {
       // default to first page
@@ -70,5 +62,12 @@ angular.module('cadastroRepublicaApp')
       }
       return a;
     }
+
+    // service definition
+    var service = {};
+
+    service.getPager = getPager;
+
+    return service;
 
   }]);

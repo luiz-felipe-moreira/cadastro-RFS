@@ -157,6 +157,22 @@ angular
         }
       })
 
+      .state('alteracao-foto', {
+        url: '/alteracao-foto',
+        views: {
+          'header': {
+            templateUrl: 'views/header.html',
+            controller: 'HeaderController',
+            controllerAs: 'headerController'
+          },
+          'content': {
+            templateUrl: 'views/alteracao-foto.html',
+            controller: 'MembroController',
+            controllerAs: 'membroController'
+          }
+        }
+      })
+
       .state('main', {
         url: '/main',
         templateUrl: 'views/main.html',
