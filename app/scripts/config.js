@@ -2,8 +2,8 @@
 
 angular.module('config', [])
 
-.constant('ENV', 'production')
+.constant('ENV', 'staging')
 
-.constant('API_URL', 'https://republica-free-surf.herokuapp.com/')
+.constant('API_URL', 'https://rfs-api-staging.herokuapp.com/')
 
 ;

@@ -44,6 +44,15 @@ module.exports = function (grunt) {
           API_URL: 'https://localhost:444/'
         }
       },
+      staging: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: 'staging',
+          API_URL: 'https://rfs-api-staging.herokuapp.com/'
+        }
+      },
       production: {
         options: {
           dest: '<%= yeoman.app %>/scripts/config.js'
@@ -497,6 +506,25 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'ngconstant:production',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin'
+  ]);
+
+  grunt.registerTask('build-staging', [
+    'clean:dist',
+    'ngconstant:staging',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
