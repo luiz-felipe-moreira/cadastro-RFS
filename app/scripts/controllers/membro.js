@@ -122,6 +122,8 @@ angular.module('cadastroRepublicaApp')
               //adiciona um numero aleatorio ao final da url da imagem para evitar que o browser use a imagem do cache
               vm.imgSrcUpload = urlFileS3;
               vm.membro.urlFoto = urlFileS3;
+              //alteracao de foto não permite escolher foto do Facebook
+              vm.membro.fotoFacebook = false;
               console.log('Alterando a url da foto para ' + vm.membro.urlFoto);
               vm.arquivoArmazenadoComSucesso = true;
             }, function (errorResponse) {
