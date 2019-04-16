@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', '$scope', '$rootScope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, $scope, $rootScope) {
+  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', 'signedS3RequestService', '$scope', '$rootScope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, signedS3RequestService, $scope, $rootScope) {
 
     var vm = this;
     vm.membro = {};
@@ -10,6 +10,14 @@ angular.module('cadastroRepublicaApp')
     vm.mesNascimento = '';
     vm.anoNascimento = '';
     vm.tiposPrancha = ['longboard', 'funboard', 'gun', 'shortboard (pranchinha)', 'fish', 'bodyboard', 'stand up paddle'];
+
+    var imagemSilhueta = './images/avatar-default.png';
+
+    vm.imgSrcUpload = imagemSilhueta;
+    vm.arquivoFotoSelecionado = false;
+    vm.recorteFotoConfirmado = false;
+    vm.arquivoArmazenadoComSucesso = false;
+    vm.arquivoValido = true;
 
     var successGetMemberCallback = function (response) {
       console.debug(response);
@@ -23,6 +31,10 @@ angular.module('cadastroRepublicaApp')
       vm.diaNascimento = dataNascimento.getDate();
       vm.mesNascimento = dataNascimento.getMonth().toString();
       vm.anoNascimento = dataNascimento.getFullYear();
+    };
+
+    $scope.cropped = {
+      source: imagemSilhueta
     };
 
     if ($stateParams.id) {
@@ -95,7 +107,7 @@ angular.module('cadastroRepublicaApp')
         vm.confirmarFoto = function () {
     
           vm.recorteFotoConfirmado = true;
-          var nomeArquivoS3 = vm.formData.id + '.png';
+          var nomeArquivoS3 = vm.membro.id + '-'+ Date.now() + '.png';
     
           var file = base64ImageToBlob($scope.cropped.image);
           console.debug(file);
@@ -108,9 +120,9 @@ angular.module('cadastroRepublicaApp')
               console.log('Foto do usuario enviada para o bucket S3!');
               console.debug('Response status: ' + response.status);
               //adiciona um numero aleatorio ao final da url da imagem para evitar que o browser use a imagem do cache
-              vm.imgSrcUpload = urlFileS3 + '?' + Date.now();
-              vm.formData.urlFoto = urlFileS3;
-              console.log('Alterando a url da foto para ' + vm.formData.urlFoto);
+              vm.imgSrcUpload = urlFileS3;
+              vm.membro.urlFoto = urlFileS3;
+              console.log('Alterando a url da foto para ' + vm.membro.urlFoto);
               vm.arquivoArmazenadoComSucesso = true;
             }, function (errorResponse) {
               console.log('Erro ao enviar foto para o bucket S3!');

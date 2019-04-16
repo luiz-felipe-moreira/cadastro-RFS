@@ -10,20 +10,20 @@
     <input type="file" id="file-input2" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)"
       style="padding-left: 20px; opacity: 0;">
   </div>
-  <div class="row" ng-show="!formController.arquivoFotoSelecionado">
+  <div class="row" ng-show="!membroController.arquivoFotoSelecionado">
     <div class="col-xs-8 col-xs-offset-2">
-      <img id="preview" src="./images/avatar-default.png" class="img-responsive center-block" img-orientation>
+      <img id="preview" src="./images/avatar-default.png" class="img-responsive center-block">
     </div>
   </div>
-  <div class="row" ng-hide="(formController.recorteFotoConfirmado || !formController.arquivoFotoSelecionado)">
+  <div class="row" ng-hide="(membroController.recorteFotoConfirmado || !membroController.arquivoFotoSelecionado)">
     <croppie ng-if="cropped.source" src="cropped.source" ng-model="cropped.image" options="{enableExif:true, boundary:{width:350,height:350, type: square}}"></croppie>
   </div>
-  <div class="row" ng-hide="(formController.recorteFotoConfirmado || !formController.arquivoFotoSelecionado)">
+  <div class="row" ng-hide="(membroController.recorteFotoConfirmado || !membroController.arquivoFotoSelecionado)">
     <div class="col-xs-2">
-      <button type="button" class="btn btn-success" ng-click="formController.confirmarFoto()">Confirmar foto</button>
+      <button type="button" class="btn btn-primary" ng-click="membroController.confirmarFoto()">Confirmar foto</button>
     </div>
   </div>
-  <div class="row" ng-show="formController.recorteFotoConfirmado">
+  <div class="row" ng-show="membroController.recorteFotoConfirmado">
     <div class="col-xs-8 col-xs-offset-2">
       <img id="preview2" src="{{cropped.image}}" class="img-responsive center-block">
     </div>
@@ -31,7 +31,8 @@
 </div>
 
 <div class="form-group row" style="margin-top: 15px;">
-  <div class="col-sm-6 col-sm-offset-3">
-    <button type="button" class="btn btn-success btn-block" ng-disabled="(form.$invalid || (!formController.arquivoArmazenadoComSucesso) )">Concluir Alteração</button>
+  <div class="col-xs-12">
+    <button role="button" ng-click="membroController.atualizarPerfil()" class="btn btn-success" ng-disabled="(form.$invalid || (!membroController.arquivoArmazenadoComSucesso) )">Concluir Alteração</button>
+    <a class="btn btn-default" ui-sref="me" role="button">Cancelar</a>
   </div>
 </div>

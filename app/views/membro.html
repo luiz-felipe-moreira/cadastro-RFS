@@ -3,7 +3,10 @@
     <div class="col-md-3">
       <div class="profile-side-bar">
         <div class="profile-user-pic">
-          <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}} img-orientation>
+          <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}}>
+        </div>
+        <div class="profile-change-photo-button" ng-hide="membroController.membro.aprovado">
+          <a class="btn btn-primary btn-sm" ui-sref="alteracao-foto" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Alterar Foto</a>
         </div>
         <div class="profile-user-title">
           <div class="profile-user-name">{{membroController.membro.nome}} </div>
