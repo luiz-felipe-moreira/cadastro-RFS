@@ -168,8 +168,35 @@ angular.module('cadastroRepublicaApp')
       return facebookAuthenticationService.user.id === vm.membro.id;
     };
 
+    //Atualiza os dados, com exceção da foto
     vm.atualizarPerfil = function () {
+
+      delete vm.membro.fotoFacebook;
+      delete vm.membro.urlFoto;
+
       meFactory.update(vm.membro)
+        .$promise.then(
+          function (response) {
+            console.debug(response);
+            $state.go('me');
+          },
+          function (response) {
+            console.error('Erro ao atualizar cadastro :\(');
+            console.error('Error: ' + response.status + ' ' + response.statusText);
+            $rootScope.mensagemErro = 'Erro ao realizar operação :\(' + '\nTente novamente mais tarde.';
+            $state.go('erro');
+          }
+        );
+    };
+
+    vm.atualizarFoto = function () {
+
+      var alteracao = {
+        fotoFacebook: vm.membro.fotoFacebook,
+        urlFoto: vm.membro.urlFoto
+      }
+
+      meFactory.update(alteracao)
         .$promise.then(
           function (response) {
             console.debug(response);
