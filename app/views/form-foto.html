@@ -31,9 +31,8 @@
 
   <div class="row" style="margin-bottom: 15px;">
     <label for="file-input2" class="btn btn-primary" style="margin-left: 15px;">Selecionar foto...</label>
-    <!-- <p class="text-danger" style="margin-left: 15px;" ng-hide="formController.arquivoValido">{{formController.mensagemValidacaoArquivo}}</p> -->
-    <input type="file" id="file-input2" accept="image/jpeg" onchange="angular.element(this).scope().fileNameChanged(this)"
-      style="padding-left: 20px; opacity: 0;">
+    <input type="file" id="file-input2" accept="image/jpeg"
+      onchange="angular.element(this).scope().fileNameChanged(this)" style="padding-left: 20px; opacity: 0;">
   </div>
   <div class="row" ng-show="!formController.arquivoFotoSelecionado">
     <div class="col-xs-8 col-xs-offset-2">
@@ -41,7 +40,8 @@
     </div>
   </div>
   <div class="row" ng-hide="(formController.recorteFotoConfirmado || !formController.arquivoFotoSelecionado)">
-    <croppie ng-if="cropped.source" src="cropped.source" ng-model="cropped.image" options="{enableExif:true, boundary:{width:350,height:350, type: square}}"></croppie>
+    <croppie ng-if="cropped.source" src="cropped.source" ng-model="cropped.image"
+      options="{enableExif:true, boundary:{width:350,height:350, type: square}}"></croppie>
   </div>
   <div class="row" ng-hide="(formController.recorteFotoConfirmado || !formController.arquivoFotoSelecionado)">
     <div class="col-xs-2">
@@ -57,6 +57,7 @@
 
 <div class="form-group row" style="margin-top: 15px;">
   <div class="col-sm-6 col-sm-offset-3">
-    <button type="submit" class="btn btn-primary btn-block" ng-disabled="(form.$invalid || ((!formController.arquivoArmazenadoComSucesso) && (!formController.formData.fotoFacebook)))">Concluir</button>
+    <button type="submit" class="btn btn-primary btn-block"
+      ng-disabled="(form.$invalid || ((!formController.arquivoArmazenadoComSucesso) && (!formController.formData.fotoFacebook)))">Concluir</button>
   </div>
 </div>

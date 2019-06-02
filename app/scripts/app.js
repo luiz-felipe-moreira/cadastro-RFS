@@ -18,18 +18,12 @@ angular
     'angular-loading-bar',
     'angularCroppie'
   ])
-  .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
-
-    //registra interceptor do arquivo authenticationInterceptors.js para respostas HTTP com erro 401 Unauthorized
-    // $httpProvider.interceptors.push('authInterceptor');
+  .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       // route to show our basic form (/form)
       .state('form', {
         url: '/form',
-        // templateUrl: 'views/form.html',
-        // controller: 'FormController',
-        // controllerAs: 'formController'
         views: {
           'header': {
             templateUrl: 'views/header.html',
@@ -102,9 +96,6 @@ angular
             controllerAs: 'membrosListController'
           }
         }
-        /* templateUrl: 'views/lista-membros.html',
-        controller: 'MembrosListController',
-        controllerAs: 'membrosListController' */
 
       })
 
@@ -141,7 +132,6 @@ angular
       })
 
       .state('edicao-membro', {
-        // url: '/edicao-membro/:id',
         url: '/edicao-membro',
         views: {
           'header': {
@@ -264,8 +254,8 @@ angular
               authService.loginCancelled('authentication failed', response);
             }
           }, {
-            scope: 'public_profile,email'
-          });
+              scope: 'public_profile,email'
+            });
         }
       });
 
@@ -335,9 +325,6 @@ angular
         version: 'v3.2' // use graph api version 3.2
       });
 
-      //Se for usar o FB.Event.subscribe de 'auth.statusChange', setar status para false
-      // Se for usar FB.getLoginStatus diretamente, setar status para true
-
       FB.getLoginStatus(function (response) {
         if (response.status === 'connected') {
           facebookAuthenticationService.processFacebookConnection(response);
@@ -350,9 +337,6 @@ angular
           $state.go('login');
         }
       });
-
-      // comentando em 13/06/2018 para tentar uma nova estratégia de login
-      // facebookAuthenticationService.watchAuthenticationStatusChange();
 
     };
 

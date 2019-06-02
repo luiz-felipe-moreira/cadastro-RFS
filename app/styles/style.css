@@ -12,15 +12,7 @@ body {
 
 .rulesText {
   padding-top: 15px;
-  /* padding-bottom: 15px; */
 }
-/* a {
-  color: #FFF;
-}
-
-a:hover {
-  color: #FFF;
-} */
 
 /* form styling */
 
@@ -242,7 +234,6 @@ a:hover {
 }
 
 .table-filter .filter-group {
-  /* float: right; */
   margin-left: 15px;
 }
 
@@ -360,14 +351,10 @@ table.table .avatar {
 }
 
 .pagination li a {
-  /* border: none; */
   font-size: 13px;
   min-width: 30px;
   min-height: 30px;
-  /* color: #999; */
-  /* margin: 0 2px; */
   line-height: 30px;
-  /* border-radius: 2px !important; */
   text-align: center;
   padding: 0 6px;
 }
