@@ -6,7 +6,8 @@
           <img class="img-responsive img-circle" ng-src={{membroController.membro.urlFoto}}>
         </div>
         <div class="profile-change-photo-button" ng-hide="membroController.membro.aprovado">
-          <a class="btn btn-primary btn-sm" ui-sref="alteracao-foto" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Alterar Foto</a>
+          <a class="btn btn-primary btn-sm" ui-sref="alteracao-foto" role="button"><span
+              class="glyphicon glyphicon-camera" aria-hidden="true"></span> Alterar Foto</a>
         </div>
         <div class="profile-user-title">
           <div class="profile-user-name">{{membroController.membro.nome}} </div>
@@ -90,12 +91,16 @@
         </div>
       </div>
       <div class="row profile-buttons">
-        <div class="col-xs-12" ng-show="membroController.dataBelongsToCurrenteUser()">
-          <a class="btn btn-primary" ui-sref="edicao-membro" role="button">Editar Perfil</a>
-        </div>
-        <div class="col-xs-12" ng-hide="membroController.dataBelongsToCurrenteUser()">
-          <a class="btn btn-success" role="button" ng-click="membroController.aprovarMembro()" ng-hide="membroController.membro.aprovado">Aprovar Cadastro</a>
-          <a class="btn btn-default" ui-sref="lista-membros" role="button">Voltar</a>
+        <div class="col-xs-12">
+          <a class="btn btn-primary" ng-show="membroController.dataBelongsToCurrenteUser()" role="button"
+            ui-sref="edicao-membro" role="button">Editar Perfil</a>
+          <a class="btn btn-success" role="button" ng-click="membroController.aprovarMembro()"
+            ng-hide="(membroController.dataBelongsToCurrenteUser() || membroController.membro.aprovado)">Aprovar
+            Cadastro</a>
+          <a class="btn btn-danger" ng-hide="membroController.dataBelongsToCurrenteUser()" role="button"
+            ng-click="membroController.excluirMembro()">Excluir Membro</a>
+          <a class="btn btn-default" ng-hide="membroController.dataBelongsToCurrenteUser()" ui-sref="lista-membros"
+            role="button">Voltar</a>
         </div>
       </div>
     </div>

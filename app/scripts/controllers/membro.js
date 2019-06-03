@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', 'signedS3RequestService', '$scope', '$rootScope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, signedS3RequestService, $scope, $rootScope) {
+  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', 'apiAuthenticationFactory', 'signedS3RequestService', '$scope', '$rootScope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, apiAuthenticationFactory, signedS3RequestService, $scope, $rootScope) {
 
     var vm = this;
     vm.membro = {};
@@ -168,6 +168,10 @@ angular.module('cadastroRepublicaApp')
       return facebookAuthenticationService.user.id === vm.membro.id;
     };
 
+    vm.isCurrentUserAdmin = function () {
+      return apiAuthenticationFactory.isAdmin();
+    }
+
     //Atualiza os dados, com exceção da foto
     vm.atualizarPerfil = function () {
 
@@ -230,5 +234,9 @@ angular.module('cadastroRepublicaApp')
           }
         );
     };
+
+    vm.excluirMembro = function () {
+      console.log("Excluindo membro de id vm.membro.id");
+    }
 
   }]);
