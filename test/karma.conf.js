@@ -32,6 +32,7 @@ module.exports = function(config) {
       'bower_components/exif-js/exif.js',
       'bower_components/angular-croppie/angular-croppie.js',
       'bower_components/Croppie/croppie.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

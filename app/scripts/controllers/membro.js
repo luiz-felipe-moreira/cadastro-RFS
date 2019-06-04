@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp')
-  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', 'apiAuthenticationFactory', 'signedS3RequestService', '$scope', '$rootScope', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, apiAuthenticationFactory, signedS3RequestService, $scope, $rootScope) {
+  .controller('MembroController', ['membrosFactory', '$stateParams', '$state', 'meFactory', 'facebookAuthenticationService', 'apiAuthenticationFactory', 'signedS3RequestService', '$scope', '$rootScope', 'modalConfirmService', function (membrosFactory, $stateParams, $state, meFactory, facebookAuthenticationService, apiAuthenticationFactory, signedS3RequestService, $scope, $rootScope, modalConfirmService) {
 
     var vm = this;
     vm.membro = {};
@@ -170,7 +170,7 @@ angular.module('cadastroRepublicaApp')
 
     vm.isCurrentUserAdmin = function () {
       return apiAuthenticationFactory.isAdmin();
-    }
+    };
 
     //Atualiza os dados, com exceção da foto
     vm.atualizarPerfil = function () {
@@ -198,7 +198,7 @@ angular.module('cadastroRepublicaApp')
       var alteracao = {
         fotoFacebook: vm.membro.fotoFacebook,
         urlFoto: vm.membro.urlFoto
-      }
+      };
 
       meFactory.update(alteracao)
         .$promise.then(
@@ -236,7 +236,30 @@ angular.module('cadastroRepublicaApp')
     };
 
     vm.excluirMembro = function () {
-      console.log("Excluindo membro de id vm.membro.id");
-    }
+      var options = {
+        closeButtonText: 'Cancelar',
+        actionButtonText: 'Sim',
+        headerText: 'Exclusão de membro',
+        bodyText: 'Tem certeza que deseja excluir ' + vm.membro.nome + ' ?'
+      };
+
+      modalConfirmService.showModal({}, options).then(function (result) {
+        console.debug(result);
+        console.log('Excluindo membro de id' + vm.membro.id + 'e nome ' + vm.membro.nome);
+        membrosFactory.delete({
+          id: vm.membro.id
+        },
+          function (response) {
+            var membroExcluido = response;
+            console.log('Membro ' + membroExcluido.nome + ' excluído com sucesso!');
+            $state.go('lista-membros');
+          },
+          function (response) {
+            console.error('Erro ao excluir membro de id ' + vm.membro.id);
+            console.error('Error: ' + response.status + ' ' + response.statusText);
+          }
+        );
+      });
+    };
 
   }]);

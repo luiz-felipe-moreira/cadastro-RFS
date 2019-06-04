@@ -16,7 +16,8 @@ angular
     'config',
     'http-auth-interceptor',
     'angular-loading-bar',
-    'angularCroppie'
+    'angularCroppie',
+    'ui.bootstrap'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
