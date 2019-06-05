@@ -243,23 +243,27 @@ angular.module('cadastroRepublicaApp')
         bodyText: 'Tem certeza que deseja excluir ' + vm.membro.nome + ' ?'
       };
 
-      modalConfirmService.showModal({}, options).then(function (result) {
-        console.debug(result);
-        console.log('Excluindo membro de id' + vm.membro.id + 'e nome ' + vm.membro.nome);
-        membrosFactory.delete({
-          id: vm.membro.id
-        },
-          function (response) {
-            var membroExcluido = response;
-            console.log('Membro ' + membroExcluido.nome + ' excluído com sucesso!');
-            $state.go('lista-membros');
+      modalConfirmService.showModal({}, options).then(
+        function (result) {
+          console.debug(result);
+          console.log('Excluindo membro de id' + vm.membro.id + ' e nome ' + vm.membro.nome);
+          membrosFactory.delete({
+            id: vm.membro.id
           },
-          function (response) {
-            console.error('Erro ao excluir membro de id ' + vm.membro.id);
-            console.error('Error: ' + response.status + ' ' + response.statusText);
-          }
-        );
-      });
+            function (response) {
+              var membroExcluido = response;
+              console.log('Membro ' + membroExcluido.nome + ' excluído com sucesso!');
+              $state.go('lista-membros');
+            },
+            function (response) {
+              console.error('Erro ao excluir membro de id ' + vm.membro.id);
+              console.error('Error: ' + response.status + ' ' + response.statusText);
+            }
+          );
+        },
+        function () {
+          console.log('Modal dismissed. Usuário cancelou a operação.');
+        });
     };
 
   }]);

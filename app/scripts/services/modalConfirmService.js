@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cadastroRepublicaApp').service('modalConfirmService', ['$uibModal',
-    function ($modal) {
+    function ($uibModal) {
 
         var modalDefaults = {
             backdrop: true,
@@ -18,6 +18,7 @@ angular.module('cadastroRepublicaApp').service('modalConfirmService', ['$uibModa
         };
 
         this.showModal = function (customModalDefaults, customModalOptions) {
+            console.debug('Entrando em modalConfirmService.showmodal()...');
             if (!customModalDefaults) {
                 customModalDefaults = {};
             }
@@ -45,7 +46,7 @@ angular.module('cadastroRepublicaApp').service('modalConfirmService', ['$uibModa
                 };
             }
 
-            return $modal.open(tempModalDefaults).result;
+            return $uibModal.open(tempModalDefaults).result;
         };
     }
 ]);
